@@ -14,7 +14,7 @@ export default function LandCard() {
   return landImgs.map((element, index) => (
     <img
       key={index}
-      className="h-95 w-full rounded-lg object-cover object-center"
+      className="object-center"
       src={element}
       alt={`Land image ${index}`}
     />
