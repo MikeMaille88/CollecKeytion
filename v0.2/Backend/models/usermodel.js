@@ -1,25 +1,25 @@
-const mongoose = require("mongoose"); //Tout d'abord, nous importons le module mongoose, qui est une bibliothèque permettant de travailler avec des bases de données MongoDB depuis Node.js.
-const jwt = require("jsonwebtoken");
+import { Schema, model } from "mongoose"; //Tout d'abord, nous importons le module mongoose, qui est une bibliothèque permettant de travailler avec des bases de données MongoDB depuis Node.js.
+import { sign } from "jsonwebtoken";
 
 // un schéma (ou modèle) de données pour nos produits en utilisant mongoose.Schema.
-//  Un schéma indique à MongoDB comment les données des produits seront stockées dans la base de données. Il comprend plusieurs champs pour chaque produit,
+//  Un schéma indique à MongoDB comment les données des produits seront stockées dans la base de données. Il comprend plusieurs champs pour chaque user,
 //  chacun avec ses caractéristiques.
 
-const userSchema = mongoose.Schema({
+const userSchema = Schema({
   firstName: {
-    type: "String",
+    type: String,
     required: [true, "Please enter your firstname"],
   },
   lastName: {
-    type: "String",
+    type: String,
     required: [true, "Please enter your lastname"],
   },
   email: {
-    type: "String",
+    type: String,
     required: [true, "Please enter your email"],
   },
   password: {
-    type: "String",
+    type: String,
     minlength: 8,
     required: [true, "Please enter your password"],
   },
@@ -30,26 +30,33 @@ const userSchema = mongoose.Schema({
   authTokens: [
     {
       authToken: {
-        type: "String",
+        type: String,
         required: true,
       },
     },
   ],
+  validate: [validator.isEmail, "Please enter a valid email"],
 });
 
-userSchema.methods.generateAuthTokenAndSaveUser = async function () {
-  const authToken = jwt.sign(
-    { id: this.id.toString() },
-    process.env.SECRET_KEY
-  );
-  this.authTokens.push({ authToken: authToken });
+//Gestion de l'authentification
+userSchema.methods.generateAuthToken = function () {
+  return sign({ id: this.id.toString() }, process.env.SECRET_KEY);
+};
+
+userSchema.methods.saveAuthToken = async function (authToken) {
+  this.authTokens.push({ authToken });
   await this.save();
+};
+
+userSchema.methods.generateAuthTokenAndSaveUser = async function () {
+  const authToken = this.generateAuthToken();
+  await this.saveAuthToken(authToken);
   return authToken;
 };
 
-const User = mongoose.model("User", userSchema);
+const User = model("User", userSchema);
 
-module.exports = User;
-// Enfin, nous créons un modèle de produit en utilisant mongoose.model en spécifiant le nom du modèle ("user") et le schéma que nous avons défini précédemment. Ce modèle nous permettra d'effectuer des opérations de base de données sur les produits.
+export default User;
+// Enfin, nous créons un modèle de user en utilisant mongoose.model en spécifiant le nom du modèle ("user") et le schéma que nous avons défini précédemment. Ce modèle nous permettra d'effectuer des opérations de base de données sur les users.
 
-// Nous exportons le modèle Product pour pouvoir l'utiliser dans d'autres parties de notre application.
+// Nous exportons le modèle User pour pouvoir l'utiliser dans d'autres parties de notre application.

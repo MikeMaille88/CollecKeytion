@@ -6,19 +6,19 @@ import { Schema, model } from "mongoose"; //Tout d'abord, nous importons le modu
 const KeySchema = Schema(
   {
     name: {
-      type: "String",
+      type: String,
       required: [true, "Please enter a Key name"],
     },
     retailprice: {
-      type: "Number",
+      type: Number,
       required: true,
     },
     limited: {
-      type: "Number",
+      type: Number,
       required: true,
     },
     land: {
-      type: "String",
+      type: String,
       required: true,
     },
     possess: {
@@ -27,8 +27,8 @@ const KeySchema = Schema(
     },
     image: [
       {
-        type: "String",
-        required: false,
+        type: String,
+        required: true,
       },
     ],
   },
