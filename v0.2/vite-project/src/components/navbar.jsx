@@ -3,9 +3,9 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "My Keys", href: "#", current: true },
+  { name: "My Keys", href: "/mykeys", current: true },
+  { name: "All Keys", href: "/allKeys", current: false },
   { name: "Lands", href: "#", current: false },
-  { name: "All Keys", href: "#", current: false },
 ];
 
 function classNames(...classes) {
@@ -39,8 +39,13 @@ export default function Navbar() {
                     alt="Your Company"
                   />
                 </div>
-                <div className="flex flex-shrink-0 items-center  text-white">
-                  <p>CollecKeytion</p>
+                <div
+                  className="flex flex-shrink-0 items-center  text-white"
+                  text-xl
+                >
+                  <p>
+                    <a href="/">CollecKeytion</a>
+                  </p>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
