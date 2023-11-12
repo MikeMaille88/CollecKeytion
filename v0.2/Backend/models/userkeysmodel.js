@@ -18,6 +18,9 @@ const UserKeysSchema = Schema({
   },
 });
 
+UserKeysSchema.index({ userId: 1 });
+UserKeysSchema.index({ keyId: 1 });
+
 const UserKeys = model("UserKeys", UserKeysSchema);
 
 export { UserKeys };
