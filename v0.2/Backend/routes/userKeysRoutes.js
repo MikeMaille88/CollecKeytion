@@ -1,10 +1,10 @@
-import express from "express";
-import UserKeys from "../models/UserKeys.js";
+const express = require("express");
+const UserKeys = require("../models/userKeysModel.js");
 
 const router = express.Router();
 
 // Route pour récupérer toutes les relations utilisateur-clef
-router.get("/userkeys", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const userKeys = await UserKeys.find();
     res.json(userKeys);
@@ -14,7 +14,7 @@ router.get("/userkeys", async (req, res) => {
 });
 
 // Route pour créer une nouvelle relation utilisateur-clef
-router.post("/userkeys", async (req, res) => {
+router.post("/", async (req, res) => {
   const userKey = new UserKeys(req.body);
   try {
     const newUserKey = await userKey.save();
@@ -48,4 +48,4 @@ router.delete("/userkeys/:id", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

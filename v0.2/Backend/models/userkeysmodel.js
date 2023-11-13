@@ -1,4 +1,5 @@
-import { Schema, model } from "mongoose";
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
 
 // Modèle pour la relation entre utilisateur et clef
 const UserKeysSchema = Schema({
@@ -23,4 +24,4 @@ UserKeysSchema.index({ keyId: 1 });
 
 const UserKeys = model("UserKeys", UserKeysSchema);
 
-export { UserKeys };
+module.exports = { UserKeys };

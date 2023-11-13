@@ -1,4 +1,5 @@
-import { Schema, model } from "mongoose"; //Tout d'abord, nous importons le module mongoose, qui est une bibliothèque permettant de travailler avec des bases de données MongoDB depuis Node.js.
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose; //Tout d'abord, nous importons le module mongoose, qui est une bibliothèque permettant de travailler avec des bases de données MongoDB depuis Node.js.
 
 // un schéma (ou modèle) de données pour nos produits en utilisant mongoose.Schema.
 //  Un schéma indique à MongoDB comment les données des produits seront stockées dans la base de données. Il comprend plusieurs champs pour chaque produit,
@@ -9,7 +10,7 @@ const KeySchema = Schema(
       type: String,
       required: [true, "Please enter a Key name"],
     },
-    retailprice: {
+    price: {
       type: Number,
       required: true,
     },
@@ -20,10 +21,6 @@ const KeySchema = Schema(
     land: {
       type: String,
       required: true,
-    },
-    possess: {
-      type: Boolean,
-      default: false,
     },
     image: [
       {
@@ -37,7 +34,7 @@ const KeySchema = Schema(
 
 const Key = model("Key", KeySchema);
 
-export default Key;
+module.exports = Key;
 
 // Enfin, nous créons un modèle de produit en utilisant mongoose.model en spécifiant le nom du modèle ("Key") et le schéma que nous avons défini précédemment. Ce modèle nous permettra d'effectuer des opérations de base de données sur les produits.
 

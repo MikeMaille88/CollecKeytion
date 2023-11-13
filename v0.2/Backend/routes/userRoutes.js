@@ -1,59 +1,59 @@
-import express from "express";
-import Key from "../models/Key.js";
+const express = require("express");
+const User = require("../models/userModel");
 
 const router = express.Router();
 
-// Route pour récupérer toutes les clefs
-router.get("/keys", async (req, res) => {
+// Route pour récupérer tous les utilisateurs
+router.get("/", async (req, res) => {
   try {
-    const keys = await Key.find();
-    res.json(keys);
+    const users = await User.find();
+    res.json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-// Route pour récupérer une clef par son ID
-router.get("/keys/:id", async (req, res) => {
+// Route pour récupérer un utilisateur par son ID
+router.get("/users/:id", async (req, res) => {
   try {
-    const key = await Key.findById(req.params.id);
-    res.json(key);
+    const user = await User.findById(req.params.id);
+    res.json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-// Route pour créer une nouvelle clef
-router.post("/keys", async (req, res) => {
-  const key = new Key(req.body);
+// Route pour créer un nouvel utilisateur
+router.post("/", async (req, res) => {
+  const user = new User(req.body);
   try {
-    const newKey = await key.save();
-    res.status(201).json(newKey);
+    const newUser = await user.save();
+    res.status(201).json(newUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-// Route pour mettre à jour une clef
-router.patch("/keys/:id", async (req, res) => {
+// Route pour mettre à jour un utilisateur
+router.patch("/users/:id", async (req, res) => {
   try {
-    const updatedKey = await Key.findByIdAndUpdate(req.params.id, req.body, {
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    res.json(updatedKey);
+    res.json(updatedUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-// Route pour supprimer une clef
-router.delete("/keys/:id", async (req, res) => {
+// Route pour supprimer un utilisateur
+router.delete("/users/:id", async (req, res) => {
   try {
-    await Key.findByIdAndDelete(req.params.id);
-    res.json({ message: "Key deleted" });
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ message: "User deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-export default router;
+module.exports = router;

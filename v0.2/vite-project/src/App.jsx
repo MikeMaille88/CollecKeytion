@@ -10,21 +10,7 @@ import UpdateUser from "./components/updateUser";
 import CreateKey from "./components/createKey";
 
 function App() {
-  return (
-    <Router>
-      <Navbar />
-      <Header />
-      <Routes>
-        <Route path="/" exact component={LandCard} />
-        <Route path="/allkeys" component={AllKeys} />
-        <Route path="/mykeys" component={MyKeys} />
-        <Route path="/keys/:id" component={SingleKey} />
-        <Route path="/createuser" component={CreateUser} />
-        <Route path="/updateuser/:id" component={UpdateUser} />
-        <Route path="/createkey" component={CreateKey} />
-      </Routes>
-    </Router>
-  );
+  return <CreateKey />;
 }
 
 export default App;

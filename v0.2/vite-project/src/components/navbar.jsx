@@ -39,10 +39,7 @@ export default function Navbar() {
                     alt="Your Company"
                   />
                 </div>
-                <div
-                  className="flex flex-shrink-0 items-center  text-white"
-                  text-xl
-                >
+                <div className="flex flex-shrink-0 items-center  text-white text-xl">
                   <p>
                     <a href="/">CollecKeytion</a>
                   </p>
