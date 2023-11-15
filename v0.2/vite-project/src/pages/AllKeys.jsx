@@ -1,6 +1,6 @@
-// AllKeysPage.jsx
+// AllKeys.jsx page
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import KeyCard from "../components/keyCard";
 
 const AllKeys = () => {
   const [keys, setKeys] = useState([]);
@@ -31,30 +31,7 @@ const AllKeys = () => {
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {keys.map((key) => (
-            <div key={key._id} className="group relative">
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-teal-300 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                {console.log(key.image[0])}
-                <img
-                  src={`/src/images/${key.image[0]}`}
-                  alt={key.name}
-                  className="h-full w-full object-contain object-center lg:h-full lg:w-full"
-                />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-2xl text-gray-900">
-                    <Link to={`/keys/${key._id}`}>{key.name}</Link>
-                  </h3>
-                  <p className="mt-1 text-m text-gray-800">
-                    Price: €{key.price}
-                  </p>
-                  <p className="mt-1 text-m text-gray-800">
-                    Limited: {key.limited} pieces
-                  </p>
-                  <p className="mt-1 text-m text-gray-800">Land: {key.land}</p>
-                </div>
-              </div>
-            </div>
+            <KeyCard key={key._id} keyData={key} />
           ))}
         </div>
       </div>
