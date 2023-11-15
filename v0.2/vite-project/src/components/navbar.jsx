@@ -4,7 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "My Keys", href: "/mykeys", current: true },
+  { name: "My Keys", href: "/mykeys", current: false },
   { name: "All Keys", href: "/allKeys", current: false },
   {
     name: "Lands",
@@ -58,7 +58,7 @@ export default function Navbar() {
                     <a href="/">CollecKeytion</a>
                   </p>
                 </div>
-                <div className="hidden sm:ml-6 sm:block">
+                <div className="hidden sm:ml-6 sm:block z-50">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <div key={item.name} className="relative">
@@ -85,7 +85,7 @@ export default function Navbar() {
                               >
                                 <Menu.Items
                                   static
-                                  className="origin-top-right z-50 absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                  className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                                 >
                                   <div className="py-1">
                                     {item.sublinks.map((sublink) => (
@@ -118,7 +118,7 @@ export default function Navbar() {
                               item.current
                                 ? "bg-gray-900 text-white"
                                 : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                              "rounded-md px-3 py-2 text-sm font-medium"
+                              "rounded-md px-3 py-2 text-sm font-medium flex items-center"
                             )}
                             aria-current={item.current ? "page" : undefined}
                           >
