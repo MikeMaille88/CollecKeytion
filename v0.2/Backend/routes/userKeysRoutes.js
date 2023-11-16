@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
 });
 
 // Route pour mettre à jour une relation utilisateur-clef
-router.patch("/userkeys/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
   try {
     const updatedUserKey = await UserKeys.findByIdAndUpdate(
       req.params.id,
@@ -39,7 +39,7 @@ router.patch("/userkeys/:id", async (req, res) => {
 });
 
 // Route pour supprimer une relation utilisateur-clef
-router.delete("/userkeys/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     await UserKeys.findByIdAndDelete(req.params.id);
     res.json({ message: "UserKey deleted" });
