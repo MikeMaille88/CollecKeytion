@@ -51,8 +51,8 @@ const CreateUser = () => {
           className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
         >
           <img
-            className="w-8 h-8 mr-2"
-            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+            className="w-20 h-20 mr-2"
+            src="/Images/CollecKeytion_Logo.png"
             alt="logo"
           />
           CollecKeytion{" "}
@@ -126,7 +126,7 @@ const CreateUser = () => {
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
                 <a
-                  href="#"
+                  href="/login"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Login here
