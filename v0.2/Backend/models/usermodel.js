@@ -8,13 +8,9 @@ const { sign } = jsonwebtoken;
 //  chacun avec ses caractéristiques.
 
 const userSchema = Schema({
-  firstName: {
+  username: {
     type: String,
-    required: [true, "Please enter your firstname"],
-  },
-  lastName: {
-    type: String,
-    required: [true, "Please enter your lastname"],
+    required: [true, "Please enter your username"],
   },
   email: {
     type: String,

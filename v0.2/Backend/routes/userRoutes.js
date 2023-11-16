@@ -1,7 +1,27 @@
 const express = require("express");
 const User = require("../models/userModel");
-
+const bcrypt = require("bcryptjs");
+const { validationResult } = require("express-validator");
+const { check, body } = require("express-validator");
 const router = express.Router();
+
+// Middleware pour la validation des paramètres de création d'utilisateur
+const validateUser = [
+  check("username").notEmpty().withMessage("Username is required"),
+  check("email").isEmail().withMessage("Invalid email"),
+  check("password")
+    .isLength({ min: 8 })
+    .withMessage("Password must be at least 8 characters"),
+];
+
+// Middleware pour gérer les erreurs de validation
+const handleValidationErrors = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  next();
+};
 
 // Route pour récupérer tous les utilisateurs
 router.get("/", async (req, res) => {
@@ -24,13 +44,26 @@ router.get("/users/:id", async (req, res) => {
 });
 
 // Route pour créer un nouvel utilisateur
-router.post("/", async (req, res) => {
-  const user = new User(req.body);
+router.post("/", validateUser, handleValidationErrors, async (req, res) => {
   try {
-    const newUser = await user.save();
+    const { username, email, password } = req.body;
+
+    // Hachez le mot de passe avant de le stocker dans la base de données
+    const hash = await bcrypt.hash(password, 13);
+
+    // Créez un nouvel utilisateur avec les données fournies
+    const newUser = new User({
+      username,
+      email,
+      password: hash,
+    });
+
+    // Enregistrez le nouvel utilisateur dans la base de données
+    await newUser.save();
+
     res.status(201).json(newUser);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ error: error.message });
   }
 });
 
