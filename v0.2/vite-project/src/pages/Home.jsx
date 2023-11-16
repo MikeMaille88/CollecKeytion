@@ -6,7 +6,9 @@ export default function Home() {
   return (
     <>
       <Header />
-      <LandCard />
+      <section className="bg-gradient-to-tr from-teal-900 to-teal-500">
+        <LandCard />
+      </section>
     </>
   );
 }
