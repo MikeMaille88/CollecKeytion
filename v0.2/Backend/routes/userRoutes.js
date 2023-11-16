@@ -34,9 +34,10 @@ router.get("/", async (req, res) => {
 });
 
 // Route pour récupérer un utilisateur par son ID
-router.get("/users/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const { id } = req.params;
+    const user = await User.findById(id);
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -68,24 +69,32 @@ router.post("/", validateUser, handleValidationErrors, async (req, res) => {
 });
 
 // Route pour mettre à jour un utilisateur
-router.patch("/users/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+    const userId = req.params.id;
+
+    // Vérifie si l'ID de l'utilisateur est valide
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
+
+    // Vérifie si le corps de la requête n'est pas vide
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).json({ message: "Request body is empty" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
       new: true,
     });
+
+    // Vérifie si l'utilisateur a été trouvé et mis à jour
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
     res.json(updatedUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
-  }
-});
-
-// Route pour supprimer un utilisateur
-router.delete("/users/:id", async (req, res) => {
-  try {
-    await User.findByIdAndDelete(req.params.id);
-    res.json({ message: "User deleted" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
   }
 });
 

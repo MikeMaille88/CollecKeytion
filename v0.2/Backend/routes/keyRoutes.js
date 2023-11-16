@@ -48,7 +48,7 @@ router.get("/", async (req, res) => {
 });
 
 // Route pour récupérer une clef par son ID
-router.get("/keys/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const key = await Key.findById(req.params.id);
     res.json(key);
@@ -80,7 +80,7 @@ router.post("/", uploadImage.single("image"), async (req, res) => {
 });
 
 // Route pour mettre à jour une clef
-router.patch("/keys/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
   try {
     const updatedKey = await Key.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
