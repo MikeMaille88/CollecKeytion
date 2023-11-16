@@ -6,6 +6,7 @@ import AllKeys from "./pages/AllKeys";
 import CreateKey from "./components/createKey";
 import CreateUser from "./components/createUser";
 import KeyByLand from "./pages/KeyByLand";
+import LoginPage from "./components/login";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/allKeys" element={<AllKeys />} />
           <Route path="/createKey" element={<CreateKey />} />
           <Route path="/registration" element={<CreateUser />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/land/:land" element={<KeyByLand />} />
         </Routes>
       </Router>
