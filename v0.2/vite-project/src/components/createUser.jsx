@@ -22,7 +22,7 @@ const CreateUser = () => {
     e.preventDefault();
 
     try {
-      // Envoie de la requête pour ajouter un utilisateur
+      // Envoi de la requête pour ajouter un utilisateur
       const response = await fetch("http://localhost:3005/users", {
         method: "POST",
         headers: {

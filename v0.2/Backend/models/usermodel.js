@@ -1,3 +1,5 @@
+//userModel.js
+
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose; //Tout d'abord, nous importons le module mongoose, qui est une bibliothèque permettant de travailler avec des bases de données MongoDB depuis Node.js.
 const jsonwebtoken = require("jsonwebtoken");

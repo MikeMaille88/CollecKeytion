@@ -1,3 +1,4 @@
+//userRoutes.js
 const express = require("express");
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
@@ -63,6 +64,34 @@ router.post("/", validateUser, handleValidationErrors, async (req, res) => {
     await newUser.save();
 
     res.status(201).json(newUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Route pour se connecter (authentification)
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Recherchez l'utilisateur par son email
+    const user = await User.findOne({ email });
+
+    // Vérifiez si l'utilisateur existe
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    // Utilisez bcrypt pour comparer les mots de passe
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (passwordMatch) {
+      // Générez un jeton d'authentification et renvoyez-le au client
+      const authToken = user.generateAuthTokenAndSaveUser();
+      res.json({ authToken });
+    } else {
+      res.status(401).json({ message: "Invalid credentials" });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
