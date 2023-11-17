@@ -37,12 +37,15 @@ const LoginPage = () => {
 
         // Stockez le jeton d'authentification où vous en avez besoin
         // par exemple, vous pouvez le stocker dans le stockage local
-        console.log(data.authToken);
+        //console.log(data.authToken);
         localStorage.setItem("authToken", data.authToken);
 
-        alert("Vous êtes connecté");
+        //alert("Vous êtes connecté");
         // Redirection vers la page d'accueil après la connexion
-        //navigate("/");
+
+        navigate("/");
+        //window.location.href = "/";
+        console.log("Redirection vers la page d'accueil");
       } else {
         console.error("Error logging user:", response.statusText);
         alert("Identifiants incorrects");
