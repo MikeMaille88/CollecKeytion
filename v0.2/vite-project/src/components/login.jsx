@@ -44,7 +44,7 @@ const LoginPage = () => {
         // Redirection vers la page d'accueil après la connexion
 
         navigate("/");
-        //window.location.href = "/";
+        window.location.href = "/";
         console.log("Redirection vers la page d'accueil");
       } else {
         console.error("Error logging user:", response.statusText);
