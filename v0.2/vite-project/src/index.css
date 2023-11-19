@@ -1,3 +1,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Ajoutez ces styles dans votre fichier CSS ou votre composant React si vous utilisez des styles en ligne */
+
+.land-card-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.land-image {
+  position: absolute;
+  width: 300px; /* Ajustez la taille selon vos besoins */
+  height: 200px; /* Ajustez la taille selon vos besoins */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Centre l'image sur son point de référence */
+}
+
+.castle-image {
+  width: 700px; /* Ajustez la taille selon vos besoins */
+  height: 600px; /* Ajustez la taille selon vos besoins */
+  padding: 30px;
+  margin-top: 210px;
+  margin-bottom: 300px;
+}
+
+/* Styles pour chaque image land (ajustez les angles et les distances selon vos besoins) */
+/* Adventureland */
+.link-0 {
+  top: 75%;
+  left: 23%;
+}
+
+/* Discoveryland */
+.link-1 {
+  top: 75%;
+  left: 77%;
+}
+
+/* Fantasyland */
+.link-2 {
+  top: 52%;
+  left: 50%;
+}
+
+/* Frontierland */
+.link-3 {
+  top: 107%;
+  left: 20%;
+}
+
+/* Main Street USA */
+.link-4 {
+  top: 107%;
+  left: 80%;
+}
+
+/* Walt Disney Studios */
+.link-5 {
+  top: 135%;
+  left: 38%;
+}
+
+/* Disney Village et Hotels */
+.link-6 {
+  top: 135%;
+  left: 62%;
+}

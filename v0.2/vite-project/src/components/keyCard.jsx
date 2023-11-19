@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const KeyCard = ({ keyData }) => {
   return (
     <div key={keyData._id} className="group relative">
-      <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-teal-300 lg:aspect-none group-hover:opacity-75 lg:h-80">
+      <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-slate-500 lg:aspect-none group-hover:opacity-75 lg:h-80">
         <img
           src={`/src/images/${keyData.image[0]}`}
           alt={keyData.name}

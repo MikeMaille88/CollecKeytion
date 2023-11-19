@@ -1,3 +1,4 @@
+//landCard.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import adv from "/Images/Lands/adv_tr.png";
@@ -10,19 +11,37 @@ import wds from "/Images/Lands/wds_tr.png";
 import castle from "/Images/chateau.png";
 
 const LandCard = () => {
-  const landImages = [castle, adv, dis, fan, fro, msu, wds, dvh];
+  const landImages = [adv, dis, fan, fro, msu, wds, dvh];
 
-  return landImages.map((image, index) => (
-    <Link to={`${getLandLink(index)}`} key={index}>
-      <img className="object-center" src={image} alt={`Land image ${index}`} />
-    </Link>
-  ));
+  return (
+    <div className="land-card-container">
+      {landImages.map((image, index) => (
+        <Link
+          to={`${getLandLink(index)}`}
+          key={index}
+          className={`land-image link-${index}`}
+        >
+          <img
+            className="object-center w-full h-full"
+            src={image}
+            alt={`Land image ${index}`}
+          />
+        </Link>
+      ))}
+      <Link to="/allKeys" className="castle-image">
+        <img
+          className="object-center w-full h-full"
+          src={castle}
+          alt="Castle image"
+        />
+      </Link>
+    </div>
+  );
 };
 
 // Utilitaire pour obtenir le nom du land en fonction de l'index
 const getLandLink = (index) => {
   const landLinks = [
-    "/allKeys",
     "/land/Adventureland",
     "/land/Discoveryland",
     "/land/Fantasyland",
