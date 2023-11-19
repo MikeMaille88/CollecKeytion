@@ -1,5 +1,6 @@
+//userKeysRoutes.js
 const express = require("express");
-const UserKeys = require("../models/userKeysModel.js");
+const { UserKeys } = require("../models/userKeysModel");
 
 const router = express.Router();
 

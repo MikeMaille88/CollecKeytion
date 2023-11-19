@@ -39,10 +39,10 @@ const LoginPage = () => {
         // par exemple, vous pouvez le stocker dans le stockage local
         //console.log(data.authToken);
         localStorage.setItem("authToken", data.authToken);
-
+        console.log(data);
+        localStorage.setItem("authId", data.userId);
         //alert("Vous êtes connecté");
         // Redirection vers la page d'accueil après la connexion
-
         navigate("/");
         window.location.href = "/";
         console.log("Redirection vers la page d'accueil");

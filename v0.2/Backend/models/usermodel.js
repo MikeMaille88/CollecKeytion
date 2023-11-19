@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const { Schema, model } = mongoose; //Tout d'abord, nous importons le module mongoose, qui est une bibliothèque permettant de travailler avec des bases de données MongoDB depuis Node.js.
 const jsonwebtoken = require("jsonwebtoken");
 const { sign } = jsonwebtoken;
+const uniqueValidator = require("mongoose-unique-validator");
 
 // un schéma (ou modèle) de données pour nos produits en utilisant mongoose.Schema.
 //  Un schéma indique à MongoDB comment les données des produits seront stockées dans la base de données. Il comprend plusieurs champs pour chaque user,
@@ -13,10 +14,12 @@ const userSchema = Schema({
   username: {
     type: String,
     required: [true, "Please enter your username"],
+    unique: true,
   },
   email: {
     type: String,
     required: [true, "Please enter your email"],
+    unique: true,
   },
   password: {
     type: String,
@@ -36,6 +39,8 @@ const userSchema = Schema({
     },
   ],
 });
+
+userSchema.plugin(uniqueValidator);
 
 //Gestion de l'authentification
 userSchema.methods.generateAuthToken = function () {

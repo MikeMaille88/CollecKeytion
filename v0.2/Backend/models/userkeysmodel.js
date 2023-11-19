@@ -1,3 +1,4 @@
+//userKeysModel.js
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
@@ -14,6 +15,10 @@ const UserKeysSchema = Schema({
     required: true,
   },
   possess: {
+    type: Boolean,
+    default: false,
+  },
+  possessDouble: {
     type: Boolean,
     default: false,
   },

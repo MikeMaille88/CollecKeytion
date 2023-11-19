@@ -39,13 +39,15 @@ app.get("/", async (req, res) => {
 
 // Gestion des requêtes GET pour toutes les autres routes
 app.get("*", (req, res) => {
-  res.status(404).send("error"); // Répond avec une erreur 404 pour toutes les autres routes non définies
+  console.log(req.body);
+  res.status(404).json({ error: "Route not found" });
 });
 
 // Gestion des requêtes POST pour le chemin racine
 app.post("/", (req, res) => {
   console.log(req.body); // Affiche le corps de la requête POST dans la console
   res.send("ok"); // Répond avec 'ok'
+  res.status(404).json({ error: "Route not found" });
 });
 
 // Démarrage du serveur Express
