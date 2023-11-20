@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useAuth } from "../components/authContext";
+//import { useAuth } from "../components/authContext";
 
 const KeyPage = () => {
   const { keyId } = useParams();
@@ -8,26 +8,40 @@ const KeyPage = () => {
   const [possess, setPossess] = useState(false);
   const [possessDouble, setPossessDouble] = useState(false);
   const [userKeyId, setUserKeyId] = useState(null);
-  const { userId } = useAuth();
+  //const { userId } = useAuth();
+  const userId = localStorage.getItem("authId");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Charger les données de la clé
         const response = await fetch(`http://localhost:3005/keys/${keyId}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
         setKeyData(data);
-        setPossess(data.userKeys?.possess || false);
-        setPossessDouble(data.userKeys?.possessDouble || false);
+
+        // Vérifier si la relation existe déjà dans userkeys
+        const userKeyResponse = await fetch(
+          `http://localhost:3005/userkeys?userId=${userId}&keyId=${keyId}`
+        );
+
+        if (userKeyResponse.ok) {
+          const userKeyData = await userKeyResponse.json();
+          if (userKeyData.length > 0) {
+            // La relation existe, mettre à jour les états en conséquence
+            setPossess(userKeyData[0].possess);
+            setPossessDouble(userKeyData[0].possessDouble);
+          }
+        }
       } catch (error) {
         console.error("Error fetching key:", error.message);
       }
     };
 
     fetchData();
-  }, [keyId]);
+  }, [keyId, userId]);
 
   const getUserKeyById = async (id) => {
     try {
@@ -44,7 +58,6 @@ const KeyPage = () => {
   };
 
   const handleCheckboxChange = async (checkboxType) => {
-    const userId = localStorage.getItem("authId");
     try {
       const currentUserKeyResponse = await fetch(
         `http://localhost:3005/userkeys?userId=${userId}&keyId=${keyId}`
