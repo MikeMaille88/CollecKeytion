@@ -29,11 +29,10 @@ const KeyPage = () => {
 
         if (userKeyResponse.ok) {
           const userKeyData = await userKeyResponse.json();
-          if (userKeyData.length > 0) {
-            // La relation existe, mettre à jour les états en conséquence
-            setPossess(userKeyData[0].possess);
-            setPossessDouble(userKeyData[0].possessDouble);
-          }
+          //console.log(userKeyData);
+          // La relation existe, mettre à jour les états en conséquence
+          setPossess(userKeyData.possess);
+          setPossessDouble(userKeyData.possessDouble);
         }
       } catch (error) {
         console.error("Error fetching key:", error.message);
@@ -43,19 +42,19 @@ const KeyPage = () => {
     fetchData();
   }, [keyId, userId]);
 
-  const getUserKeyById = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:3005/userkeys/${id}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching user key:", error.message);
-      return null;
-    }
-  };
+  // const getUserKeyById = async (id) => {
+  //   try {
+  //     const response = await fetch(`http://localhost:3005/userkeys/${id}`);
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+  //     const data = await response.json();
+  //     return data;
+  //   } catch (error) {
+  //     console.error("Error fetching user key:", error.message);
+  //     return null;
+  //   }
+  // };
 
   const handleCheckboxChange = async (checkboxType) => {
     try {
@@ -63,13 +62,20 @@ const KeyPage = () => {
         `http://localhost:3005/userkeys?userId=${userId}&keyId=${keyId}`
       );
 
+      let relationFound = true;
+
       if (!currentUserKeyResponse.ok) {
-        throw new Error(`HTTP error! Status: ${currentUserKeyResponse.status}`);
+        if (currentUserKeyResponse.status === 404) {
+          console.error("Relation non trouvée. Création en cours...");
+          relationFound = false;
+        } else {
+          throw new Error(
+            `GET_HTTP error! Status: ${currentUserKeyResponse.status}`
+          );
+        }
       }
 
-      const currentUserKeyData = await currentUserKeyResponse.json();
-
-      if (currentUserKeyData.length === 0) {
+      if (relationFound === false) {
         const newUserKeyResponse = await fetch(
           "http://localhost:3005/userkeys",
           {
@@ -87,7 +93,9 @@ const KeyPage = () => {
         );
 
         if (!newUserKeyResponse.ok) {
-          throw new Error(`HTTP error! Status: ${newUserKeyResponse.status}`);
+          throw new Error(
+            `POST_HTTP error! Status: ${newUserKeyResponse.status}`
+          );
         }
 
         const newUserKeyData = await newUserKeyResponse.json();
@@ -100,9 +108,10 @@ const KeyPage = () => {
           setPossessDouble(!possessDouble);
         }
       } else {
-        const userKeyId = currentUserKeyData[0]._id;
+        const currentUserKeyData = await currentUserKeyResponse.json();
+        const userKeyId = currentUserKeyData._id;
         const newData = {
-          [checkboxType]: !currentUserKeyData[0][checkboxType],
+          [checkboxType]: !currentUserKeyData[checkboxType],
         };
         //console.log("newDataPatched : ", newData);
 
@@ -118,7 +127,7 @@ const KeyPage = () => {
         );
 
         if (!patchResponse.ok) {
-          throw new Error(`HTTP error! Status: ${patchResponse.status}`);
+          throw new Error(`PATCH_HTTP error! Status: ${patchResponse.status}`);
         }
 
         // Mettez à jour les états en conséquence

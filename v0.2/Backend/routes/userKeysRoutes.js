@@ -4,11 +4,36 @@ const { UserKeys } = require("../models/userKeysModel");
 
 const router = express.Router();
 
-// Route pour récupérer toutes les relations utilisateur-clef
+// Route pour récupérer les relations utilisateur-clé
 router.get("/", async (req, res) => {
   try {
-    const userKeys = await UserKeys.find();
-    res.json(userKeys);
+    const { userId, keyId } = req.query;
+
+    // Requête pour récupérer une relation unique si userId et keyId sont fournis
+    if (userId && keyId) {
+      const userKey = await UserKeys.findOne({ userId: userId, keyId: keyId });
+
+      // Vérifiez si la relation existe
+      if (!userKey) {
+        return res
+          .status(404)
+          .json({
+            message: "La relation utilisateur-clé n'a pas été trouvée.",
+          });
+      }
+
+      return res.json(userKey);
+    }
+
+    // Requête pour récupérer toutes les relations liées à un utilisateur si seulement userId est fourni
+    if (userId) {
+      const userKeys = await UserKeys.find({ userId: userId });
+      return res.json(userKeys);
+    }
+
+    // Requête pour récupérer toutes les relations utilisateur-clé si ni userId ni keyId ne sont fournis
+    const allUserKeys = await UserKeys.find();
+    return res.json(allUserKeys);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
