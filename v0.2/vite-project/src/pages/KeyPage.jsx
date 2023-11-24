@@ -155,65 +155,66 @@ const KeyPage = () => {
   }
 
   return (
-    <div className="bg-slate-700">
+    <>
       <GoBackButton />
-      <div className="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
-            {keyData.name}
-          </h2>
-          <p className="mt-4 text-gray-200">
-            Description de la clé. <br />
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-
-          <dl className="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
-            <div key={keyData.name} className="border-t border-gray-200 pt-4">
-              <dt className="font-medium text-gray-300 text-center">
-                {keyData.name} Key
-              </dt>
-              <dd className="mt-2 text-sm text-gray-200">
-                <img
-                  src={`/src/images/${keyData.image}`}
-                  alt={keyData.name}
-                  className="h-full w-full object-contain object-center lg:h-full lg:w-full"
-                />
-              </dd>
-            </div>
-          </dl>
-        </div>
-        <div className="grid grid-cols-1 grid-rows-4 gap-4 sm:gap-6 lg:gap-8 border-l-4 border-gray-600 text-gray-200">
-          <p>€{keyData.price}</p>
-          <p>{keyData.limited} ex.</p>
-          <p>Land : {keyData.land}</p>
-          <p>
-            Have it{" "}
-            <input
-              id="possessCheckbox"
-              aria-describedby="possessCheckbox"
-              type="checkbox"
-              checked={possess}
-              onChange={() => handleCheckboxChange("possess")}
-              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-              required=""
-            />{" "}
-            In double{" "}
-            <input
-              id="possessDoubleCheckbox"
-              aria-describedby="possessDoubleCheckbox"
-              type="checkbox"
-              checked={possessDouble}
-              onChange={() => handleCheckboxChange("possessDouble")}
-              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-              required=""
-            />
-          </p>
+      <div className="bg-slate-700 min-h-screen flex items-center justify-center">
+        <div className="mx-auto grid grid-cols-1 items-center gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
+          <div className="pt-2">
+            <dl className="grid grid-cols-1 gap-x-6 gap-y-10  sm:gap-y-16 lg:gap-x-8">
+              <div key={keyData.name}>
+                <dt className="font-medium text-gray-300 text-center">
+                  {keyData.name} Key
+                </dt>
+                <dd className="mt-2 text-sm text-gray-200">
+                  <img
+                    src={`/src/images/${keyData.image}`}
+                    alt={keyData.name}
+                    className="mx-auto"
+                  />
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <div className="h-96 grid grid-cols-1 grid-rows-4 gap-4 sm:gap-6 lg:gap-8  text-gray-200">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
+              {keyData.name}
+            </h2>
+            <p className="text-gray-200 mt-4">
+              Description de la clé. <br />
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <p className="mt-20">Retail Price : €{keyData.price}</p>
+            <p className="mt-10">Limited Edition : {keyData.limited} ex.</p>
+            <p className="mt-0">Land : {keyData.land}</p>
+            <p className="mt-5">
+              Have it{" "}
+              <input
+                id="possessCheckbox"
+                aria-describedby="possessCheckbox"
+                type="checkbox"
+                checked={possess}
+                onChange={() => handleCheckboxChange("possess")}
+                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                required=""
+              />{" "}
+              In double{" "}
+              <input
+                id="possessDoubleCheckbox"
+                aria-describedby="possessDoubleCheckbox"
+                type="checkbox"
+                checked={possessDouble}
+                onChange={() => handleCheckboxChange("possessDouble")}
+                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                required=""
+              />
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
