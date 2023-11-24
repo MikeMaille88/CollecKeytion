@@ -7,7 +7,7 @@ const KeyCard = ({ keyData }) => {
     <>
       <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href={`/keys/${keyData._id}`}>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center mt-6">
             <img
               className="rounded-lg"
               src={`/src/images/${keyData.image[0]}`}

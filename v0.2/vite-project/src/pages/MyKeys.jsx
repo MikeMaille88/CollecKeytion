@@ -39,7 +39,7 @@ const MyKeys = () => {
   }, [userId]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-7 xl:grid-cols-10 bg-slate-700 p-20">
+    <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-7 xl:grid-cols-10 bg-slate-700 p-20">
       {userKeysData.map((relationData) => {
         const correspondingKey = keysData.find(
           (key) => key._id === relationData.keyId
@@ -51,7 +51,7 @@ const MyKeys = () => {
               key={correspondingKey._id}
               to={`/keys/${correspondingKey._id}`}
             >
-              <div className="relative p-4 border-4 border-amber-900 bg-amber-950">
+              <div className="relative p-3 border-4 border-amber-900 bg-amber-950">
                 <img
                   className="w-full h-full object-cover"
                   src={`/src/images/${correspondingKey.image}`}
