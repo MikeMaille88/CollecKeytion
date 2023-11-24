@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Ajoutez ces styles dans votre fichier CSS ou votre composant React si vous utilisez des styles en ligne */
-
 .land-card-container {
   display: flex;
   align-items: center;

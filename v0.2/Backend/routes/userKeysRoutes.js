@@ -15,11 +15,9 @@ router.get("/", async (req, res) => {
 
       // Vérifiez si la relation existe
       if (!userKey) {
-        return res
-          .status(404)
-          .json({
-            message: "La relation utilisateur-clé n'a pas été trouvée.",
-          });
+        return res.status(404).json({
+          message: "La relation utilisateur-clé n'a pas été trouvée.",
+        });
       }
 
       return res.json(userKey);
@@ -27,7 +25,7 @@ router.get("/", async (req, res) => {
 
     // Requête pour récupérer toutes les relations liées à un utilisateur si seulement userId est fourni
     if (userId) {
-      const userKeys = await UserKeys.find({ userId: userId });
+      const userKeys = await UserKeys.find({ userId: userId, possess: true });
       return res.json(userKeys);
     }
 

@@ -39,7 +39,7 @@ const MyKeys = () => {
   }, [userId]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 xl:grid-cols-10 bg-slate-700">
+    <div className="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-7 xl:grid-cols-10 bg-slate-700 p-20">
       {userKeysData.map((relationData) => {
         const correspondingKey = keysData.find(
           (key) => key._id === relationData.keyId
