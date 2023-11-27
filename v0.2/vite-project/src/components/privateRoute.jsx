@@ -22,7 +22,6 @@ export const PrivateRoute = () => {
         <Route path="/createKey" element={<CreateKey />} />
         <Route path="/keys/:keyId" element={<KeyPage />} />
         <Route path="/mykeys" element={<MyKeys />} />
-        <Route path="/adminpage" element={<AdminPage />} />
         <Route path="/adminpage/*" element={<AdminPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/login" replace />} />

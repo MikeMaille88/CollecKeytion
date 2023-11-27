@@ -133,9 +133,11 @@ const AdminPage = () => {
       {/* ... (barre latérale) */}
       <div className="w-64 bg-gray-900">
         <div className="flex items-center justify-center mt-10">
-          <span className="text-white text-2xl font-semibold">
-            Administration
-          </span>
+          <Link to="/adminpage">
+            <span className="text-white text-2xl font-semibold">
+              Administration
+            </span>
+          </Link>
         </div>
         <nav className="mt-10">
           <Link to="/adminpage/users" className="block py-2 px-4 text-white">
