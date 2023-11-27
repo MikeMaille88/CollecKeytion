@@ -86,7 +86,7 @@ router.post("/login", async (req, res) => {
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (passwordMatch) {
-      // Générez un jeton d'authentification et renvoyez-le au client
+      // Génère un jeton d'authentification et le renvoie au client
       const authToken = user.generateAuthTokenAndSaveUser();
       res.json({ authToken, userId: user._id });
     } else {
@@ -124,6 +124,16 @@ router.patch("/:id", async (req, res) => {
     res.json(updatedUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+});
+
+// Route pour supprimer un utilisateur
+router.delete("/:id", async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ message: "User deleted" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 

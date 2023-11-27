@@ -2,24 +2,49 @@
 
 import React, { useState, useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
+// Fonction générique pour gérer la suppression d'un élément (utilisateur ou clé)
+const handleDelete = async (type, id, setUsers, setKeys) => {
+  const endpoint = type === "user" ? "users" : "keys";
+
+  try {
+    const response = await fetch(`http://localhost:3005/${endpoint}/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      // Mettez à jour la liste après la suppression
+      if (type === "user") {
+        setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
+      } else {
+        setKeys((prevKeys) => prevKeys.filter((key) => key._id !== id));
+      }
+    } else {
+      console.error(`Error deleting ${type}:`, response.statusText);
+    }
+  } catch (error) {
+    console.error(`Error deleting ${type}:`, error.message);
+  }
+};
 
 // Composant pour afficher les utilisateurs
-const UserList = ({ users }) => (
+const UserList = ({ users, setUsers }) => (
   <div>
     <h2 className="text-2xl font-bold mb-4">Liste des Utilisateurs</h2>
     <ul>
       {users.map((user) => (
-        <li key={user.id} className="mb-2 flex items-center justify-between">
+        <li key={user._id} className="mb-2 flex items-center justify-between">
           <div>
             <span className="mr-2">{/* Icône d'utilisateur ici */}</span>
             {user.username} - {user.email}
           </div>
           <div className="flex">
-            <Link to={`/adminpage/edit-user/${user.id}`} className="mr-2">
+            <Link to={`/adminpage/edit-user/${user._id}`} className="mr-2">
               {/* Icône pour modifier l'utilisateur */}
               🖊️
             </Link>
-            <button onClick={() => handleDeleteUser(user.id)}>
+            <button onClick={() => handleDelete("user", user._id, setUsers)}>
               {/* Icône pour supprimer l'utilisateur */}❌
             </button>
           </div>
@@ -30,12 +55,12 @@ const UserList = ({ users }) => (
 );
 
 // Composant pour afficher les clefs
-const KeyList = ({ keys }) => (
+const KeyList = ({ keys, setKeys }) => (
   <div>
     <h2 className="text-2xl font-bold mb-4">Liste des Clés</h2>
     <ul>
       {keys.map((key) => (
-        <li key={key.id} className="mb-4 flex items-center justify-between">
+        <li key={key._id} className="mb-4 flex items-center justify-between">
           <div className="flex items-center">
             <img
               src={`/src/images/${key.image}`}
@@ -48,11 +73,11 @@ const KeyList = ({ keys }) => (
             </div>
           </div>
           <div className="flex">
-            <Link to={`/adminpage/edit-key/${key.id}`} className="mr-2">
+            <Link to={`/adminpage/edit-key/${key._id}`} className="mr-2">
               {/* Icône pour modifier la clé */}
               🖊️
             </Link>
-            <button onClick={() => handleDeleteKey(key.id)}>
+            <button onClick={() => handleDelete("key", key._id, setKeys)}>
               {/* Icône pour supprimer la clé */}❌
             </button>
           </div>
@@ -63,8 +88,11 @@ const KeyList = ({ keys }) => (
 );
 
 const AdminPage = () => {
+  const { keyId } = useParams();
   // Etat pour les utilisateurs
   const [users, setUsers] = useState([]);
+  // Etat pour les clefs
+  const [keys, setKeys] = useState([]);
 
   // Effet pour charger les utilisateurs
   useEffect(() => {
@@ -82,9 +110,6 @@ const AdminPage = () => {
 
     fetchUsers();
   }, []);
-
-  // Etat pour les clefs
-  const [keys, setKeys] = useState([]);
 
   // Effet pour charger les clefs
   useEffect(() => {
@@ -130,7 +155,7 @@ const AdminPage = () => {
               path="users"
               element={
                 <div className="p-6">
-                  <UserList users={users} />
+                  <UserList users={users} setUsers={setUsers} />
                 </div>
               }
             />
@@ -140,7 +165,7 @@ const AdminPage = () => {
               path="keys"
               element={
                 <div className="p-6">
-                  <KeyList keys={keys} />
+                  <KeyList keys={keys} setKeys={setKeys} />
                 </div>
               }
             />
