@@ -92,7 +92,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 // Route pour supprimer une clef
-router.delete("/keys/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     await Key.findByIdAndDelete(req.params.id);
     res.json({ message: "Key deleted" });

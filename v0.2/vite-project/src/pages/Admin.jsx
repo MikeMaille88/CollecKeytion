@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import ItemMod from "../components/itemMod";
 
 // Fonction générique pour gérer la suppression d'un élément (utilisateur ou clé)
-const handleDelete = async (type, id, setUsers, setKeys) => {
+const handleDelete = async (type, id, setFunction) => {
   const endpoint = type === "user" ? "users" : "keys";
 
   try {
@@ -16,11 +16,7 @@ const handleDelete = async (type, id, setUsers, setKeys) => {
 
     if (response.ok) {
       // Mettez à jour la liste après la suppression
-      if (type === "user") {
-        setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
-      } else {
-        setKeys((prevKeys) => prevKeys.filter((key) => key._id !== id));
-      }
+      setFunction((prevItems) => prevItems.filter((item) => item._id !== id));
     } else {
       console.error(`Error deleting ${type}:`, response.statusText);
     }
@@ -56,37 +52,41 @@ const UserList = ({ users, setUsers }) => (
 );
 
 // Composant pour afficher les clefs
-const KeyList = ({ keys, setKeys }) => (
-  <div>
-    <h2 className="text-2xl font-bold mb-4">Liste des Clés</h2>
-    <ul>
-      {keys.map((key) => (
-        <li key={key._id} className="mb-4 flex items-center justify-between">
-          <div className="flex items-center">
-            <img
-              src={`/src/images/${key.image}`}
-              alt={key.name}
-              className="w-16 h-16 object-cover rounded-full mr-4"
-            />
-            <div>
-              <h3 className="text-lg font-semibold">{key.name}</h3>
-              <p className="text-gray-600">{key.land}</p>
+const KeyList = ({ keys, setKeys }) => {
+  //console.log("setKeys:", setKeys);
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Liste des Clés</h2>
+      <ul>
+        {keys.map((key) => (
+          <li key={key._id} className="mb-4 flex items-center justify-between">
+            <div className="flex items-center">
+              <img
+                src={`/src/images/${key.image}`}
+                alt={key.name}
+                className="w-16 h-16 object-cover rounded-full mr-4"
+              />
+              <div>
+                <h3 className="text-lg font-semibold">{key.name}</h3>
+                <p className="text-gray-600">{key.land}</p>
+              </div>
             </div>
-          </div>
-          <div className="flex">
-            <Link to={`/adminpage/edit-key/${key._id}`} className="mr-2">
-              {/* Icône pour modifier la clé */}
-              🖊️
-            </Link>
-            <button onClick={() => handleDelete("key", key._id, setKeys)}>
-              {/* Icône pour supprimer la clé */}❌
-            </button>
-          </div>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+            <div className="flex">
+              <Link to={`/adminpage/edit-key/${key._id}`} className="mr-2">
+                {/* Icône pour modifier la clé */}
+                🖊️
+              </Link>
+              <button onClick={() => handleDelete("key", key._id, setKeys)}>
+                {/* Icône pour supprimer la clé */}❌
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 const AdminPage = () => {
   const { keyId } = useParams();
@@ -157,7 +157,7 @@ const AdminPage = () => {
             <Route
               path="users"
               element={
-                <div className="p-6">
+                <div key="userList" className="p-6">
                   <UserList users={users} setUsers={setUsers} />
                 </div>
               }
@@ -167,7 +167,7 @@ const AdminPage = () => {
             <Route
               path="keys"
               element={
-                <div className="p-6">
+                <div key="keyList" className="p-6">
                   <KeyList keys={keys} setKeys={setKeys} />
                 </div>
               }
