@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import ItemMod from "../components/itemMod";
 
 // Fonction générique pour gérer la suppression d'un élément (utilisateur ou clé)
 const handleDelete = async (type, id, setUsers, setKeys) => {
@@ -168,6 +169,24 @@ const AdminPage = () => {
               element={
                 <div className="p-6">
                   <KeyList keys={keys} setKeys={setKeys} />
+                </div>
+              }
+            />
+
+            <Route
+              path="edit-user/:id"
+              element={
+                <div className="p-6">
+                  <ItemMod type="user" />
+                </div>
+              }
+            />
+
+            <Route
+              path="edit-key/:id"
+              element={
+                <div className="p-6">
+                  <ItemMod type="key" />
                 </div>
               }
             />
