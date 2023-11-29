@@ -30,6 +30,10 @@ const userSchema = Schema({
     type: Boolean,
     default: false,
   },
+  avatar: {
+    type: String,
+    required: false,
+  },
   authTokens: [
     {
       authToken: {
