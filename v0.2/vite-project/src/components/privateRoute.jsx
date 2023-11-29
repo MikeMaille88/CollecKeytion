@@ -7,6 +7,7 @@ import KeyByLand from "../pages/KeyByLand";
 import LoginPage from "./login";
 import KeyPage from "../pages/KeyPage";
 import MyKeys from "../pages/MyKeys";
+import Profile from "../pages/Profile";
 import AdminPage from "../pages/Admin";
 import { AuthProvider } from "./authContext";
 
@@ -22,6 +23,7 @@ export const PrivateRoute = () => {
         <Route path="/createKey" element={<CreateKey />} />
         <Route path="/keys/:keyId" element={<KeyPage />} />
         <Route path="/mykeys" element={<MyKeys />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/adminpage/*" element={<AdminPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
