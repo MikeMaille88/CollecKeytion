@@ -89,6 +89,13 @@ router.post("/login", async (req, res) => {
     if (passwordMatch) {
       // Génère un jeton d'authentification et le renvoie au client
       const authToken = user.generateAuthTokenAndSaveUser();
+
+      // Révoquer tous les anciens tokens
+      await User.updateOne(
+        { _id: user._id },
+        { $pull: { authTokens: { $ne: authToken } } }
+      );
+
       res.json({ authToken, userId: user._id });
     } else {
       res.status(401).json({ message: "Invalid credentials" });

@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import Modal from "../components/avatarModal";
 
 const Profile = () => {
+  const userId = localStorage.getItem("authId");
+
   const [userData, setUserData] = useState({
     avatar: "/Images/Avatars/avatar_default.jpg",
-    // Autres champs d'utilisateur
   });
-  const userId = localStorage.getItem("authId");
 
   const [selectedAvatarUrl, setSelectedAvatarUrl] = useState("");
 
@@ -59,6 +59,8 @@ const Profile = () => {
             avatar: avatarUrl,
           }));
           console.log(data.message);
+          // Recharge la page après la mise à jour réussie
+          window.location.reload();
         } else {
           console.error(data.message);
         }

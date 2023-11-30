@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
@@ -26,7 +26,35 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  const userId = localStorage.getItem("authId");
   const [landMenuOpen, setLandMenuOpen] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState(
+    "/Images/Avatars/avatar_default.jpg"
+  );
+
+  useEffect(() => {
+    const fetchUserData = async (userId) => {
+      try {
+        const response = await fetch(`http://localhost:3005/users/${userId}`);
+        const data = await response.json();
+
+        if (response.ok) {
+          setAvatarUrl(data.avatar || "/Images/Avatars/avatar_default.jpg");
+        } else {
+          console.error(data.message);
+        }
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des données utilisateur",
+          error
+        );
+      }
+    };
+
+    if (userId) {
+      fetchUserData(userId);
+    }
+  }, [userId]);
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -147,7 +175,7 @@ export default function Navbar() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="/Images/PP_Mike.jpg"
+                        src={avatarUrl}
                         alt=""
                       />
                     </Menu.Button>
