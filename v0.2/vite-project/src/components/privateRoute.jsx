@@ -10,6 +10,7 @@ import MyKeys from "../pages/MyKeys";
 import Profile from "../pages/Profile";
 import AdminPage from "../pages/Admin";
 import { AuthProvider } from "./authContext";
+import ImageGallery from "./testImportAvatars";
 
 import CreateKey from "./createKey";
 
@@ -26,6 +27,7 @@ export const PrivateRoute = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/adminpage/*" element={<AdminPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/avatar" element={<ImageGallery />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </AuthProvider>
