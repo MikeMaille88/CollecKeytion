@@ -1,8 +1,16 @@
 //Profile.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../components/avatarModal";
 
 const Profile = () => {
+  const [avatarUrl, setAvatarUrl] = useState(
+    "/Images/Avatars/avatar_default.jpg"
+  );
+
+  const handleAvatarSelect = (selectedAvatar) => {
+    setAvatarUrl(selectedAvatar);
+  };
+
   return (
     <div className="bg-slate-700 min-h-screen flex items-center justify-center">
       <div className="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto -mt-16 bg-white shadow-xl rounded-lg text-gray-900">
@@ -21,12 +29,12 @@ const Profile = () => {
         >
           <img
             className="object-cover object-center h-32"
-            src="/Images/Avatars/avatar_default.jpg"
-            alt="Woman looking front"
+            src={avatarUrl}
+            alt="Selected Avatar"
           />
           {/* Modal comes here */}
         </div>
-        <Modal key="avatarModal" />
+        <Modal key="avatarModal" onAvatarSelect={handleAvatarSelect} />
         <div className="text-center mt-2 mb-4">
           <h2 className="font-semibold">Sarah Smith</h2>
           <p className="text-gray-500">Freelance Web Designer</p>

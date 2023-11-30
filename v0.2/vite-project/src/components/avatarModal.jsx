@@ -1,14 +1,27 @@
 //avatarModal.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 //Importe les chemins d'accès à toutes les images
 const imagesFiles = import.meta.globEager("../../public/Images/Avatars/*");
 const imagesPaths = Object.keys(imagesFiles);
 //console.log(imagesPaths);
 
-const Modal = () => {
+const Modal = ({ onAvatarSelect }) => {
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
+
+  const handleAvatarClick = (avatar) => {
+    setSelectedAvatar(avatar);
+  };
+
   const closeModal = () => {
     document.getElementById("default-modal").classList.add("hidden");
+  };
+
+  const handleAcceptClick = () => {
+    if (selectedAvatar) {
+      onAvatarSelect(selectedAvatar);
+    }
+    closeModal();
   };
 
   return (
@@ -26,7 +39,7 @@ const Modal = () => {
             {/* <!-- Modal header --> */}
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                Choisissez votre avatar
+                Choose your avatar
               </h3>
               <button
                 type="button"
@@ -57,10 +70,13 @@ const Modal = () => {
             <div className="grid grid-cols-7 m-5">
               {imagesPaths.map((image, index) => (
                 <img
-                  className="h-20 border-4 border-white rounded-full hover:border-blue-600"
+                  className={`h-20 border-4 border-white hover:border-blue-600 rounded-full ${
+                    selectedAvatar === image && "border-blue-600"
+                  }`}
                   key={index}
                   src={image}
                   alt={`image-${index}`}
+                  onClick={() => handleAvatarClick(image)}
                 />
               ))}
             </div>
@@ -68,7 +84,7 @@ const Modal = () => {
             <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
               <button
                 data-modal-hide="default-modal"
-                onClick={closeModal}
+                onClick={handleAcceptClick}
                 type="button"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
