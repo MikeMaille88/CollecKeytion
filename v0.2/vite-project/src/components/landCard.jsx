@@ -19,7 +19,7 @@ const LandCard = () => {
         <Link
           to={`${getLandLink(index)}`}
           key={index}
-          className={`land-image link-${index}`}
+          className={`land-image link-${index} animate-float`}
         >
           <img
             className="object-center w-full h-full"
@@ -28,7 +28,7 @@ const LandCard = () => {
           />
         </Link>
       ))}
-      <Link to="/allKeys" className="castle-image">
+      <Link to="/allKeys" className="castle-image animate-float">
         <img
           className="object-center w-full h-full"
           src={castle}
