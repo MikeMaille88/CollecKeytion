@@ -9,6 +9,10 @@ const imagesPaths = Object.keys(imagesFiles);
 const Modal = ({ onAvatarSelect }) => {
   const [selectedAvatar, setSelectedAvatar] = useState(null);
 
+  useEffect(() => {
+    console.log("Component updated");
+  }, [selectedAvatar]); // Assurez-vous d'ajuster cette dépendance en fonction de vos besoins
+
   const handleAvatarClick = (avatar) => {
     setSelectedAvatar(avatar);
   };

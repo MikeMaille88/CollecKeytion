@@ -80,11 +80,22 @@ router.post("/", uploadImage.single("image"), async (req, res) => {
 });
 
 // Route pour mettre à jour une clef
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", uploadImage.single("image"), async (req, res) => {
   try {
-    const updatedKey = await Key.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    let updatedKeyData = req.body;
+
+    if (req.file) {
+      updatedKeyData.image = req.file.filename;
+    }
+
+    const updatedKey = await Key.findByIdAndUpdate(
+      req.params.id,
+      updatedKeyData,
+      {
+        new: true,
+      }
+    );
+
     res.json(updatedKey);
   } catch (error) {
     res.status(400).json({ message: error.message });

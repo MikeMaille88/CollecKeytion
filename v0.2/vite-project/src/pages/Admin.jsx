@@ -31,12 +31,19 @@ const UserList = ({ users, setUsers }) => (
     <h2 className="text-2xl font-bold mb-4">Liste des Utilisateurs</h2>
     <ul>
       {users.map((user) => (
-        <li key={user._id} className="mb-2 flex items-center justify-between">
-          <div>
-            <span className="mr-2">{/* Icône d'utilisateur ici */}</span>
-            {user.username} - {user.email}
+        <li key={user._id} className="mb-2 flex items-center ">
+          <div className="flex items-center">
+            <img
+              src={`/src/images/${user.avatar}`}
+              alt={user.username}
+              className="w-16 h-16 object-cover rounded-full mr-4"
+            />
           </div>
-          <div className="flex">
+          <div>
+            <h3 className="text-lg font-semibold">{user.username}</h3>
+            <p className="text-gray-600">{user.email}</p>
+          </div>
+          <div className="flex ml-auto">
             <Link to={`/adminpage/edit-user/${user._id}`} className="mr-2">
               {/* Icône pour modifier l'utilisateur */}
               🖊️

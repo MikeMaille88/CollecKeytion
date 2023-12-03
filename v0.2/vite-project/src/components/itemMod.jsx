@@ -8,7 +8,7 @@ const ItemMod = ({ type }) => {
   const [modifiedData, setModifiedData] = useState({
     username: "",
     email: "",
-    profilePhoto: "",
+    avatar: "",
     name: "",
     price: "",
     limited: "",
@@ -29,7 +29,7 @@ const ItemMod = ({ type }) => {
           setModifiedData({
             username: data.username || "",
             email: data.email || "",
-            profilePhoto: data.profilePhoto || "",
+            avatar: data.avatar || "",
             name: data.name || "",
             price: data.price || "",
             limited: data.limited || "",
@@ -56,6 +56,27 @@ const ItemMod = ({ type }) => {
       ...prevData,
       [field]: value,
     }));
+  };
+
+  const handleImageClick = () => {
+    // Ouverture de l'explorateur de fichiers lors du clic sur l'image
+    document.getElementById("fileInput").click();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+
+    // Convertir l'objet File en une URL (base64) pour stockage dans l'état local
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setModifiedData((prevData) => ({
+        ...prevData,
+        image: reader.result,
+        file: file, // Stocker également l'objet File dans l'état local si nécessaire
+      }));
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const handleModify = async () => {
@@ -113,23 +134,32 @@ const ItemMod = ({ type }) => {
   return (
     <>
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href={`/edit-${type}/${id}`}>
-          <div className="flex items-center justify-center mt-6">
-            {type === "user" ? (
-              <img
-                className="rounded-lg"
-                src={`/src/images/${modifiedData.profilePhoto}`}
-                alt={modifiedData.username}
-              />
-            ) : (
-              <img
-                className="rounded-lg"
-                src={`/src/images/${modifiedData.image}`}
-                alt={modifiedData.name}
-              />
-            )}
-          </div>
-        </a>
+        <div
+          className="flex items-center justify-center mt-6 cursor-pointer"
+          onClick={handleImageClick}
+        >
+          {type === "user" ? (
+            <img
+              className="rounded-lg"
+              src={`/src/images/${modifiedData.avatar}`}
+              alt={modifiedData.username}
+            />
+          ) : (
+            <img
+              className="rounded-lg"
+              src={`/src/images/${modifiedData.image}`}
+              alt={modifiedData.name}
+            />
+          )}
+        </div>
+        {/* Input caché pour le téléchargement de fichiers */}
+        <input
+          type="file"
+          id="fileInput"
+          style={{ display: "none" }}
+          accept="image/*"
+          onChange={handleFileChange}
+        />
         <div className="p-5">
           {type === "user" && (
             <>

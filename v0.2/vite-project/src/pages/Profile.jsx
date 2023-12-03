@@ -97,7 +97,7 @@ const Profile = () => {
           />
           {/* Modal comes here */}
         </div>
-        <Modal key="avatarModal" onAvatarSelect={handleAvatarSelect} />
+        <Modal onAvatarSelect={handleAvatarSelect} />
         <div className="text-center mt-2 mb-4">
           <h2 className="font-semibold">{userData.username}</h2>
           <p className="text-gray-500">{userData.email}</p>
