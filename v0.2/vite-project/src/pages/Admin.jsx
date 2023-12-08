@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ItemMod from "../components/itemMod";
+import CreateKey from "../components/createKey";
 
 // Fonction générique pour gérer la suppression d'un élément (utilisateur ou clé)
 const handleDelete = async (type, id, setFunction) => {
@@ -70,7 +71,7 @@ const KeyList = ({ keys, setKeys }) => {
           <li key={key._id} className="mb-4 flex items-center justify-between">
             <div className="flex items-center">
               <img
-                src={`/src/images/${key.image}`}
+                src={`/src/images/${key.image.inBox}`}
                 alt={key.name}
                 className="w-16 h-16 object-cover rounded-full mr-4"
               />
@@ -154,6 +155,12 @@ const AdminPage = () => {
           <Link to="/adminpage/keys" className="block py-2 px-4 text-white">
             Clefs
           </Link>
+          <Link
+            to="/adminpage/createKey"
+            className="block py-2 px-4 text-white"
+          >
+            Créer une clef
+          </Link>
         </nav>
       </div>
 
@@ -176,6 +183,16 @@ const AdminPage = () => {
               element={
                 <div key="keyList" className="p-6">
                   <KeyList keys={keys} setKeys={setKeys} />
+                </div>
+              }
+            />
+
+            {/* Route pour afficher l'interface de création des clefs */}
+            <Route
+              path="createKey"
+              element={
+                <div key="createKey" className="p-6">
+                  <CreateKey />
                 </div>
               }
             />

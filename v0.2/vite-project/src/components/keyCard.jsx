@@ -10,7 +10,7 @@ const KeyCard = ({ keyData }) => {
           <div className="flex items-center justify-center mt-6">
             <img
               className="rounded-lg"
-              src={`/src/images/${keyData.image[0]}`}
+              src={`/src/images/${keyData.image.inBox}`}
               alt={keyData.name}
             />
           </div>

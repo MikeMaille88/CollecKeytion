@@ -6,7 +6,10 @@ export default function CreateKey() {
     price: 0,
     limited: 0,
     land: "",
-    image: null, // Pour stocker l'image sélectionnée
+    boxFront: null,
+    boxBack: null,
+    inBox: null,
+    withoutBox: null,
   });
 
   const handleChange = (e) => {
@@ -17,11 +20,11 @@ export default function CreateKey() {
     }));
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e, imageKey) => {
     const imageFile = e.target.files[0];
     setKeyData((prevData) => ({
       ...prevData,
-      image: imageFile,
+      [imageKey]: imageFile,
     }));
   };
 
@@ -34,7 +37,10 @@ export default function CreateKey() {
     formData.append("price", keyData.price);
     formData.append("limited", keyData.limited);
     formData.append("land", keyData.land);
-    formData.append("image", keyData.image);
+    formData.append("boxFront", keyData.boxFront);
+    formData.append("boxBack", keyData.boxBack);
+    formData.append("inBox", keyData.inBox);
+    formData.append("withoutBox", keyData.withoutBox);
 
     try {
       const response = await fetch("http://localhost:3005/keys", {
@@ -55,7 +61,10 @@ export default function CreateKey() {
         price: 0,
         limited: 0,
         land: "",
-        image: null,
+        boxFront: null,
+        boxBack: null,
+        inBox: null,
+        withoutBox: null,
       });
     } catch (error) {
       console.error("Error:", error.message);
@@ -63,56 +72,98 @@ export default function CreateKey() {
   };
 
   return (
-    <div>
-      <h2>Create a Key</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={keyData.name}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Price:
-          <input
-            type="number"
-            name="price"
-            value={keyData.price}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Limited:
-          <input
-            type="number"
-            name="limited"
-            value={keyData.limited}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Land:
-          <input
-            type="text"
-            name="land"
-            value={keyData.land}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Image:
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
+    <div className="p-4">
+      <h1>Create a Key</h1>
+      <div className="mt-2">
+        <form onSubmit={handleSubmit}>
+          <label>
+            Name:
+            <input
+              type="text"
+              name="name"
+              value={keyData.name}
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <label>
+            Price:
+            <input
+              type="number"
+              name="price"
+              value={keyData.price}
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <label>
+            Limited:
+            <input
+              type="number"
+              name="limited"
+              value={keyData.limited}
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <label>
+            Land:
+            <input
+              type="text"
+              name="land"
+              value={keyData.land}
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <label>
+            Box Front:
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageChange(e, "boxFront")}
+            />
+          </label>
+          <br />
+
+          <label>
+            Box Back:
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageChange(e, "boxBack")}
+            />
+          </label>
+          <br />
+
+          <label>
+            In Box:
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageChange(e, "inBox")}
+            />
+          </label>
+          <br />
+
+          <label>
+            Without Box:
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageChange(e, "withoutBox")}
+            />
+          </label>
+          <br />
+
+          <button
+            type="submit"
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

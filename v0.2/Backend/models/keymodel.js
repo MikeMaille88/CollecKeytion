@@ -22,12 +22,12 @@ const KeySchema = Schema(
       type: String,
       required: true,
     },
-    image: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    image: {
+      boxFront: String,
+      boxBack: String,
+      inBox: String,
+      withoutBox: String,
+    },
   },
   { timestamps: true }
 );

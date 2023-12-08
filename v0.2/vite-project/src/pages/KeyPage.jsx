@@ -167,7 +167,7 @@ const KeyPage = () => {
                 </dt>
                 <dd className="mt-2 text-sm text-gray-200">
                   <img
-                    src={`/src/images/${keyData.image}`}
+                    src={`/src/images/${keyData.image.inBox}`}
                     alt={keyData.name}
                     className="mx-auto"
                   />

@@ -58,12 +58,7 @@ const ItemMod = ({ type }) => {
     }));
   };
 
-  const handleImageClick = () => {
-    // Ouverture de l'explorateur de fichiers lors du clic sur l'image
-    document.getElementById("fileInput").click();
-  };
-
-  const handleFileChange = (e) => {
+  const handleFileChangeForSpecificImage = async (e, specificImage) => {
     const file = e.target.files[0];
 
     // Convertir l'objet File en une URL (base64) pour stockage dans l'état local
@@ -71,8 +66,7 @@ const ItemMod = ({ type }) => {
     reader.onloadend = () => {
       setModifiedData((prevData) => ({
         ...prevData,
-        image: reader.result,
-        file: file, // Stocker également l'objet File dans l'état local si nécessaire
+        [specificImage]: reader.result,
       }));
     };
 
@@ -81,7 +75,10 @@ const ItemMod = ({ type }) => {
 
   const handleModify = async () => {
     try {
-      const modifiedFields = {};
+      const modifiedFields = { ...modifiedData };
+
+      // Supprimer le champ "file" avant d'envoyer les données au serveur
+      delete modifiedFields.file;
 
       // Ajoutez seulement les champs modifiés à modifiedFields
       for (const field in modifiedData) {
@@ -90,7 +87,6 @@ const ItemMod = ({ type }) => {
           modifiedData[field] !== ""
         ) {
           modifiedFields[field] = modifiedData[field];
-          console.log("Modified Data:", modifiedFields);
         }
       }
 
@@ -132,34 +128,25 @@ const ItemMod = ({ type }) => {
   }
 
   return (
-    <>
-      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <div
-          className="flex items-center justify-center mt-6 cursor-pointer"
-          onClick={handleImageClick}
-        >
-          {type === "user" ? (
-            <img
-              className="rounded-lg"
-              src={`/src/images/${modifiedData.avatar}`}
-              alt={modifiedData.username}
-            />
-          ) : (
-            <img
-              className="rounded-lg"
-              src={`/src/images/${modifiedData.image}`}
-              alt={modifiedData.name}
-            />
-          )}
-        </div>
-        {/* Input caché pour le téléchargement de fichiers */}
-        <input
-          type="file"
-          id="fileInput"
-          style={{ display: "none" }}
-          accept="image/*"
-          onChange={handleFileChange}
-        />
+    <div className="flex h-auto justify-between ml-10 mr-10">
+      <div className="max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <a href={`/edit-${type}/${id}`}>
+          <div className="flex items-center justify-center mt-6">
+            {type === "user" ? (
+              <img
+                className="rounded-lg"
+                src={`/src/images/${modifiedData.avatar}`}
+                alt={modifiedData.username}
+              />
+            ) : (
+              <img
+                className="rounded-lg h-96 w-auto"
+                src={`/src/images/${modifiedData.image.inBox}`}
+                alt={modifiedData.name}
+              />
+            )}
+          </div>
+        </a>
         <div className="p-5">
           {type === "user" && (
             <>
@@ -241,7 +228,73 @@ const ItemMod = ({ type }) => {
           </button>
         </div>
       </div>
-    </>
+      {/* Ajouter 4 espaces avec des images spécifiques et un endroit pour changer chaque image */}
+      {type === "key" && (
+        <div className="grid grid-cols-2 max-w-2xl">
+          <div className="max-w-sm m-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <img
+              className="rounded-lg h-80 w-auto mx-auto m-4"
+              src={`/src/images/${modifiedData.image.boxFront}`}
+              alt="Front"
+            />
+            <div className="p-2">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleFileChangeForSpecificImage(e, "front")}
+              />
+            </div>
+          </div>
+
+          <div className="max-w-sm m-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <img
+              className="rounded-lg h-80 w-auto mx-auto m-4"
+              src={`/src/images/${modifiedData.image.boxBack}`}
+              alt="Back"
+            />
+            <div className="p-2">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleFileChangeForSpecificImage(e, "back")}
+              />
+            </div>
+          </div>
+
+          <div className="max-w-sm m-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <img
+              className="rounded-lg h-80 w-auto mx-auto m-4"
+              src={`/src/images/${modifiedData.image.inBox}`}
+              alt="In Box"
+            />
+            <div className="p-2">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleFileChangeForSpecificImage(e, "inBox")}
+              />
+            </div>
+          </div>
+
+          <div className="max-w-sm m-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <img
+              className="rounded-lg h-80 w-auto mx-auto m-4"
+              src={`/src/images/${modifiedData.image.withoutBox}`}
+              alt="Without Box"
+            />
+            <div className="p-2">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) =>
+                  handleFileChangeForSpecificImage(e, "withoutBox")
+                }
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

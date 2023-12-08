@@ -58,26 +58,37 @@ router.get("/:id", async (req, res) => {
 });
 
 // Route pour créer une nouvelle clef
-router.post("/", uploadImage.single("image"), async (req, res) => {
-  try {
-    if (req.file) {
+router.post(
+  "/",
+  uploadImage.fields([
+    { name: "boxFront", maxCount: 1 },
+    { name: "boxBack", maxCount: 1 },
+    { name: "inBox", maxCount: 1 },
+    { name: "withoutBox", maxCount: 1 },
+  ]),
+  async (req, res) => {
+    try {
       const keyData = {
         name: req.body.name,
         price: req.body.price,
         limited: req.body.limited,
         land: req.body.land,
-        image: req.file.filename,
+        image: {
+          boxFront: req.files.boxFront[0].filename,
+          boxBack: req.files.boxBack[0].filename,
+          inBox: req.files.inBox[0].filename,
+          withoutBox: req.files.withoutBox[0].filename,
+        },
       };
+
       const key = await Key.create(keyData);
       res.status(200).json(key);
-    } else {
-      res.status(400).json({ message: "Aucune image n'a été téléchargée." });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ message: error.message });
     }
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ message: error.message });
   }
-});
+);
 
 // Route pour mettre à jour une clef
 router.patch("/:id", uploadImage.single("image"), async (req, res) => {
