@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import GoBackButton from "../components/goBackButton";
+import KeyCarousel from "../components/carousel";
 //import { useAuth } from "../components/authContext";
 
 const KeyPage = () => {
@@ -158,19 +159,15 @@ const KeyPage = () => {
     <>
       <GoBackButton />
       <div className="bg-slate-700 min-h-screen flex items-center justify-center">
-        <div className="mx-auto grid grid-cols-1 items-center gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
-          <div className="pt-2">
+        <div className="mx-auto grid grid-cols-1 items-center gap-x-8 gap-y-16 px-4  sm:px-6  lg:max-w-7xl lg:grid-cols-2 lg:px-8 mt-n-8">
+          <div>
             <dl className="grid grid-cols-1 gap-x-6 gap-y-10  sm:gap-y-16 lg:gap-x-8">
               <div key={keyData.name}>
                 <dt className="font-medium text-gray-300 text-center">
                   {keyData.name} Key
                 </dt>
                 <dd className="mt-2 text-sm text-gray-200">
-                  <img
-                    src={`/src/images/${keyData.image.inBox}`}
-                    alt={keyData.name}
-                    className="mx-auto"
-                  />
+                  <KeyCarousel images={keyData.image} />
                 </dd>
               </div>
             </dl>
