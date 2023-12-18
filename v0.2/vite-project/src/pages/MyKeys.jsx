@@ -54,7 +54,7 @@ const MyKeys = () => {
               <div className="relative p-3 border-4 border-amber-900 bg-amber-950">
                 <img
                   className="w-full h-full object-cover"
-                  src={`/src/images/${correspondingKey.image}`}
+                  src={`/src/images/${correspondingKey.image.inBox}`}
                   alt={correspondingKey.name}
                 />
               </div>

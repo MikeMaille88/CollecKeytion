@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import KeyCard from "./keyCard";
 
-function AllKeys() {
+function useData(url) {
   const [keys, setKeys] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/keys");
+        const response = await fetch(url);
         const data = await response.json();
         setKeys(data);
       } catch (error) {
@@ -17,6 +17,12 @@ function AllKeys() {
 
     fetchData();
   }, []);
+
+  return keys;
+}
+
+function AllKeys() {
+  const keys = useData("api/keys");
 
   return (
     <div>
