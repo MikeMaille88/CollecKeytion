@@ -37,10 +37,10 @@ export default function CreateKey() {
     formData.append("price", keyData.price);
     formData.append("limited", keyData.limited);
     formData.append("land", keyData.land);
-    formData.append("boxFront", keyData.boxFront);
-    formData.append("boxBack", keyData.boxBack);
-    formData.append("inBox", keyData.inBox);
-    formData.append("withoutBox", keyData.withoutBox);
+    formData.append("images", keyData.boxFront);
+    formData.append("images", keyData.boxBack);
+    formData.append("images", keyData.inBox);
+    formData.append("images", keyData.withoutBox);
 
     try {
       const response = await fetch("http://localhost:3005/keys", {

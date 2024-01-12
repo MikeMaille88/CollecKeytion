@@ -3,6 +3,7 @@ const Key = require("../models/keyModel");
 const router = express.Router();
 const path = require("path");
 const multer = require("multer");
+const cloudinary = require("../cloudinary");
 
 // Configuration de stockage des fichiers téléchargés
 const fileStorage = multer.diskStorage({
@@ -25,11 +26,11 @@ const uploadImage = multer({
   },
   fileFilter(req, file, cb) {
     console.log(file);
-    if (!file.originalname.match(/\.(png|jpg)$/)) {
+    if (!file.originalname.match(/\.(png|jpg|JPG)$/)) {
       console.log("uploadimage");
       return cb(
         new Error(
-          "Veuillez télécharger un fichier avec une extension jpg ou png."
+          "Veuillez télécharger un fichier avec une extension jpg/JPG ou png."
         )
       );
     }
@@ -58,37 +59,44 @@ router.get("/:id", async (req, res) => {
 });
 
 // Route pour créer une nouvelle clef
-router.post(
-  "/",
-  uploadImage.fields([
-    { name: "boxFront", maxCount: 1 },
-    { name: "boxBack", maxCount: 1 },
-    { name: "inBox", maxCount: 1 },
-    { name: "withoutBox", maxCount: 1 },
-  ]),
-  async (req, res) => {
-    try {
-      const keyData = {
-        name: req.body.name,
-        price: req.body.price,
-        limited: req.body.limited,
-        land: req.body.land,
-        image: {
-          boxFront: req.files.boxFront[0].filename,
-          boxBack: req.files.boxBack[0].filename,
-          inBox: req.files.inBox[0].filename,
-          withoutBox: req.files.withoutBox[0].filename,
-        },
-      };
+router.post("/", uploadImage.array("images", 4), async (req, res) => {
+  try {
+    const images = req.files.map(async (file) => {
+      const result = await cloudinary.uploader.upload(file.path);
+      return result.secure_url;
+    });
 
-      const key = await Key.create(keyData);
-      res.status(200).json(key);
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json({ message: error.message });
-    }
+    Promise.all(images)
+      .then(async (imageUrls) => {
+        const keyData = {
+          name: req.body.name,
+          price: req.body.price,
+          limited: req.body.limited,
+          land: req.body.land,
+          image: {
+            boxFront: imageUrls[0],
+            boxBack: imageUrls[1],
+            inBox: imageUrls[2],
+            withoutBox: imageUrls[3],
+          },
+        };
+
+        const key = await Key.create(keyData);
+        res.status(200).json(key);
+      })
+      .catch((error) => {
+        console.error(error.message);
+        res
+          .status(500)
+          .json({
+            message: "Erreur lors de l'upload des images sur Cloudinary.",
+          });
+      });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: error.message });
   }
-);
+});
 
 // Route pour mettre à jour une clef
 router.patch("/:id", uploadImage.single("image"), async (req, res) => {
