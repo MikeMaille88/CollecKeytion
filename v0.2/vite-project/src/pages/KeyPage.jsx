@@ -176,13 +176,7 @@ const KeyPage = () => {
             <h2 className="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
               {keyData.name}
             </h2>
-            <p className="text-gray-200 mt-4">
-              Description de la clé. <br />
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
+            <p className="text-gray-200 mt-4">{keyData.description}</p>
             <p className="mt-20">Retail Price : €{keyData.price}</p>
             <p className="mt-10">Limited Edition : {keyData.limited} ex.</p>
             <p className="mt-0">Land : {keyData.land}</p>

@@ -79,6 +79,7 @@ router.post("/", uploadImage.array("images", 4), async (req, res) => {
             inBox: imageUrls[2],
             withoutBox: imageUrls[3],
           },
+          description: req.body.description,
         };
 
         const key = await Key.create(keyData);
@@ -86,11 +87,9 @@ router.post("/", uploadImage.array("images", 4), async (req, res) => {
       })
       .catch((error) => {
         console.error(error.message);
-        res
-          .status(500)
-          .json({
-            message: "Erreur lors de l'upload des images sur Cloudinary.",
-          });
+        res.status(500).json({
+          message: "Erreur lors de l'upload des images sur Cloudinary.",
+        });
       });
   } catch (error) {
     console.error(error.message);

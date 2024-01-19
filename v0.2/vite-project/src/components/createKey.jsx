@@ -10,6 +10,7 @@ export default function CreateKey() {
     boxBack: null,
     inBox: null,
     withoutBox: null,
+    description: "",
   });
 
   const handleChange = (e) => {
@@ -41,6 +42,7 @@ export default function CreateKey() {
     formData.append("images", keyData.boxBack);
     formData.append("images", keyData.inBox);
     formData.append("images", keyData.withoutBox);
+    formData.append("description", keyData.description);
 
     try {
       const response = await fetch("http://localhost:3005/keys", {
@@ -65,6 +67,7 @@ export default function CreateKey() {
         boxBack: null,
         inBox: null,
         withoutBox: null,
+        description: "",
       });
     } catch (error) {
       console.error("Error:", error.message);
@@ -112,6 +115,16 @@ export default function CreateKey() {
               type="text"
               name="land"
               value={keyData.land}
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <label>
+            Description:
+            <input
+              type="text"
+              name="description"
+              value={keyData.description}
               onChange={handleChange}
             />
           </label>

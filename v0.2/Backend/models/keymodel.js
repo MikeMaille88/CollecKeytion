@@ -28,6 +28,10 @@ const KeySchema = Schema(
       inBox: String,
       withoutBox: String,
     },
+    description: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
