@@ -20,7 +20,10 @@ export default function KeyCarousel({ images }) {
       {Object.values(images).map((image, index) => (
         <div key={index} className="relative">
           <img
-            src={`/src/images/${image}`}
+            //Affichage Mongo seul
+            //src={`/src/images/${image}`}
+            //Affichage Cloudinary
+            src={image}
             alt={`image ${index + 1}`}
             className="mx-auto w-3/4 h-auto object-cover"
           />

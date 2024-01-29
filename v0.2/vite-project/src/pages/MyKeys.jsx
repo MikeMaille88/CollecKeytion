@@ -54,7 +54,10 @@ const MyKeys = () => {
               <div className="relative p-3 border-4 border-amber-900 bg-amber-950">
                 <img
                   className="w-full h-full object-cover"
-                  src={`/src/images/${correspondingKey.image.withoutBox}`}
+                  //Affichage Mongo seul
+                  // src={`/src/images/${correspondingKey.image.withoutBox}`}
+                  //Affichage Cloudinary
+                  src={correspondingKey.image.withoutBox}
                   alt={correspondingKey.name}
                 />
               </div>

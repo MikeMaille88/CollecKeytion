@@ -73,7 +73,7 @@ router.post(
         const result = await cloudinary.uploader.upload(fileArray[0].path, {
           folder: `CollecKeytion/${fileArray[0].fieldname}`,
         });
-        console.log(fileArray[0].fieldname);
+        //console.log(fileArray[0].fieldname);
         return result.secure_url;
       });
 

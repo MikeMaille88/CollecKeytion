@@ -10,9 +10,9 @@ const KeyCard = ({ keyData }) => {
           <div className="flex items-center justify-center mt-6">
             <img
               className="rounded-lg"
-              src={`/src/images/${keyData.image.inBox}`}
+              //src={`/src/images/${keyData.image.inBox}`}
               // Affichage url cloudinary
-              // src={`${keyData.image.inBox}`}
+              src={`${keyData.image.inBox}`}
               alt={keyData.name}
             />
           </div>
