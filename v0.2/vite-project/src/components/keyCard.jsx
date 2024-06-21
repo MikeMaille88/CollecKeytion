@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const KeyCard = ({ keyData }) => {
   return (
     <>
-      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href={`/keys/${keyData._id}`}>
           <div className="flex items-center justify-center mt-6">
             <img
@@ -19,17 +19,17 @@ const KeyCard = ({ keyData }) => {
         </a>
         <div className="p-5">
           <a href={`/keys/${keyData._id}`}>
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white h-[90px]">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white h-[90px]">
               {keyData.name}
             </h5>
           </a>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          <p className="mb-3 font-normal text-gray-400 dark:text-gray-400">
             Price: €{keyData.price}
           </p>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          <p className="mb-3 font-normal text-gray-400 dark:text-gray-400">
             Limited: {keyData.limited} pieces
           </p>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          <p className="mb-3 font-normal text-gray-400 dark:text-gray-400">
             Land: {keyData.land}
           </p>
           <a

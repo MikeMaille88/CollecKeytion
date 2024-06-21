@@ -71,7 +71,9 @@ const KeyList = ({ keys, setKeys }) => {
           <li key={key._id} className="mb-4 flex items-center justify-between">
             <div className="flex items-center">
               <img
-                src={`/src/images/${key.image.inBox}`}
+                //src={`/src/images/${key.image.inBox}`}
+                // Affichage url cloudinary
+                src={`${key.image.inBox}`}
                 alt={key.name}
                 className="w-16 h-16 object-cover rounded-full mr-4"
               />

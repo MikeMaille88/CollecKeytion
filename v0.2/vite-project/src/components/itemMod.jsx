@@ -141,7 +141,7 @@ const ItemMod = ({ type }) => {
             ) : (
               <img
                 className="rounded-lg h-96 w-auto"
-                src={`/src/images/${modifiedData.image.inBox}`}
+                src={`${modifiedData.image.inBox}`}
                 alt={modifiedData.name}
               />
             )}
@@ -231,10 +231,10 @@ const ItemMod = ({ type }) => {
       {/* Ajouter 4 espaces avec des images spécifiques et un endroit pour changer chaque image */}
       {type === "key" && (
         <div className="grid grid-cols-2 max-w-2xl">
-          <div className="max-w-sm m-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <div className="max-w-sm m-2 rounded-lg bg-white shadow dark:bg-gray-800 dark:border-gray-700">
             <img
               className="rounded-lg h-80 w-auto mx-auto m-4"
-              src={`/src/images/${modifiedData.image.boxFront}`}
+              src={`${modifiedData.image.boxFront}`}
               alt="Front"
             />
             <div className="p-2">
@@ -246,10 +246,10 @@ const ItemMod = ({ type }) => {
             </div>
           </div>
 
-          <div className="max-w-sm m-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <div className="max-w-sm m-2 rounded-lg bg-white shadow dark:bg-gray-800 dark:border-gray-700">
             <img
               className="rounded-lg h-80 w-auto mx-auto m-4"
-              src={`/src/images/${modifiedData.image.boxBack}`}
+              src={`${modifiedData.image.boxBack}`}
               alt="Back"
             />
             <div className="p-2">
@@ -261,10 +261,10 @@ const ItemMod = ({ type }) => {
             </div>
           </div>
 
-          <div className="max-w-sm m-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <div className="max-w-sm m-2 rounded-lg bg-white shadow dark:bg-gray-800 dark:border-gray-700">
             <img
               className="rounded-lg h-80 w-auto mx-auto m-4"
-              src={`/src/images/${modifiedData.image.inBox}`}
+              src={`${modifiedData.image.inBox}`}
               alt="In Box"
             />
             <div className="p-2">
@@ -276,10 +276,10 @@ const ItemMod = ({ type }) => {
             </div>
           </div>
 
-          <div className="max-w-sm m-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <div className="max-w-sm m-2 rounded-lg bg-white shadow dark:bg-gray-800 dark:border-gray-700">
             <img
               className="rounded-lg h-80 w-auto mx-auto m-4"
-              src={`/src/images/${modifiedData.image.withoutBox}`}
+              src={`${modifiedData.image.withoutBox}`}
               alt="Without Box"
             />
             <div className="p-2">

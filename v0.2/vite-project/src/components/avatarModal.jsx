@@ -4,14 +4,13 @@ import React, { useEffect, useState } from "react";
 //Importe les chemins d'accès à toutes les images
 const imagesFiles = import.meta.globEager("../../public/Images/Avatars/*");
 const imagesPaths = Object.keys(imagesFiles);
-//console.log(imagesPaths);
 
 const Modal = ({ onAvatarSelect }) => {
   const [selectedAvatar, setSelectedAvatar] = useState(null);
 
   useEffect(() => {
     console.log("Component updated");
-  }, [selectedAvatar]); // Assurez-vous d'ajuster cette dépendance en fonction de vos besoins
+  }, [selectedAvatar]);
 
   const handleAvatarClick = (avatar) => {
     setSelectedAvatar(avatar);
@@ -30,7 +29,6 @@ const Modal = ({ onAvatarSelect }) => {
 
   return (
     <>
-      {/* <!-- Main modal --> */}
       <div
         id="default-modal"
         tabIndex="-1"
@@ -38,9 +36,7 @@ const Modal = ({ onAvatarSelect }) => {
         className="hidden overflow-y-auto overflow-x-hidden fixed  transform translate-y-1/5 translate-x-1/2 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
       >
         <div className="relative p-4 w-full max-w-2xl max-h-full">
-          {/* <!-- Modal content --> */}
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            {/* <!-- Modal header --> */}
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 Choose your avatar
@@ -69,13 +65,12 @@ const Modal = ({ onAvatarSelect }) => {
                 <span className="sr-only">Close modal</span>
               </button>
             </div>
-            {/* <!-- Modal body --> */}
 
             <div className="grid grid-cols-7 m-5">
               {imagesPaths.map((image, index) => (
                 <img
-                  className={`h-20 border-4 border-white hover:border-blue-600 rounded-full ${
-                    selectedAvatar === image && "border-blue-600"
+                  className={`h-20 border-4 rounded-full ${
+                    selectedAvatar === image ? "border-blue-600" : "border-white hover:border-blue-600"
                   }`}
                   key={index}
                   src={image}
@@ -84,7 +79,7 @@ const Modal = ({ onAvatarSelect }) => {
                 />
               ))}
             </div>
-            {/* <!-- Modal footer --> */}
+            
             <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
               <button
                 data-modal-hide="default-modal"
