@@ -9,7 +9,7 @@ const AllKeys = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://colleckeytion.vercel.app/keys");
+        const response = await fetch("http://localhost:3005/keys");
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
