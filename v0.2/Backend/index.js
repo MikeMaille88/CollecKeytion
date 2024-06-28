@@ -100,20 +100,20 @@ const createImageTag = (publicId, ...colors) => {
 //
 //////////////////
 
-// Set the image to upload
-imagesPaths.map(async (image, index) => {
-  const imagePath = image;
-  // "https://cloudinary-devs.github.io/cld-docs-assets/assets/images/happy_people.jpg";
+// // Set the image to upload
+// imagesPaths.map(async (image, index) => {
+//   const imagePath = image;
+//   // "https://cloudinary-devs.github.io/cld-docs-assets/assets/images/happy_people.jpg";
 
-  // Upload the image
-  const publicId = await uploadImage(imagePath);
+//   // Upload the image
+//   const publicId = await uploadImage(imagePath);
 
-  // Get the colors in the image
-  const colors = await getAssetInfo(publicId);
+//   // Get the colors in the image
+//   const colors = await getAssetInfo(publicId);
 
-  // Create an image tag, using two of the colors in a transformation
-  const imageTag = await createImageTag(publicId, colors[0][0], colors[1][0]);
+//   // Create an image tag, using two of the colors in a transformation
+//   const imageTag = await createImageTag(publicId, colors[0][0], colors[1][0]);
 
-  // Log the image tag to the console
-  console.log(imageTag);
-})();
+//   // Log the image tag to the console
+//   console.log(imageTag);
+// })();
