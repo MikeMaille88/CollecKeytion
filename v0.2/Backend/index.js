@@ -21,9 +21,14 @@ cloudinary.config({
 // const imagesFiles = import.meta.globEager(
 //   "../vite-project/public/Images/_Traité/WithoutBoxTransparent/*"
 // );
-const imagesFiles = glob.sync("./Images/WithoutBoxTransparent/*");
-const imagesPaths = Object.keys(imagesFiles);
-//console.log(imagesPaths);
+const imagesPaths = glob.sync("./Images/WithoutBoxTransparent/*");
+//const imagesPaths = Object.keys(imagesFiles);
+// console.log(imagesPaths);
+if (Array.isArray(imagesPaths)) {
+  console.log("imagesPaths est un tableau.");
+} else {
+  console.error("imagesPaths n'est pas un tableau.");
+}
 
 /////////////////////////
 // Uploads an image file
