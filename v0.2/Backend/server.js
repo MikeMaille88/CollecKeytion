@@ -56,3 +56,5 @@ app.listen(process.env.PORT, () => {
     `Le serveur Express est en cours d'écoute sur le port ${process.env.PORT} `
   );
 });
+
+module.exports = app;
