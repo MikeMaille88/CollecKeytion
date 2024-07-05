@@ -1,7 +1,7 @@
 //userRoutes.js
 const express = require("express");
 const mongoose = require("mongoose");
-const User = require("../models/userModel");
+const User = require("../models/usermodel");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const { check, body } = require("express-validator");

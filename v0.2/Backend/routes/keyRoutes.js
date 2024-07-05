@@ -1,5 +1,5 @@
 const express = require("express");
-const Key = require("../models/keyModel");
+const Key = require("../models/keymodel");
 const router = express.Router();
 const path = require("path");
 const multer = require("multer");
