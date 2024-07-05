@@ -1,42 +1,21 @@
 const express = require("express");
 const Key = require("../models/keymodel");
 const router = express.Router();
-const path = require("path");
 const multer = require("multer");
 const cloudinary = require("../cloudinary");
-
-// Configuration de stockage des fichiers téléchargés
-const fileStorage = multer.diskStorage({
-  destination: "../vite-project/src/images",
-  // Répertoire de destination pour les fichiers téléchargés
-  filename: (req, file, cb) => {
-    console.log("filestorage");
-    cb(
-      null,
-      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 // Configuration de l'instance Multer pour le téléchargement de fichiers
-const uploadImage = multer({
-  storage: fileStorage,
-  limits: {
-    fileSize: 10000000, // Limite de taille maximale de fichier (10 Mo)
-  },
-  fileFilter(req, file, cb) {
-    console.log(file);
-    if (!file.originalname.match(/\.(png|jpg|JPG)$/)) {
-      console.log("uploadimage");
-      return cb(
-        new Error(
-          "Veuillez télécharger un fichier avec une extension jpg/JPG ou png."
-        )
-      );
-    }
-    cb(null, true);
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'CollecKeytion',
+    format: async (req, file) => 'png' || 'jpg', // Format de fichier autorisé
+    public_id: (req, file) => file.fieldname + "_" + Date.now(), // Nom du fichier sur Cloudinary
   },
 });
+
+const uploadImage = multer({ storage: storage });
 
 // Route pour récupérer toutes les clefs
 router.get("/", async (req, res) => {
@@ -69,39 +48,24 @@ router.post(
   ]),
   async (req, res) => {
     try {
-      const images = Object.values(req.files).map(async (fileArray) => {
-        const result = await cloudinary.uploader.upload(fileArray[0].path, {
-          folder: `CollecKeytion/${fileArray[0].fieldname}`,
-        });
-        //console.log(fileArray[0].fieldname);
-        return result.secure_url;
-      });
+      const images = Object.values(req.files).map(fileArray => fileArray[0].path);
 
-      Promise.all(images)
-        .then(async (imageUrls) => {
-          const keyData = {
-            name: req.body.name,
-            price: req.body.price,
-            limited: req.body.limited,
-            land: req.body.land,
-            image: {
-              boxFront: imageUrls[0],
-              boxBack: imageUrls[1],
-              inBox: imageUrls[2],
-              withoutBox: imageUrls[3],
-            },
-            description: req.body.description,
-          };
+      const keyData = {
+        name: req.body.name,
+        price: req.body.price,
+        limited: req.body.limited,
+        land: req.body.land,
+        image: {
+          boxFront: images[0],
+          boxBack: images[1],
+          inBox: images[2],
+          withoutBox: images[3],
+        },
+        description: req.body.description,
+      };
 
-          const key = await Key.create(keyData);
-          res.status(200).json(key);
-        })
-        .catch((error) => {
-          console.error(error.message);
-          res.status(500).json({
-            message: "Erreur lors de l'upload des images sur Cloudinary.",
-          });
-        });
+      const key = await Key.create(keyData);
+      res.status(200).json(key);
     } catch (error) {
       console.error(error.message);
       res.status(500).json({ message: error.message });
@@ -115,16 +79,12 @@ router.patch("/:id", uploadImage.single("image"), async (req, res) => {
     let updatedKeyData = req.body;
 
     if (req.file) {
-      updatedKeyData.image = req.file.filename;
+      updatedKeyData.image = req.file.path;
     }
 
-    const updatedKey = await Key.findByIdAndUpdate(
-      req.params.id,
-      updatedKeyData,
-      {
-        new: true,
-      }
-    );
+    const updatedKey = await Key.findByIdAndUpdate(req.params.id, updatedKeyData, {
+      new: true,
+    });
 
     res.json(updatedKey);
   } catch (error) {
