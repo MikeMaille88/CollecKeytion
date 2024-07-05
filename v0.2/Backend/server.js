@@ -24,12 +24,12 @@ mongoose
   })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch((e) => console.log("Connexion à MongoDB échouée !" + e));
-
-app.use(express.json()); // Middleware pour analyser le contenu JSON des requêtes
-app.use(cors(corsOption));
-app.use("/keys", keyRoute); // Utilisez le routeur keyRoute pour gérer les routes commençant par '/key'
-app.use("/users", userRoute); // Utilisez le routeur userRoute pour gérer les routes commençant par '/users'
-app.use("/userkeys", userKeysRoute); // Utilisez le routeur userKeysRoute pour gérer les routes commençant par '/userkeys'
+console.log("prout");
+// app.use(express.json()); // Middleware pour analyser le contenu JSON des requêtes
+// app.use(cors(corsOption));
+// app.use("/keys", keyRoute); // Utilisez le routeur keyRoute pour gérer les routes commençant par '/key'
+// app.use("/users", userRoute); // Utilisez le routeur userRoute pour gérer les routes commençant par '/users'
+// app.use("/userkeys", userKeysRoute); // Utilisez le routeur userKeysRoute pour gérer les routes commençant par '/userkeys'
 
 // Gestion des requêtes GET pour le chemin racine
 app.get("/", async (req, res) => {
@@ -49,7 +49,7 @@ app.post("/", (req, res) => {
   res.send("ok"); // Répond avec 'ok'
   res.status(404).json({ error: "Route not found" });
 });
-
+console.log("listen listen to me");
 // Démarrage du serveur Express
 app.listen(process.env.PORT, () => {
   console.log(
