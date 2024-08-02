@@ -4,6 +4,8 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
+const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
+
 const navigation = [
   { name: "My Keys", href: "/mykeys", current: false },
   { name: "All Keys", href: "/allKeys", current: false },
@@ -36,7 +38,7 @@ export default function Navbar() {
   useEffect(() => {
     const fetchUserData = async (userId) => {
       try {
-        const response = await fetch(`http://localhost:3005/users/${userId}`);
+        const response = await fetch(`${apiUrl}users/${userId}`);
         const data = await response.json();
 
         if (response.ok) {

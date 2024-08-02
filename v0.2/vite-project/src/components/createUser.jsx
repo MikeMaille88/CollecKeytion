@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
+
 const CreateUser = () => {
   const [user, setUser] = useState({
     username: "",
@@ -23,7 +25,7 @@ const CreateUser = () => {
 
     try {
       // Envoi de la requête pour ajouter un utilisateur
-      const response = await fetch("http://localhost:3005/users", {
+      const response = await fetch(`${apiUrl}users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

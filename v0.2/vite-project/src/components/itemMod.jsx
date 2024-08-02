@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
+
 const ItemMod = ({ type }) => {
   const { id } = useParams();
   const [itemData, setItemData] = useState(null);
@@ -20,7 +22,7 @@ const ItemMod = ({ type }) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3005/${type === "user" ? "users" : "keys"}/${id}`
+          `${apiUrl}${type === "user" ? "users" : "keys"}/${id}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -93,7 +95,7 @@ const ItemMod = ({ type }) => {
       // Envoyer les modifications vers le serveur uniquement si des champs ont été modifiés
       if (Object.keys(modifiedFields).length > 0) {
         const response = await fetch(
-          `http://localhost:3005/${type === "user" ? "users" : "keys"}/${id}`,
+          `${apiUrl}${type === "user" ? "users" : "keys"}/${id}`,
           {
             method: "PATCH",
             headers: {

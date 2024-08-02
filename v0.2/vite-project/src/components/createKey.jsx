@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
+
 export default function CreateKey() {
   const [keyData, setKeyData] = useState({
     name: "",
@@ -45,7 +47,7 @@ export default function CreateKey() {
     formData.append("description", keyData.description);
 
     try {
-      const response = await fetch("http://localhost:3005/keys", {
+      const response = await fetch(`${apiUrl}keys`, {
         method: "POST",
         body: formData,
       });
