@@ -3,7 +3,7 @@
     "rewrites": [
         {
         "source": "/(.*)",
-        "destination": "/Colleckeytion/v0.2/vite-project/index.html"
+        "destination": "v0.2/vite-project/index.html"
         }
     ]
 }
