@@ -24,7 +24,7 @@ const LoginPage = () => {
 
     try {
       // Envoi de la requête pour se connecter
-      const response = await fetch(`${apiUrl}/users/login`, {
+      const response = await fetch(`${apiUrl}users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
