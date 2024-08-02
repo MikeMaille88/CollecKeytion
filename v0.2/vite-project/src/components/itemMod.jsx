@@ -132,7 +132,7 @@ const ItemMod = ({ type }) => {
   return (
     <div className="flex h-auto justify-between ml-10 mr-10">
       <div className="max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href={`/edit-${type}/${id}`}>
+        <Link to={`/edit-${type}/${id}`}>
           <div className="flex items-center justify-center mt-6">
             {type === "user" ? (
               <img
@@ -148,7 +148,7 @@ const ItemMod = ({ type }) => {
               />
             )}
           </div>
-        </a>
+        </Link>
         <div className="p-5">
           {type === "user" && (
             <>
