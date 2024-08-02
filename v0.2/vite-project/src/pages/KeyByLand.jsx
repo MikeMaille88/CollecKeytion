@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import KeyCard from "../components/keyCard";
 import { useParams } from "react-router-dom";
 
+const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
+
 // Fonction de mappage pour traduire les abréviations en noms complets
 const mapAbbreviationToFullName = (abbreviation) => {
   // Table de mappage des abréviations vers les noms complets
@@ -22,7 +24,7 @@ const KeyByLand = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3005/keys");
+        const response = await fetch(`${apiUrl}keys`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }

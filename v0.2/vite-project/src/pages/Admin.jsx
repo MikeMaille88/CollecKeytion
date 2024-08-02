@@ -6,12 +6,14 @@ import { useParams } from "react-router-dom";
 import ItemMod from "../components/itemMod";
 import CreateKey from "../components/createKey";
 
+const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
+
 // Fonction générique pour gérer la suppression d'un élément (utilisateur ou clé)
 const handleDelete = async (type, id, setFunction) => {
   const endpoint = type === "user" ? "users" : "keys";
 
   try {
-    const response = await fetch(`http://localhost:3005/${endpoint}/${id}`, {
+    const response = await fetch(`${apiUrl}${endpoint}/${id}`, {
       method: "DELETE",
     });
 
@@ -109,7 +111,7 @@ const AdminPage = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:3005/users");
+        const response = await fetch(`${apiUrl}users`);
         if (response.ok) {
           const userData = await response.json();
           setUsers(userData);
@@ -126,7 +128,7 @@ const AdminPage = () => {
   useEffect(() => {
     const fetchKeys = async () => {
       try {
-        const response = await fetch("http://localhost:3005/keys");
+        const response = await fetch(`${apiUrl}keys`);
         if (response.ok) {
           const keysData = await response.json();
           setKeys(keysData);

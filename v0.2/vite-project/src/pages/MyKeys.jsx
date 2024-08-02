@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
+
 const MyKeys = () => {
   const userId = localStorage.getItem("authId");
   const [userKeysData, setUserKeysData] = useState([]);
@@ -11,7 +13,7 @@ const MyKeys = () => {
       try {
         // Vérifier les relations existantes par user dans userkeys
         const relationUserKeyResponse = await fetch(
-          `http://localhost:3005/userkeys?userId=${userId}&possess=true`
+          `${apiUrl}userkeys?userId=${userId}&possess=true`
         );
 
         if (relationUserKeyResponse.ok) {
@@ -20,7 +22,7 @@ const MyKeys = () => {
 
           // Charger les données de la clé
           try {
-            const response = await fetch(`http://localhost:3005/keys`);
+            const response = await fetch(`${apiUrl}keys`);
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
             }

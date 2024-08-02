@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../components/avatarModal";
 
+const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
+
 const Profile = () => {
   const userId = localStorage.getItem("authId");
 
@@ -18,7 +20,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async (userId) => {
       try {
-        const response = await fetch(`http://localhost:3005/users/${userId}`);
+        const response = await fetch(`${apiUrl}users/${userId}`);
         const data = await response.json();
 
         if (response.ok) {
@@ -42,7 +44,7 @@ const Profile = () => {
   useEffect(() => {
     const updateAvatarInDatabase = async (userId, avatarUrl) => {
       try {
-        const response = await fetch(`http://localhost:3005/users/${userId}`, {
+        const response = await fetch(`${apiUrl}users/${userId}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

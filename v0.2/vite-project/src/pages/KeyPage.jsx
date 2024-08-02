@@ -4,6 +4,8 @@ import GoBackButton from "../components/goBackButton";
 import KeyCarousel from "../components/carousel";
 //import { useAuth } from "../components/authContext";
 
+const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
+
 const KeyPage = () => {
   const { keyId } = useParams();
   const [keyData, setKeyData] = useState(null);
@@ -17,7 +19,7 @@ const KeyPage = () => {
     const fetchData = async () => {
       try {
         // Charger les données de la clé
-        const response = await fetch(`http://localhost:3005/keys/${keyId}`);
+        const response = await fetch(`${apiUrl}keys/${keyId}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -26,7 +28,7 @@ const KeyPage = () => {
 
         // Vérifier si la relation existe déjà dans userkeys
         const userKeyResponse = await fetch(
-          `http://localhost:3005/userkeys?userId=${userId}&keyId=${keyId}`
+          `${apiUrl}userkeys?userId=${userId}&keyId=${keyId}`
         );
 
         if (userKeyResponse.ok) {
@@ -61,7 +63,7 @@ const KeyPage = () => {
   const handleCheckboxChange = async (checkboxType) => {
     try {
       const currentUserKeyResponse = await fetch(
-        `http://localhost:3005/userkeys?userId=${userId}&keyId=${keyId}`
+        `${apiUrl}userkeys?userId=${userId}&keyId=${keyId}`
       );
 
       let relationFound = true;
@@ -79,7 +81,7 @@ const KeyPage = () => {
 
       if (relationFound === false) {
         const newUserKeyResponse = await fetch(
-          "http://localhost:3005/userkeys",
+          `${apiUrl}userkeys`,
           {
             method: "POST",
             headers: {
@@ -118,7 +120,7 @@ const KeyPage = () => {
         //console.log("newDataPatched : ", newData);
 
         const patchResponse = await fetch(
-          `http://localhost:3005/userkeys/${userKeyId}`,
+          `${apiUrl}userkeys/${userKeyId}`,
           {
             method: "PATCH",
             headers: {
