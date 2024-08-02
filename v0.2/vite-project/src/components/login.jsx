@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
+
 const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -22,7 +24,7 @@ const LoginPage = () => {
 
     try {
       // Envoi de la requête pour se connecter
-      const response = await fetch("http://localhost:3005/users/login", {
+      const response = await fetch(`${apiUrl}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
