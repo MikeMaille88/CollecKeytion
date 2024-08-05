@@ -1,6 +1,6 @@
 // login.jsx
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
 

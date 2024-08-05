@@ -1,6 +1,6 @@
 //itemMod.jsx
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
 
