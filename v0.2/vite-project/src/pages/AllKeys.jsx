@@ -1,4 +1,4 @@
-// AllKeys.jsx page
+// AllKeys.jsx
 import React, { useState, useEffect } from "react";
 import KeyCard from "../components/keyCard";
 
