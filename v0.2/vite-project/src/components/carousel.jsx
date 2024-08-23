@@ -39,7 +39,7 @@ export const CustomPrevArrow = (props) => {
   return (
     <div
       className={
-        className + " absolute left-10 top-1/2 transform -translate-y-1/2"
+        className + " absolute left-10 top-1/2 transform -translate-y-1/2 z-10"
       }
       onClick={onClick}
     >
