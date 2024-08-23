@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 //Importe les chemins d'accès à toutes les images
-const imagesFiles = import.meta.globEager("/Images/Avatars/*");
+const imagesFiles = import.meta.globEager("../../public/Images/Avatars/*");
 const imagesPaths = Object.keys(imagesFiles);
 
 const Modal = ({ onAvatarSelect }) => {
@@ -68,6 +68,7 @@ const Modal = ({ onAvatarSelect }) => {
 
             <div className="grid grid-cols-7 m-5">
               {imagesPaths.map((image, index) => (
+                console.log(image),
                 <img
                   className={`h-20 border-4 rounded-full ${
                     selectedAvatar === image ? "border-blue-600" : "border-white hover:border-blue-600"
