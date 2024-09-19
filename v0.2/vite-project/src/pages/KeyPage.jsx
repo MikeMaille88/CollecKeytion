@@ -160,48 +160,55 @@ const KeyPage = () => {
   return (
     <>
       <GoBackButton />
-      <div className="bg-slate-700 min-h-screen flex items-center justify-center">
-        <div className="mx-auto grid grid-cols-1 items-center gap-x-8 gap-y-16 px-4  sm:px-6  lg:max-w-7xl lg:grid-cols-2 lg:px-8 mt-n-8">
+      <div className="bg-slate-700 min-h-screen flex justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-8">
           <div>
-            <dl className="grid grid-cols-1 gap-x-6 gap-y-10  sm:gap-y-16 lg:gap-x-8">
+            <dl className="grid grid-cols-1 gap-x-6 gap-y-10 sm:gap-y-16 lg:gap-x-8">
               <div key={keyData.name}>
-                <dt className="font-medium text-gray-300 text-center">
-                  {keyData.name} Key
-                </dt>
                 <dd className="mt-2 text-sm text-gray-200">
                   <KeyCarousel images={keyData.image} />
                 </dd>
               </div>
             </dl>
           </div>
-          <div className="h-96 grid grid-cols-1 grid-rows-4 gap-4 sm:gap-6 lg:gap-8  text-gray-200">
+  
+          {/* Conteneur principal pour la bannière et autres détails */}
+          <div className="flex flex-col gap-6 text-gray-200">
+            {/* Ajustez l'image de la bannière */}
+            <div className="flex items-center justify-center mt-2">
+              <img
+                className="rounded-lg w-full h-64 object-cover"
+                src={`${keyData.image.banner}`}
+                alt={keyData.name}
+              />
+            </div>
+  
+            {/* Texte et informations supplémentaires */}
             <h2 className="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
               {keyData.name}
             </h2>
             <p className="text-gray-200 mt-4">{keyData.description}</p>
-            <p className="mt-20">Retail Price : €{keyData.price}</p>
-            <p className="mt-10">Limited Edition : {keyData.limited} ex.</p>
-            <p className="mt-0">Land : {keyData.land}</p>
-            <p className="mt-5">
-              Have it{" "}
+            <p className="mt-4">Retail Price : €{keyData.price}</p>
+            <p>Limited Edition : {keyData.limited} ex.</p>
+            <p>Land : {keyData.land}</p>
+  
+            {/* Checkbox pour les possessions */}
+            <p className="mt-4 flex items-center space-x-4">
+              <span>Have it</span>
               <input
                 id="possessCheckbox"
-                aria-describedby="possessCheckbox"
                 type="checkbox"
                 checked={possess}
                 onChange={() => handleCheckboxChange("possess")}
                 className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                required=""
-              />{" "}
-              In double{" "}
+              />
+              <span>In double</span>
               <input
                 id="possessDoubleCheckbox"
-                aria-describedby="possessDoubleCheckbox"
                 type="checkbox"
                 checked={possessDouble}
                 onChange={() => handleCheckboxChange("possessDouble")}
                 className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                required=""
               />
             </p>
           </div>
@@ -209,6 +216,7 @@ const KeyPage = () => {
       </div>
     </>
   );
+  
 };
 
 export default KeyPage;

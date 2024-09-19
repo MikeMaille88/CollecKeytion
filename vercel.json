@@ -3,13 +3,19 @@
     "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/"
+      "destination": "/index.html",
+      "has": [
+        { "type": "file", "value": "/$1" }
+      ]
     }
   ],
   "routes": [
     {
       "src": "^/[^.]+$", 
       "dest": "/index.html"
+    },
+    {
+      "handle": "filesystem"
     }
   ]
 }

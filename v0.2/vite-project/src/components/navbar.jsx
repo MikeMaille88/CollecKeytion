@@ -30,6 +30,7 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const userId = localStorage.getItem("authId");
+  const [isAdmin, setIsAdmin] = useState(false);
   const [landMenuOpen, setLandMenuOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState(
     "/Images/Avatars/avatar_default.jpg"
@@ -43,6 +44,7 @@ export default function Navbar() {
 
         if (response.ok) {
           setAvatarUrl(data.avatar || "/Images/Avatars/avatar_default.jpg");
+          setIsAdmin(data.admin || false);
         } else {
           console.error(data.message);
         }
@@ -217,18 +219,23 @@ export default function Navbar() {
                           </Link>
                         )}
                       </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link to="/adminpage"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Admin Page
-                          </Link>
-                        )}
-                      </Menu.Item>
+
+                      {isAdmin && ( // Afficher ce lien uniquement si l'utilisateur est admin
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to="/adminpage"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Admin Page
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      )}
+                      
                       <Menu.Item>
                         {({ active }) => (
                           <Link to="/login"
