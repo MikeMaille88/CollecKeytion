@@ -17,20 +17,25 @@ export default function KeyCarousel({ images }) {
 
   return (
     <Slider {...settings}>
-      {Object.values(images).map((image, index) => (
-        <div key={index} className="relative">
-          <img
-            //Affichage Mongo seul
-            //src={`/src/images/${image}`}
-            //Affichage Cloudinary
-            src={image}
-            alt={`image ${index + 1}`}
-            className="mx-auto w-3/4 h-auto object-cover"
-          />
-        </div>
-      ))}
+      {Object.entries(images)
+        .sort(([keyA], [keyB]) => {
+          // Place "inBox" en premier
+          if (keyA === "inBox") return -1;
+          if (keyB === "inBox") return 1;
+          return 0;
+        })
+        .map(([key, image], index) => (
+          <div key={index} className="relative">
+            <img
+              src={image}
+              alt={`image ${key}`}
+              className="mx-auto w-3/4 h-auto object-cover"
+            />
+          </div>
+        ))}
     </Slider>
   );
+  
 }
 
 // CustomPrevArrow.jsx

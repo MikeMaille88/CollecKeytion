@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+@font-face {
+  font-family: 'Albra';
+  src: url('/fonts/AlbraTRIAL-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}

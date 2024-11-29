@@ -10,6 +10,10 @@ const KeySchema = Schema(
       type: String,
       required: [true, "Please enter a Key name"],
     },
+    releaseDate: {
+      type: Date,
+      required: true,
+    },
     price: {
       type: Number,
       required: true,

@@ -1,0 +1,44 @@
+.svg-land-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .svg-map {
+    width: 90%;
+    max-width: 1000px;
+  }
+  
+  .land-link {
+    cursor: pointer;
+    transition: fill 0.3s ease;
+  }
+  
+  .land-link:hover {
+    fill: #ff4500; /* Change la couleur au survol */
+  }
+  
+  .castle-link {
+    cursor: pointer;
+  }
+  
+  .castle-link:hover .castle {
+    transform: scale(1.1);
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  

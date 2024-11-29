@@ -5,9 +5,27 @@ import { Link } from "react-router-dom";
 const KeyCard = ({ keyData }) => {
   return (
     <>
-      <div className="max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <Link to={`/keys/${keyData._id}`}>
+      <div className="relative w-full max-w-xs p-4 transition duration-300 ease-in-out hover:scale-110">
+      <div className="relative">
+        <img
+          className="rounded-lg shadow-lg w-full"
+          src={keyData.image.inBox}
+          alt={keyData.name}
+          style={{ boxShadow: "6px 6px 12px rgba(0, 0, 0, 0.25)" }}
+        />
+        {/* Overlay avec gradient et texte */}
+        <div className="absolute inset-0 flex flex-col justify-end rounded-lg bg-gradient-to-t from-black via-transparent to-transparent p-4 transition duration-300 ease-in-out hover:shadow-[0px_0px_20px_6px_rgba(186,85,211,0.7)]">
+          <h3 className="text-lg text-white font-albra">{keyData.name}</h3>
+          <p className="text-gray-500 text-sm font-albra"><em>{keyData.land}</em></p>
+        </div>
+      </div>
+    </div>
+    </Link>
+
+      {/* <div className="max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transition duration-300 ease-in-out hover:scale-105">
         <Link to={`/keys/${keyData._id}`}>
-          <div className="flex items-center justify-center mt-6">
+          <div className="flex items-center justify-center">
             <img
               className="rounded-lg"
               //src={`/src/images/${keyData.image.inBox}`}
@@ -53,7 +71,7 @@ const KeyCard = ({ keyData }) => {
             </svg>
           </Link>
         </div>
-      </div>
+      </div> */}
 
       {/* <div key={keyData._id} className="group relative">
       <Link to={`/keys/${keyData._id}`}>
@@ -75,7 +93,7 @@ const KeyCard = ({ keyData }) => {
           </div>
         </div>
       </Link>
-    </div> */}
+      </div> */}
     </>
   );
 };

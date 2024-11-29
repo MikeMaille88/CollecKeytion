@@ -178,7 +178,7 @@ const KeyPage = () => {
             <div className="flex items-center justify-center mt-2">
               <img
                 className="rounded-lg w-full h-64 object-cover"
-                src={`${keyData.image.banner}`}
+                src={`${keyData.banner}`}
                 alt={keyData.name}
               />
             </div>

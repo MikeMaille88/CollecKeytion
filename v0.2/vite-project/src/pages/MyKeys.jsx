@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
 
+const transformImageUrl = (url, width, height) => {
+  return url.replace(
+    '/upload/',
+    `/upload/f_auto,q_auto,w_${width},h_${height}/`
+  );
+};
+
 const MyKeys = () => {
   const userId = localStorage.getItem("authId");
   const [userKeysData, setUserKeysData] = useState([]);
@@ -40,36 +47,80 @@ const MyKeys = () => {
     fetchData();
   }, [userId]);
 
-  return (
-    <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-7 xl:grid-cols-10 bg-slate-700 p-20">
-      {userKeysData.map((relationData) => {
-        const correspondingKey = keysData.find(
-          (key) => key._id === relationData.keyId
-        );
 
-        if (correspondingKey) {
-          return (
-            <Link
-              key={correspondingKey._id}
-              to={`/keys/${correspondingKey._id}`}
-            >
-              <div className="relative p-3 border-4 border-amber-900 bg-amber-950">
-                <img
-                  className="w-full h-full object-cover"
-                  //Affichage Mongo seul
-                  // src={`/src/images/${correspondingKey.image.withoutBox}`}
-                  //Affichage Cloudinary
-                  src={correspondingKey.image.withoutBox}
-                  alt={correspondingKey.name}
-                />
-              </div>
-            </Link>
-          );
-        }
-        return null;
-      })}
-    </div>
+  // Filtre des clés valides pour éviter les données inutiles
+  const validKeys = userKeysData.filter((relationData) =>
+    keysData.some((key) => key._id === relationData.keyId)
   );
+
+  // Diviser les clés en groupes de 12 pour chaque boîte
+  const groupedKeys = [];
+  for (let i = 0; i < validKeys.length; i += 12) {
+    groupedKeys.push(validKeys.slice(i, i + 12));
+  }
+
+  return (
+    <div className="bg-slate-700 p-10 flex justify-center">
+      <div className="flex flex-wrap gap-0 justify-center">
+        {groupedKeys.map((keysGroup, index) => (
+          <div
+            key={index}
+            className="relative flex justify-center items-center"
+            style={{
+              width: "500px", 
+              height: "800px", 
+              backgroundImage: `url(${transformImageUrl(
+                "https://res.cloudinary.com/colleckeytion/image/upload/v1732638813/CollecKeytion/others/atmosphera_keybox_preview_rev_1_romzk7.png",
+                500,
+                800
+              )})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              margin: "-20px", 
+            }}
+          >
+            <div 
+              className="grid grid-cols-4 grid-rows-3 gap-y-5 w-full h-full"
+              style={{
+                width: "470px",
+                height: "710px",
+                padding_left: "25px",
+                padding_right: "15px",
+              }}>
+              {keysGroup.map((relationData, i) => {
+                const ownedKey = keysData.find(
+                  (key) => key._id === relationData.keyId
+                );
+
+                return (
+                  ownedKey && (
+                    <Link
+                      key={ownedKey._id}
+                      to={`/keys/${ownedKey._id}`}
+                      className="relative flex items-center justify-center"
+                      style={{ width: "110px", height: "200px" }}
+                    >
+                      <img
+                        className="w-full h-full object-cover"
+                        src={transformImageUrl(
+                          ownedKey.image.withoutBox,
+                          130,
+                          200
+                        )}
+                        alt={ownedKey.name}
+                        loading="lazy"
+                      />
+                    </Link>
+                  )
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );  
 };
 
 export default MyKeys;

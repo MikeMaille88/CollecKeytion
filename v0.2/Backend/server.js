@@ -11,8 +11,9 @@ const userRoute = require("./routes/userRoutes");
 const userKeysRoute = require("./routes/userKeysRoutes");
 
 const corsOption = {
-  origin: "*",
-  method: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  origin: ["https://colleckeytion.vercel.app", "http://localhost:5173"], // Ajoutez toutes les origines nécessaires
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"], // Méthodes autorisées
+  allowedHeaders: ["Content-Type", "Authorization"], // En-têtes autorisés
 };
 
 // Connexion à la base de données MongoDB
@@ -24,7 +25,7 @@ mongoose
   })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch((e) => console.log("Connexion à MongoDB échouée !" + e));
-console.log("prout");
+
 app.use(express.json()); // Middleware pour analyser le contenu JSON des requêtes
 app.use(cors(corsOption));
 app.use("/keys", keyRoute); // Utilisez le routeur keyRoute pour gérer les routes commençant par '/key'
@@ -35,6 +36,7 @@ app.use("/userkeys", userKeysRoute); // Utilisez le routeur userKeysRoute pour g
 app.get("/", async (req, res) => {
   console.log(req.query); // Affiche les paramètres de la requête dans la console
   console.log(res);
+  res.status(200).json({ message: "Bienvenue sur l'API CollecKeytion!" });
 });
 
 // Gestion des requêtes GET pour toutes les autres routes
@@ -45,11 +47,10 @@ app.get("*", (req, res) => {
 
 // Gestion des requêtes POST pour le chemin racine
 app.post("/", (req, res) => {
-  console.log(req.body); // Affiche le corps de la requête POST dans la console
-  res.send("ok"); // Répond avec 'ok'
-  res.status(404).json({ error: "Route not found" });
+  console.log(req.body);
+  res.status(200).json({ message: "Requête POST reçue." });
 });
-console.log("listen listen to me");
+
 // Démarrage du serveur Express
 app.listen(process.env.PORT, () => {
   console.log(
