@@ -74,36 +74,39 @@ router.post("/", validateUser, handleValidationErrors, async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("Début de la connexion");
 
-    // Recherchez l'utilisateur par son email
     const user = await User.findOne({ email });
+    console.log("Utilisateur trouvé :", user);
 
-    // Vérifiez si l'utilisateur existe
     if (!user) {
+      console.log("Identifiants invalides");
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // Utilisez bcrypt pour comparer les mots de passe
     const passwordMatch = await bcrypt.compare(password, user.password);
+    console.log("Mot de passe vérifié :", passwordMatch);
 
     if (passwordMatch) {
-      // Génère un jeton d'authentification et le renvoie au client
       const authToken = user.generateAuthTokenAndSaveUser();
+      console.log("Jeton généré :", authToken);
 
-      // Révoquer tous les anciens tokens
       await User.updateOne(
         { _id: user._id },
-        { $pull: { authTokens: { $ne: authToken } } }
+        { $set: { authTokens: [authToken] } }
       );
 
+      console.log("Jeton sauvegardé avec succès");
       res.json({ authToken, userId: user._id });
     } else {
       res.status(401).json({ message: "Invalid credentials" });
     }
   } catch (error) {
+    console.error("Erreur :", error.message);
     res.status(500).json({ error: error.message });
   }
 });
+
 
 // Route pour mettre à jour un utilisateur
 router.patch("/:id", async (req, res) => {
