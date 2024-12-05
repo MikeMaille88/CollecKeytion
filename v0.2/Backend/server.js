@@ -11,7 +11,7 @@ const userRoute = require("./routes/userRoutes");
 const userKeysRoute = require("./routes/userKeysRoutes");
 
 const corsOption = {
-  origin: ["https://colleckeytion.vercel.app", "http://localhost:5173"], // Ajoutez toutes les origines nécessaires
+  origin: ["https://colleckeytion.vercel.app", "https://colleckeytionbackend-mikemaille88s-projects.vercel.app", "http://localhost:5173"], // Ajoutez toutes les origines nécessaires
   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"], // Méthodes autorisées
   allowedHeaders: ["Content-Type", "Authorization"], // En-têtes autorisés
 };
