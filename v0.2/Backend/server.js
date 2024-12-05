@@ -32,6 +32,8 @@ mongoose
 
 app.use(express.json()); // Middleware pour analyser le contenu JSON des requêtes
 app.use(cors(corsOption));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://colleckeytion.vercel.app');});
 app.use("/keys", keyRoute); // Utilisez le routeur keyRoute pour gérer les routes commençant par '/key'
 app.use("/users", userRoute); // Utilisez le routeur userRoute pour gérer les routes commençant par '/users'
 app.use("/userkeys", userKeysRoute); // Utilisez le routeur userKeysRoute pour gérer les routes commençant par '/userkeys'
