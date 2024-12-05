@@ -17,13 +17,17 @@ const corsOption = {
 };
 
 // Connexion à la base de données MongoDB
+console.time("MongoDB Connection Time");
 mongoose
   .connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     dbName: "CollecKeytion",
   })
-  .then(() => console.log("Connexion à MongoDB réussie !"))
+  .then(() => {
+    console.timeEnd("MongoDB Connection Time");
+    console.log("Connexion MongoDB réussie !");
+  })
   .catch((e) => console.log("Connexion à MongoDB échouée !" + e));
 
 app.use(express.json()); // Middleware pour analyser le contenu JSON des requêtes
