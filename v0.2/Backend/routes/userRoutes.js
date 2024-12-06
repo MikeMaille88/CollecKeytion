@@ -93,7 +93,7 @@ router.post("/login", async (req, res) => {
 
       await User.updateOne(
         { _id: user._id },
-        { $set: { authTokens: [authToken] } }
+        { $set: { authTokens: [{ authToken }] } }
       );
 
       console.log("Jeton sauvegardé avec succès");
