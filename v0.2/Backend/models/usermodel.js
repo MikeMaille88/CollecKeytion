@@ -38,7 +38,6 @@ const userSchema = Schema({
     {
       authToken: {
         type: String,
-        required: true,
       },
     },
   ],
