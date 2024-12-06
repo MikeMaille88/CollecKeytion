@@ -88,7 +88,7 @@ router.post("/login", async (req, res) => {
     console.log("Mot de passe vérifié :", passwordMatch);
 
     if (passwordMatch) {
-      const authToken = user.generateAuthTokenAndSaveUser();
+      const authToken = await user.generateAuthTokenAndSaveUser();
       console.log("Jeton généré :", authToken);
 
       await User.updateOne(
