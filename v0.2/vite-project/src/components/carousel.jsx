@@ -4,6 +4,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+const transformImageUrl = (url, width, height) => {
+  return url.replace(
+    '/upload/',
+    `/upload/f_auto,q_auto,w_${width},h_${height}/`
+  );
+};
+
 export default function KeyCarousel({ images }) {
   const settings = {
     dots: true,
@@ -27,7 +34,11 @@ export default function KeyCarousel({ images }) {
         .map(([key, image], index) => (
           <div key={index} className="relative">
             <img
-              src={image}
+              src={transformImageUrl(
+                image,
+                500,
+                750
+              )}
               alt={`image ${key}`}
               className="mx-auto w-3/4 h-auto object-cover"
             />

@@ -2,15 +2,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+const transformImageUrl = (url, width, height) => {
+  return url.replace(
+    '/upload/',
+    `/upload/f_auto,q_auto,w_${width},h_${height}/`
+  );
+};
+
 const KeyCard = ({ keyData }) => {
   return (
     <>
     <Link to={`/keys/${keyData._id}`}>
       <div className="relative w-full max-w-xs p-4 transition duration-300 ease-in-out hover:scale-110">
       <div className="relative">
-        <img
+      <img
           className="rounded-lg shadow-lg w-full"
-          src={keyData.image.inBox}
+          src={transformImageUrl(
+            keyData.image.inBox,
+            300,
+            450
+          )}
+          // src={keyData.image.inBox}
           alt={keyData.name}
           style={{ boxShadow: "6px 6px 12px rgba(0, 0, 0, 0.25)" }}
         />
