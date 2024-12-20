@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import GoBackButton from "../components/goBackButton";
 import KeyCarousel from "../components/carousel";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 //import { useAuth } from "../components/authContext";
 
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
@@ -157,6 +159,11 @@ const KeyPage = () => {
     return <div>Loading...</div>;
   }
 
+  // Formatage de la date avec date-fns et la locale française
+  const formattedDate = keyData.releaseDate
+    ? format(new Date(keyData.releaseDate), "d MMMM yyyy", { locale: fr })
+    : "Date inconnue";
+
   return (
     <>
       <GoBackButton />
@@ -188,9 +195,10 @@ const KeyPage = () => {
               {keyData.name}
             </h2>
             <p className="text-gray-200 mt-4">{keyData.description}</p>
-            <p className="mt-4">Retail Price : €{keyData.price}</p>
-            <p>Limited Edition : {keyData.limited} ex.</p>
+            <p className="mt-4">Retail Price : {keyData.price}€</p>
+            <p>Edition limitée à : {keyData.limited} ex.</p>
             <p>Land : {keyData.land}</p>
+            <p>Date de sortie : {formattedDate}</p>
   
             {/* Checkbox pour les possessions */}
             <p className="mt-4 flex items-center space-x-4">

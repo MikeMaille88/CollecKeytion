@@ -16,7 +16,11 @@ const AllKeys = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        setKeys(data);
+
+        // Trier les clés par date de sortie
+        const sortedKeys = data.sort((a, b) => new Date(a.releaseDate) - new Date(b.releaseDate));
+        setKeys(sortedKeys);
+        
       } catch (error) {
         console.error("Error fetching keys:", error.message);
       }
