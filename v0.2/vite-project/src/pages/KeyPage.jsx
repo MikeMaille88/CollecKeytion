@@ -195,7 +195,7 @@ const KeyPage = () => {
               {keyData.name}
             </h2>
             <p className="text-gray-200 mt-4">{keyData.description}</p>
-            <p className="mt-4">Retail Price : {keyData.price}€</p>
+            <p className="mt-4">Prix de base : {keyData.price}€</p>
             <p>Edition limitée à : {keyData.limited} ex.</p>
             <p>Land : {keyData.land}</p>
             <p>Date de sortie : {formattedDate}</p>
