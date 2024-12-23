@@ -202,7 +202,7 @@ const KeyPage = () => {
   
             {/* Checkbox pour les possessions */}
             <p className="mt-4 flex items-center space-x-4">
-              <span>Have it</span>
+              <span>Je l'ai !</span>
               <input
                 id="possessCheckbox"
                 type="checkbox"
@@ -210,7 +210,7 @@ const KeyPage = () => {
                 onChange={() => handleCheckboxChange("possess")}
                 className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
               />
-              <span>In double</span>
+              <span>En double</span>
               <input
                 id="possessDoubleCheckbox"
                 type="checkbox"

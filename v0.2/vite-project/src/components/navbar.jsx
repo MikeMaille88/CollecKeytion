@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
 
 const navigation = [
-  { name: "My Keys", href: "/mykeys", current: false },
-  { name: "All Keys", href: "/allKeys", current: false },
+  { name: "Mes Clefs", href: "/mykeys", current: false },
+  { name: "Toutes les Clefs", href: "/allKeys", current: false },
   {
     name: "Lands",
     current: false,
@@ -70,7 +70,7 @@ export default function Navbar() {
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="absolute -inset-0.5" />
-                  <span className="sr-only">Open main menu</span>
+                  <span className="sr-only">Menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
                   ) : (
@@ -169,7 +169,7 @@ export default function Navbar() {
                   className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
+                  <span className="sr-only">Notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
@@ -177,7 +177,7 @@ export default function Navbar() {
                   <div>
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
-                      <span className="sr-only">Open user menu</span>
+                      <span className="sr-only">Menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
                         src={avatarUrl}
@@ -203,7 +203,7 @@ export default function Navbar() {
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            Your Profile
+                            Profil
                           </Link>
                         )}
                       </Menu.Item>
@@ -215,7 +215,7 @@ export default function Navbar() {
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            Settings
+                            Paramètres
                           </Link>
                         )}
                       </Menu.Item>
@@ -230,7 +230,7 @@ export default function Navbar() {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              Admin Page
+                              Admin
                             </Link>
                           )}
                         </Menu.Item>
@@ -247,7 +247,7 @@ export default function Navbar() {
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            Sign out
+                            Déconnexion
                           </Link>
                         )}
                       </Menu.Item>
