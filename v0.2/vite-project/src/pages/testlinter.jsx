@@ -1,5 +1,5 @@
 const TestComponent = () => {
-    // let unusedVar = 42;
+    let unusedVar = 42;
     return <div>Test</div>;
   };
   
