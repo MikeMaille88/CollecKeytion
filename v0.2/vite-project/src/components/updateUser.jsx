@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function UpdateUser({ match }) {
   const [formData, setFormData] = useState({

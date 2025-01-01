@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import GoBackButton from "../components/goBackButton";
 import KeyCarousel from "../components/carousel";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-//import { useAuth } from "../components/authContext";
 
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
 
@@ -13,8 +12,8 @@ const KeyPage = () => {
   const [keyData, setKeyData] = useState(null);
   const [possess, setPossess] = useState(false);
   const [possessDouble, setPossessDouble] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [userKeyId, setUserKeyId] = useState(null);
-  //const { userId } = useAuth();
   const userId = localStorage.getItem("authId");
 
   useEffect(() => {
@@ -202,7 +201,7 @@ const KeyPage = () => {
   
             {/* Checkbox pour les possessions */}
             <p className="mt-4 flex items-center space-x-4">
-              <span>Je l'ai !</span>
+              <span>Je l&apos;ai !</span>
               <input
                 id="possessCheckbox"
                 type="checkbox"

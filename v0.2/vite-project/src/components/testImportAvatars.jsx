@@ -1,4 +1,4 @@
-import React from "react";
+
 
 //Importe les chemins d'accès à toutes les images
 const imagesFiles = import.meta.globEager("../../public/Images/Avatars/*");

@@ -1,6 +1,6 @@
 //Admin.jsx
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ItemMod from "../components/itemMod";
@@ -101,6 +101,7 @@ const KeyList = ({ keys, setKeys }) => {
 };
 
 const AdminPage = () => {
+  // eslint-disable-next-line no-unused-vars
   const { keyId } = useParams();
   // Etat pour les utilisateurs
   const [users, setUsers] = useState([]);
@@ -223,7 +224,7 @@ const AdminPage = () => {
             <Route
               index
               element={
-                <div className="p-6">Bienvenue dans l'administration</div>
+                <div className="p-6">Bienvenue dans l&apos;administration</div>
               }
             />
           </Routes>

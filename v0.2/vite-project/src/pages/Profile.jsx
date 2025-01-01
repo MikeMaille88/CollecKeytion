@@ -1,5 +1,5 @@
 //Profile.jsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../components/avatarModal";
 
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;

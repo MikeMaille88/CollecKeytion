@@ -1,5 +1,5 @@
 // AllKeys.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import KeyCard from "../components/keyCard";
 
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;

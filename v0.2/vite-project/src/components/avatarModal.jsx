@@ -1,5 +1,5 @@
 //avatarModal.jsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 //Importe les chemins d'accès à toutes les images
 const imagesFiles = import.meta.globEager("../../public/Images/Avatars/*");

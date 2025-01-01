@@ -1,5 +1,5 @@
 //Home.jsx
-import React from "react";
+
 import LandCard from "../components/landCard";
 import DLPMap from "../components/dlpMap";
 import Header from "../components/header";

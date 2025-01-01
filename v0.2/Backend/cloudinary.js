@@ -1,6 +1,5 @@
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
-const glob = require("glob");
 
 // Return "https" URLs by setting secure: true
 cloudinary.config({

@@ -1,7 +1,6 @@
 //server.js
 
 const express = require("express");
-const path = require("path"); // Importe le module path pour gérer les chemins de fichiers
 require("dotenv").config(); // Charge les variables d'environnement depuis un fichier .env
 const mongoose = require("mongoose");
 const cors = require("cors");

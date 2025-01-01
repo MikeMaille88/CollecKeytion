@@ -1,5 +1,5 @@
 //landCard.jsx
-import React from "react";
+
 import { Link } from "react-router-dom";
 import adv from "/Images/Lands/adv_tr.png";
 import dis from "/Images/Lands/dis_tr.png";

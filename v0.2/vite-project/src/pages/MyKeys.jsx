@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
@@ -88,7 +88,7 @@ const MyKeys = () => {
                 padding_left: "25px",
                 padding_right: "15px",
               }}>
-              {keysGroup.map((relationData, i) => {
+              {keysGroup.map((relationData) => {
                 const ownedKey = keysData.find(
                   (key) => key._id === relationData.keyId
                 );

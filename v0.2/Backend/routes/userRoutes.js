@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const User = require("../models/usermodel");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
-const { check, body } = require("express-validator");
+const { check } = require("express-validator");
 const router = express.Router();
 
 // Middleware pour la validation des paramètres de création d'utilisateur
