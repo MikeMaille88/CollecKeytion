@@ -1,0 +1,28 @@
+name: ESLint Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18' # Adaptez à votre version de Node.js
+
+    - name: Install dependencies
+      run: npm ci # Utilisez `npm install` si vous n'avez pas de `package-lock.json`
+
+    - name: Run ESLint
+      run: npx eslint . # Vous pouvez spécifier un chemin particulier si besoin
