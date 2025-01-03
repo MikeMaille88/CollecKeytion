@@ -1,5 +1,3 @@
-//server.js
-
 const express = require("express");
 require("dotenv").config(); // Charge les variables d'environnement depuis un fichier .env
 const mongoose = require("mongoose");
@@ -10,7 +8,11 @@ const userRoute = require("./routes/userRoutes");
 const userKeysRoute = require("./routes/userKeysRoutes");
 
 const corsOption = {
-  origin: ["https://colleckeytion.vercel.app", "https://colleckeytionbackend-mikemaille88s-projects.vercel.app", "http://localhost:5173"], // Ajoutez toutes les origines nécessaires
+  origin: [
+    "https://colleckeytion.vercel.app",
+    "https://colleckeytionbackend-mikemaille88s-projects.vercel.app",
+    "http://localhost:5173",
+  ], // Ajoutez toutes les origines nécessaires
   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"], // Méthodes autorisées
   allowedHeaders: ["Content-Type", "Authorization"], // En-têtes autorisés
 };
@@ -37,28 +39,27 @@ app.use("/userkeys", userKeysRoute); // Utilisez le routeur userKeysRoute pour g
 
 // Gestion des requêtes GET pour le chemin racine
 app.get("/", async (req, res) => {
-  console.log(req.query); // Affiche les paramètres de la requête dans la console
-  console.log(res);
   res.status(200).json({ message: "Bienvenue sur l'API CollecKeytion!" });
 });
 
 // Gestion des requêtes GET pour toutes les autres routes
 app.get("*", (req, res) => {
-  console.log(req.body);
   res.status(404).json({ error: "Route not found" });
 });
 
 // Gestion des requêtes POST pour le chemin racine
 app.post("/", (req, res) => {
-  console.log(req.body);
   res.status(200).json({ message: "Requête POST reçue." });
 });
 
-// Démarrage du serveur Express
-app.listen(process.env.PORT, () => {
-  console.log(
-    `Le serveur Express est en cours d'écoute sur le port ${process.env.PORT} `
-  );
-});
-
+// Exporter l'application
 module.exports = app;
+
+// Démarrer le serveur si exécuté directement
+if (require.main === module) {
+  app.listen(process.env.PORT, () => {
+    console.log(
+      `Le serveur Express est en cours d'écoute sur le port ${process.env.PORT} `
+    );
+  });
+}

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 //Importe les chemins d'accès à toutes les images
-const imagesFiles = import.meta.globEager("../../public/Images/Avatars/*");
+const imagesFiles = import.meta.glob("../../public/Images/Avatars/*");
 const imagesPaths = Object.keys(imagesFiles).map(path => path.replace('../../public', ''));
 
 const Modal = ({ onAvatarSelect }) => {

@@ -9,4 +9,9 @@ export default defineConfig({
       'date-fns': 'date-fns',
     },
   },
+  test: {
+    globals: true, // Active les globales comme `test` et `expect`
+    environment: 'jsdom', // Définit l'environnement DOM
+    setupFiles: './src/setupTests.js', // Charge les fichiers de configuration
+  },
 })
