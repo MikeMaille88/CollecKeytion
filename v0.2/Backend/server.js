@@ -19,17 +19,23 @@ const corsOption = {
 
 // Connexion à la base de données MongoDB
 console.time("MongoDB Connection Time");
+
+const dbName =
+  process.env.NODE_ENV === "test" ? "test" : "CollecKeytion"; // Choisissez la base en fonction de l'environnement
+
 mongoose
   .connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: "CollecKeytion",
+    dbName: dbName, // Utilisez le nom de base correct
   })
   .then(() => {
     console.timeEnd("MongoDB Connection Time");
-    console.log("Connexion MongoDB réussie !");
+    console.log(`Connexion MongoDB réussie à la base ${dbName} !`);
   })
-  .catch((e) => console.log("Connexion à MongoDB échouée !" + e));
+  .catch((e) =>
+    console.log(`Connexion à MongoDB échouée pour la base ${dbName} !`, e)
+  );
 
 app.use(express.json()); // Middleware pour analyser le contenu JSON des requêtes
 app.use(cors(corsOption));

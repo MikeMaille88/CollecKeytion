@@ -132,7 +132,7 @@ router.patch("/:id", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.json(updatedUser);
+    res.json({ message: "User modified", updatedUser });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
