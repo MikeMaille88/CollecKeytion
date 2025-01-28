@@ -5,6 +5,7 @@ const User = require("../models/usermodel");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const { check } = require("express-validator");
+const { forgetPassword, resetPassword } = require('./controllers/forgotPassword.controller');
 const router = express.Router();
 
 // Middleware pour la validation des paramètres de création d'utilisateur
@@ -106,6 +107,10 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// Routes pour mettre à jour un mdp oublié
+router.post('/forgot-password', forgetPassword);
+router.post('/reset-password/:token', resetPassword);
 
 
 // Route pour mettre à jour un utilisateur
