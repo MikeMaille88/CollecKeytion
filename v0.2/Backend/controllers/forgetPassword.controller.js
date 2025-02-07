@@ -9,7 +9,7 @@ const forgetPassword = async (req, res) => {
     try {
       console.log("Requête reçue :", req.body);
       // Find the user by email
-      const { email } = req.body;
+      const { email, frontendUrl } = req.body;
       console.log("Recherche de l'email :", email); 
       const user = await User.findOne({ email });
       console.log("Résultat MongoDB :", user);
@@ -22,6 +22,8 @@ const forgetPassword = async (req, res) => {
   
       // Generate a unique JWT token for the user that contains the user's id
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {expiresIn: "10m",});
+
+      console.log("Token généré :", token); // 🔍 Vérifie si le token est bien généré
   
       // Send the token to the user's email
       const transporter = nodemailer.createTransport({
@@ -34,13 +36,16 @@ const forgetPassword = async (req, res) => {
       });
   
       // Email configuration
+      const resetUrl = `${frontendUrl}/reset/${token}`;
+      console.log("URL de réinitialisation :", resetUrl);
+
       const mailOptions = {
         from: process.env.EMAIL,
         to: req.body.email,
         subject: "CollecKeytion - Reset Password",
         html: `<h1>Reset Your Password</h1>
       <p>Click on the following link to reset your password:</p>
-      <a href="http://localhost:5173/reset/${token}">Reset Your Password</a>
+      <a href="${resetUrl}">Reset Your Password</a>
       <p>The link will expire in 10 minutes.</p>
       <p>If you didn't request a password reset, please ignore this email.</p>`,
       };

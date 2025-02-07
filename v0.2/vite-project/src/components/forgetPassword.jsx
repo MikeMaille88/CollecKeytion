@@ -1,17 +1,17 @@
 // forgetPassword.jsx
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
+const frontendUrl = import.meta.env.VITE_FRONTEND_URL;
 
 const ForgetPassword = () => {
   const [user, setUser] = useState({
-    email: ""
+    email: "",
+    frontendUrl: frontendUrl,
   });
   const [message, setMessage] = useState(""); // Gère le message de succès/erreur
   const [error, setError] = useState(""); // Gère le message d'erreur
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setUser({
