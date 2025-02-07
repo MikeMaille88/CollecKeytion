@@ -241,6 +241,7 @@ export default function Navbar() {
                           <Link to="/login"
                             onClick={() => {
                               localStorage.removeItem("authToken");
+                              localStorage.removeItem("authId");
                             }}
                             className={classNames(
                               active ? "bg-gray-100" : "",

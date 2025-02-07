@@ -1,61 +1,56 @@
-// login.jsx
+// resetPassword.jsx
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
 
-const LoginPage = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+const ResetPassword = () => {
+  const { token } = useParams(); // Récupère le token passé dans l'URL
+  console.log("Token extrait de l'URL :", token);
+
+  const [user, setUser] = useState({
+    email: ""
   });
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setUser({
+      ...user,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    if (user.password1 !== user.password2) {
+      console.error("Passwords do not match");
+      return;
+    }
+  
+    const data = {
+      newPassword: user.password1, // Envoi du bon champ
+    };
 
     try {
-      // Envoi de la requête pour se connecter
-      const response = await fetch(`${apiUrl}users/login`, {
+      const response = await fetch(`${apiUrl}users/resetPassword/${token}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data), // Envoi du bon format
       });
-
-      // Vérifie si la requête a réussi
+  
       if (response.ok) {
-        // Obtenez les données de la réponse
-        const data = await response.json();
-
-        // Stockez le jeton d'authentification où vous en avez besoin
-        // par exemple, vous pouvez le stocker dans le stockage local
-        //console.log(data.authToken);
-        localStorage.setItem("authToken", data.authToken);
-        console.log(data);
-        localStorage.setItem("authId", data.userId);
-        //alert("Vous êtes connecté");
-        // Redirection vers la page d'accueil après la connexion
         navigate("/");
-        window.location.href = "/";
-        console.log("Redirection vers la page d'accueil");
       } else {
-        console.error("Error logging user:", response.statusText);
-        alert("Identifiants incorrects");
+        console.error("Error resetting password:", response.statusText);
       }
     } catch (error) {
-      console.error("Error logging user:", error.message);
+      console.error("Error:", error.message);
     }
-  };
+  };  
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -65,22 +60,18 @@ const LoginPage = () => {
         >
           <img
             className="w-20 h-20 mr-2"
-            src="Images/CollecKeytion_Logo.png"
+            src="/Images/CollecKeytion_Logo.png"
             alt="logo"
           />
-          CollecKeytion
+          CollecKeytion{" "}
         </Link>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Sign in to your account
+              I forgot my password
             </h1>
-            <form
-              className="space-y-4 md:space-y-6"
-              action="#"
-              onSubmit={handleSubmit}
-            >
-              <div>
+            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+              {/* <div>
                 <label
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -91,69 +82,61 @@ const LoginPage = () => {
                   type="email"
                   name="email"
                   id="email"
-                  value={formData.email}
+                  value={user.email}
                   onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@company.com"
                   required=""
                 />
-              </div>
+              </div> */}
               <div>
                 <label
-                  htmlFor="password"
+                  htmlFor="password1"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Password
+                  New Password
                 </label>
                 <input
                   type="password"
-                  name="password"
-                  id="password"
-                  value={formData.password}
+                  name="password1"
+                  id="password1"
+                  value={user.password1}
                   onChange={handleChange}
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required=""
                 />
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      required=""
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="remember"
-                      className="text-gray-500 dark:text-gray-300"
-                    >
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-                <Link to="/forget"
-                  className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+              <div>
+                <label
+                  htmlFor="password2"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Forgot password?
-                </Link>
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  name="password2"
+                  id="password2"
+                  value={user.password2}
+                  onChange={handleChange}
+                  placeholder="••••••••"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  required=""
+                />
               </div>
               <button
                 type="submit"
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Sign in
+                Reset my password
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don&apos;t have an account yet?{" "}
-                <Link to="/registration"
+                Already have an account?{" "}
+                <Link to="/login"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
-                  Sign up
+                  Login here
                 </Link>
               </p>
             </form>
@@ -164,4 +147,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ResetPassword;
