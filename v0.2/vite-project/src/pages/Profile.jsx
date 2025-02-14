@@ -38,6 +38,41 @@ const Profile = () => {
     }
   }, [userId, selectedAvatarUrl]);
 
+  useEffect(() => {
+    const updateAvatarInDatabase = async (userId, avatarUrl) => {
+      try {
+        const response = await fetch(`${apiUrl}users/${userId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ avatar: avatarUrl }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Mettre à jour l'état local immédiatement après la mise à jour réussie
+          setUserData((prevUserData) => ({
+            ...prevUserData,
+            avatar: avatarUrl,
+          }));
+          console.log(data.message);
+          // Recharge la page après la mise à jour réussie
+          window.location.reload();
+        } else {
+          console.error(data.message);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour de l'avatar", error);
+      }
+    };
+
+    if (selectedAvatarUrl) {
+      updateAvatarInDatabase(userId, selectedAvatarUrl);
+    }
+  }, [selectedAvatarUrl, userId]);
+
   const handleDeleteAccount = async () => {
     try {
       const response = await fetch(`${apiUrl}users/${userId}`, {
