@@ -79,8 +79,14 @@ const Profile = () => {
         method: "DELETE",
       });
 
+      const result = await response.json(); // 🔥 Ajout pour voir la réponse
+
+      console.log("Réponse du serveur :", result); // 🔍 Vérifie la réponse du backend
+
       if (response.ok) {
+        alert("Votre compte a bien été supprimé !");
         localStorage.removeItem("authId");
+        localStorage.removeItem("authToken");
         window.location.href = "/login";
       } else {
         console.error("Erreur lors de la suppression du compte");

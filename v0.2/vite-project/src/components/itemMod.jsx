@@ -136,8 +136,9 @@ const ItemMod = ({ type }) => {
           <div className="flex items-center justify-center mt-6">
             {type === "user" ? (
               <img
-                className="rounded-lg"
-                src={`/src/images/${modifiedData.avatar}`}
+                className="rounded-md h-96 w-auto"
+                src={modifiedData.avatar}
+                // src={`/src/images/${modifiedData.avatar}`}
                 alt={modifiedData.username}
               />
             ) : (

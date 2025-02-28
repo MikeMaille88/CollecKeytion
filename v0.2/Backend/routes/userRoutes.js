@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const User = require("../models/usermodel");
+const UserKeys = require("../models/userkeysmodel");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const { check } = require("express-validator");
@@ -143,14 +144,35 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-// Route pour supprimer un utilisateur
+// Route pour supprimer un utilisateur et ses clés associées
 router.delete("/:id", async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.params.id);
-    res.json({ message: "User deleted" });
+    const userId = req.params.id;
+
+    // Vérifie si l'ID est valide
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "ID utilisateur invalide" });
+    }
+
+    // Convertir userId en ObjectId
+    const objectIdUser = new mongoose.Types.ObjectId(userId);
+
+    // 🔥 Supprimer toutes les entrées userkeys associées à cet utilisateur
+    const deletedKeys = await UserKeys.deleteMany({ userId: objectIdUser });
+    console.log(`${deletedKeys.deletedCount} userKeys supprimées pour l'utilisateur ${userId}`);
+
+    // 🔥 Supprimer l'utilisateur
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
+    }
+
+    res.json({ message: "Utilisateur et ses clés supprimés avec succès" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Erreur serveur", error });
   }
 });
+
 
 module.exports = router;

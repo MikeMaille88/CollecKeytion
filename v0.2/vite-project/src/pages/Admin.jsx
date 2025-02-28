@@ -8,7 +8,7 @@ import CreateKey from "../components/createKey";
 
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
 
-// Fonction générique pour gérer la suppression d'un élément (utilisateur ou clé)
+// Fonction générique pour gérer la suppression d'un élément (utilisateur ou clef)
 const handleDelete = async (type, id, setFunction) => {
   const endpoint = type === "user" ? "users" : "keys";
 
@@ -37,14 +37,14 @@ const UserList = ({ users, setUsers }) => (
         <li key={user._id} className="mb-2 flex items-center ">
           <div className="flex items-center">
             <img
-              src={`/src/images/${user.avatar}`}
+              src={user.avatar}
               alt={user.username}
               className="w-16 h-16 object-cover rounded-full mr-4"
             />
           </div>
           <div>
             <h3 className="text-lg font-semibold">{user.username}</h3>
-            <p className="text-gray-600">{user.email}</p>
+            <p className="text-gray-400">{user.email}</p>
           </div>
           <div className="flex ml-auto">
             <Link to={`/adminpage/edit-user/${user._id}`} className="mr-2">
@@ -67,7 +67,7 @@ const KeyList = ({ keys, setKeys }) => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Liste des Clés</h2>
+      <h2 className="text-2xl font-bold mb-4">Liste des Clefs</h2>
       <ul>
         {keys.map((key) => (
           <li key={key._id} className="mb-4 flex items-center justify-between">
@@ -81,16 +81,16 @@ const KeyList = ({ keys, setKeys }) => {
               />
               <div>
                 <h3 className="text-lg font-semibold">{key.name}</h3>
-                <p className="text-gray-600">{key.land}</p>
+                <p className="text-gray-400">{key.land}</p>
               </div>
             </div>
             <div className="flex">
               <Link to={`/adminpage/edit-key/${key._id}`} className="mr-2">
-                {/* Icône pour modifier la clé */}
+                {/* Icône pour modifier la clef */}
                 🖊️
               </Link>
               <button onClick={() => handleDelete("key", key._id, setKeys)}>
-                {/* Icône pour supprimer la clé */}❌
+                {/* Icône pour supprimer la clef */}❌
               </button>
             </div>
           </li>
@@ -170,13 +170,13 @@ const AdminPage = () => {
       </div>
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-slate-700">
           <Routes>
             {/* Route pour afficher la liste des utilisateurs */}
             <Route
               path="users"
               element={
-                <div key="userList" className="p-6">
+                <div key="userList" className="p-6 text-white">
                   <UserList users={users} setUsers={setUsers} />
                 </div>
               }
@@ -186,7 +186,7 @@ const AdminPage = () => {
             <Route
               path="keys"
               element={
-                <div key="keyList" className="p-6">
+                <div key="keyList" className="p-6 text-white">
                   <KeyList keys={keys} setKeys={setKeys} />
                 </div>
               }
@@ -196,7 +196,7 @@ const AdminPage = () => {
             <Route
               path="createKey"
               element={
-                <div key="createKey" className="p-6">
+                <div key="createKey" className="p-6 text-white">
                   <CreateKey />
                 </div>
               }
@@ -224,7 +224,7 @@ const AdminPage = () => {
             <Route
               index
               element={
-                <div className="p-6">Bienvenue dans l&apos;administration</div>
+                <div className="p-6 text-white">Bienvenue dans l&apos;administration</div>
               }
             />
           </Routes>
