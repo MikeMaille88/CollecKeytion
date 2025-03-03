@@ -73,22 +73,23 @@ describe("Tests des endpoints User (PATCH et DELETE)", () => {
       useUnifiedTopology: true,
       dbName: "test",
     });
-    // Insérez un utilisateur de test dans la base
+
+    // Supprime tout utilisateur existant avec le même username pour éviter le conflit
+    await mongoose.connection.collection("users").deleteMany({ username: "patchuser" });
+
+    // Insérez un utilisateur de test
     const user = await mongoose.connection.collection("users").insertOne({
       username: "patchuser",
       email: "patchuser@test.com",
       password: "password123",
     });
-    userId = user.insertedId; // Récupérez l'ID de l'utilisateur pour les tests
-  });
 
-  afterEach(async () => {
-    // Nettoyez la collection après chaque test
-    await mongoose.connection.collection("users").deleteMany({});
+    userId = user.insertedId; // Stocke l'ID pour les tests PATCH et DELETE
   });
 
   afterAll(async () => {
-    // Fermez la connexion à MongoDB une fois les tests terminés
+    // Supprime les utilisateurs et ferme la connexion à MongoDB une fois les tests terminés
+    await mongoose.connection.collection("users").deleteMany({});
     await mongoose.connection.close();
   });
 

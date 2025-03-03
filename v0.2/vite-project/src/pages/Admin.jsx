@@ -75,7 +75,7 @@ const KeyList = ({ keys, setKeys }) => {
               <img
                 //src={`/src/images/${key.image.inBox}`}
                 // Affichage url cloudinary
-                src={`${key.image.inBox}`}
+                src={key.image?.inBox || "https://res.cloudinary.com/colleckeytion/image/upload/v1741006301/CollecKeytion/others/key_placeholder.jpg"}
                 alt={key.name}
                 className="w-16 h-16 object-cover rounded-full mr-4"
               />

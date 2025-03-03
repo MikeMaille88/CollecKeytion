@@ -158,8 +158,8 @@ router.delete("/:id", async (req, res) => {
     const objectIdUser = new mongoose.Types.ObjectId(userId);
 
     // 🔥 Supprimer toutes les entrées userkeys associées à cet utilisateur
-    const deletedKeys = await UserKeys.deleteMany({ userId: objectIdUser });
-    console.log(`${deletedKeys.deletedCount} userKeys supprimées pour l'utilisateur ${userId}`);
+    // const deletedKeys = await UserKeys.deleteMany({ userId: objectIdUser });
+    // console.log(`${deletedKeys.deletedCount} userKeys supprimées pour l'utilisateur ${userId}`);
 
     // 🔥 Supprimer l'utilisateur
     const deletedUser = await User.findByIdAndDelete(userId);
@@ -168,7 +168,7 @@ router.delete("/:id", async (req, res) => {
       return res.status(404).json({ message: "Utilisateur non trouvé" });
     }
 
-    res.json({ message: "Utilisateur et ses clés supprimés avec succès" });
+    res.json({ message: "User deleted" });
   } catch (error) {
     res.status(500).json({ message: "Erreur serveur", error });
   }

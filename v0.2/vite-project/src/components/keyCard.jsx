@@ -18,12 +18,12 @@ const KeyCard = ({ keyData }) => {
       <img
           className="rounded-lg shadow-lg w-full"
           src={transformImageUrl(
-            keyData.image.inBox,
+            keyData.image?.inBox || "https://res.cloudinary.com/colleckeytion/image/upload/v1741006301/CollecKeytion/others/key_placeholder.jpg",
             300,
             450
           )}
           // src={keyData.image.inBox}
-          alt={keyData.name}
+          alt={keyData.name || "Image non disponible"}
           style={{ boxShadow: "6px 6px 12px rgba(0, 0, 0, 0.25)" }}
         />
         {/* Overlay avec gradient et texte */}
