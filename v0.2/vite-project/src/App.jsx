@@ -8,6 +8,7 @@ import {
 import Navbar from "./components/navbar";
 import { PrivateRoute } from "./components/privateRoute";
 import { PublicRoute } from "./components/publicRoute";
+import { AuthProvider } from "./components/authContext";
 
 function App() {
   const isAuthenticated = () => {
@@ -17,17 +18,19 @@ function App() {
 
   return (
     <>
-      <Router>
-        <Navbar />
-        <Routes>
-          {isAuthenticated() ? (
-            <Route path="/*" element={<PrivateRoute />} />
-          ) : (
-            <Route path="/*" element={<PublicRoute />} />
-          )}
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        </Routes>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Navbar />
+          <Routes>
+            {isAuthenticated() ? (
+              <Route path="/*" element={<PrivateRoute />} />
+            ) : (
+              <Route path="/*" element={<PublicRoute />} />
+            )}
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </>
   );
 }

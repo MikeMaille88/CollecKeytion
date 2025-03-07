@@ -146,32 +146,59 @@ router.patch("/:id", async (req, res) => {
 
 // Route pour supprimer un utilisateur et ses clés associées
 router.delete("/:id", async (req, res) => {
+  // try {
+  //   const userId = req.params.id;
+
+  //   // Vérifie si l'ID est valide
+  //   if (!mongoose.Types.ObjectId.isValid(userId)) {
+  //     return res.status(400).json({ message: "ID utilisateur invalide" });
+  //   }
+
+  //   // Convertir userId en ObjectId
+  //   const objectIdUser = new mongoose.Types.ObjectId(userId);
+
+  //   // 🔥 Supprimer toutes les entrées userkeys associées à cet utilisateur
+  //   // const deletedKeys = await UserKeys.deleteMany({ userId: objectIdUser });
+  //   // console.log(`${deletedKeys.deletedCount} userKeys supprimées pour l'utilisateur ${userId}`);
+
+  //   // 🔥 Supprimer l'utilisateur
+  //   const deletedUser = await User.findByIdAndDelete(userId);
+
+  //   if (!deletedUser) {
+  //     return res.status(404).json({ message: "Utilisateur non trouvé" });
+  //   }
+
+  //   res.json({ message: "User deleted" });
+  // } catch (error) {
+  //   res.status(500).json({ message: "Erreur serveur", error });
+  // }
+
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   try {
-    const userId = req.params.id;
+    // Supprimer les userKeys associées à l'utilisateur
+    const deletedKeys = await UserKeys.deleteMany({ userId: mongoose.Types.ObjectId(userId) }).session(session);
+    console.log(`${deletedKeys.deletedCount} userKeys supprimées pour l'utilisateur ${userId}`);
 
-    // Vérifie si l'ID est valide
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ message: "ID utilisateur invalide" });
-    }
-
-    // Convertir userId en ObjectId
-    const objectIdUser = new mongoose.Types.ObjectId(userId);
-
-    // 🔥 Supprimer toutes les entrées userkeys associées à cet utilisateur
-    // const deletedKeys = await UserKeys.deleteMany({ userId: objectIdUser });
-    // console.log(`${deletedKeys.deletedCount} userKeys supprimées pour l'utilisateur ${userId}`);
-
-    // 🔥 Supprimer l'utilisateur
-    const deletedUser = await User.findByIdAndDelete(userId);
+    // Supprimer l'utilisateur
+    const deletedUser = await User.findByIdAndDelete(userId).session(session);
 
     if (!deletedUser) {
+      await session.abortTransaction();
       return res.status(404).json({ message: "Utilisateur non trouvé" });
     }
 
-    res.json({ message: "User deleted" });
+    await session.commitTransaction();
+    res.json({ message: "Utilisateur et ses clefs supprimés avec succès" });
   } catch (error) {
+    await session.abortTransaction();
+    console.error("Erreur lors de la suppression :", error);
     res.status(500).json({ message: "Erreur serveur", error });
+  } finally {
+    session.endSession();
   }
+
 });
 
 

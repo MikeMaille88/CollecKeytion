@@ -113,7 +113,7 @@ describe("Tests des endpoints User (PATCH et DELETE)", () => {
     const res = await request(app).delete(`/users/${userId}`);
 
     expect(res.status).toBe(200); // Vérifie le code de statut
-    expect(res.body).toHaveProperty("message", "User deleted"); // Vérifie le message
+    expect(res.body).toHaveProperty("message", "Utilisateur et ses clefs supprimés avec succès"); // Vérifie le message
 
     // Vérifiez que l'utilisateur n'existe plus dans la base de données
     const userInDb = await mongoose.connection
