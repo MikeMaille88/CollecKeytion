@@ -177,6 +177,7 @@ router.delete("/:id", async (req, res) => {
   session.startTransaction();
 
   try {
+    const userId = req.params.id;
     // Supprimer les userKeys associées à l'utilisateur
     const deletedKeys = await UserKeys.deleteMany({ userId: mongoose.Types.ObjectId(userId) }).session(session);
     console.log(`${deletedKeys.deletedCount} userKeys supprimées pour l'utilisateur ${userId}`);
