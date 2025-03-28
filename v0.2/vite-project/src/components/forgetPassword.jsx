@@ -50,10 +50,10 @@ const ForgetPassword = () => {
   };
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
+    <section className="bg-gray-900 dark:bg-gray-50">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <Link to="#"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+          className="flex items-center mb-6 text-2xl font-semibold text-white dark:text-gray-900"
         >
           <img
             className="w-20 h-20 mr-2"
@@ -62,16 +62,16 @@ const ForgetPassword = () => {
           />
           CollecKeytion{" "}
         </Link>
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full bg-gray-800 rounded-lg shadow border-gray-700 dark:bg-white md:mt-0 sm:max-w-md xl:p-0 dark:border">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-gray-900">
               J'ai oublié mon mot de passe
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-white dark:text-gray-900"
                 >
                   Votre email
                 </label>
@@ -81,7 +81,7 @@ const ForgetPassword = () => {
                   id="email"
                   value={user.email}
                   onChange={handleChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@company.com"
                   required=""
                 />
@@ -92,32 +92,32 @@ const ForgetPassword = () => {
               >
                 Changer le mot de passe
               </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+              <p className="text-sm font-light text-gray-400 dark:text-gray-500">
                 Vous n&apos;avez pas encore de compte ?{" "}
                 <Link to="/registration"
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  className="font-medium text-primary-500 hover:underline dark:text-primary-600"
                 >
                   Créer un compte ici
                 </Link>
               </p>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+              <p className="text-sm font-light text-gray-400 dark:text-gray-500">
                 Vous avez déjà un compte ?{" "}
                 <Link to="/login"
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  className="font-medium text-primary-500 hover:underline dark:text-primary-600"
                 >
                   Connectez-vous ici
                 </Link>
               </p>
             </form>
-
-            {message && <p style={{ color: "green" }}>{message}</p>}
-            {error && <p style={{ color: "red" }}>{error}</p>}
-
+  
+            {message && <p style={{ color: "lightgreen" }}>{message}</p>}
+            {error && <p style={{ color: "lightcoral" }}>{error}</p>}
+  
           </div>
         </div>
       </div>
     </section>
   );
-};
+}  
 
 export default ForgetPassword;

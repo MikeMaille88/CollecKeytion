@@ -48,6 +48,8 @@ import AdminPage from "../pages/Admin";
 import { AuthProvider } from "./authContext";
 import ImageGallery from "./testImportAvatars";
 import CreateKey from "./createKey";
+import About from "../pages/About";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
 
 // Composant pour protéger la route admin
 const AdminRoute = ({ element }) => {
@@ -74,6 +76,8 @@ export const PrivateRoute = () => {
         <Route path="/adminpage/*" element={<AdminRoute element={<AdminPage />} />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/avatar" element={<ImageGallery />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </AuthProvider>

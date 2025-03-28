@@ -14,7 +14,7 @@ const GoBackButton = () => {
   };
 
   return (
-    <div className="fixed top-100 p-20">
+    <div className="fixed top-100 p-20 z-50">
       <button onClick={goBack}>
         <FontAwesomeIcon
           icon={faArrowLeft}

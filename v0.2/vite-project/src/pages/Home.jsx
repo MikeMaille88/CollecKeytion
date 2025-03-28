@@ -11,9 +11,9 @@ export default function Home() {
       <section className="bg-slate-700">
         <LandCard />
       </section>
-      <section className="bg-slate-700">
+      {/* <section className="bg-slate-700">
         <DLPMap />
-      </section>
+      </section> */}
     </>
   );
 }

@@ -6,6 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Navbar from "./components/navbar";
+import Footer from "./components/footer";
 import { PrivateRoute } from "./components/privateRoute";
 import { PublicRoute } from "./components/publicRoute";
 import { AuthProvider } from "./components/authContext";
@@ -17,21 +18,29 @@ function App() {
   };
 
   return (
-    <>
-      <AuthProvider>
-        <Router>
+    <AuthProvider>
+      <Router>
+        <div className="relative min-h-screen">
+          {/* Navbar fixe en haut */}
           <Navbar />
-          <Routes>
-            {isAuthenticated() ? (
-              <Route path="/*" element={<PrivateRoute />} />
-            ) : (
-              <Route path="/*" element={<PublicRoute />} />
-            )}
-            <Route path="*" element={<Navigate to="/login" replace />} />
-          </Routes>
-        </Router>
-      </AuthProvider>
-    </>
+          
+          {/* Contenu principal qui prend l'espace restant */}
+          <div className="pt-16 pb-16"> 
+            <Routes>
+              {isAuthenticated() ? (
+                <Route path="/*" element={<PrivateRoute />} />
+              ) : (
+                <Route path="/*" element={<PublicRoute />} />
+              )}
+              <Route path="*" element={<Navigate to="/login" replace />} />
+            </Routes>
+          </div>
+
+          {/* Footer fixe en bas */}
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

@@ -1,11 +1,10 @@
-/* index.css */
+/* Updated CSS for index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @keyframes floatAnimation {
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0);
   }
   50% {
@@ -18,68 +17,70 @@
 }
 
 .land-card-container {
+  position: relative;
+  width: 100%;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.castle-wrapper {
+  width: min(600px, 90vw);
+  height: auto;
+  aspect-ratio: 7/6;
+  margin: 0 auto;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+}
+
+.lands-wrapper {
+  pointer-events: none;
 }
 
 .land-image {
   position: absolute;
-  width: 300px; /* Ajustez la taille selon vos besoins */
-  height: 200px; /* Ajustez la taille selon vos besoins */
-  transform: translate(
-    -50%,
-    -50%
-  ); /* Centre l'image sur son point de référence */
+  width: min(300px, 35vw);
+  height: auto;
+  aspect-ratio: 3/2;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
 }
 
-.castle-image {
-  width: 700px; /* Ajustez la taille selon vos besoins */
-  height: 600px; /* Ajustez la taille selon vos besoins */
-  padding: 30px;
-  margin-top: 240px;
-  margin-bottom: 300px;
+/* Responsive positions for each land image */
+@media (min-width: 768px) {
+  /* Desktop layout */
+  .land-item-0 { top: 23%; left: 15%; } /* Adventureland */
+  .land-item-1 { top: 23%; left: 68%; } /* Discoveryland */
+  .land-item-2 { top: 7%; left: 42%; } /* Fantasyland */
+  .land-item-3 { top: 55%; left: 13%; } /* Frontierland */
+  .land-item-4 { top: 55%; left: 72%; } /* Main Street USA */
+  .land-item-5 { top: 80%; left: 30%; } /* Walt Disney Studios */
+  .land-item-6 { top: 80%; left: 55%; } /* Disney Village et Hotels */
 }
 
-/* Styles pour chaque image land (ajustez les angles et les distances selon vos besoins) */
-/* Adventureland */
-.link-0 {
-  top: 65%;
-  left: 15%;
+@media (max-width: 767px) {
+  /* Mobile layout - vertical arrangement around castle */
+  .land-item-0 { top: 25%; left: 2%; } /* Adventureland */
+  .land-item-1 { top: 25%; left: 65%; } /* Discoveryland */
+  .land-item-2 { top: 18%; left: 35%; } /* Fantasyland */
+  .land-item-3 { top: 68%; left: 3%; } /* Frontierland */
+  .land-item-4 { top: 68%; left: 65%; } /* Main Street USA */
+  .land-item-5 { top: 77%; left: 17%; } /* Walt Disney Studios */
+  .land-item-6 { top: 77%; left: 50%; } /* Disney Village et Hotels */
+  
+  .castle-wrapper {
+    margin-top: 0vh;
+    margin-bottom: 0vh;
+  }
 }
 
-/* Discoveryland */
-.link-1 {
-  top: 65%;
-  left: 70%;
+/* Add hover effects for better UX */
+.land-image {
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-/* Fantasyland */
-.link-2 {
-  top: 40%;
-  left: 42%;
-}
-
-/* Frontierland */
-.link-3 {
-  top: 100%;
-  left: 15%;
-}
-
-/* Main Street USA */
-.link-4 {
-  top: 100%;
-  left: 70%;
-}
-
-/* Walt Disney Studios */
-.link-5 {
-  top: 130%;
-  left: 30%;
-}
-
-/* Disney Village et Hotels */
-.link-6 {
-  top: 130%;
-  left: 55%;
+.land-image:hover, .castle-image:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  z-index: 1;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 204, 0.789));
 }
