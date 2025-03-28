@@ -163,66 +163,139 @@ const KeyPage = () => {
     ? format(new Date(keyData.releaseDate), "d MMMM yyyy", { locale: fr })
     : "Date inconnue";
 
-  return (
-    <>
-      <GoBackButton />
-      <div className="bg-slate-700 min-h-screen flex justify-center">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-8">
-          <div>
-            <dl className="grid grid-cols-1 gap-x-6 gap-y-10 sm:gap-y-16 lg:gap-x-8">
-              <div key={keyData.name}>
-                <dd className="mt-2 text-sm text-gray-200">
-                  <KeyCarousel images={keyData.image} />
-                </dd>
-              </div>
-            </dl>
-          </div>
-  
-          {/* Conteneur principal pour la bannière et autres détails */}
-          <div className="flex flex-col gap-6 text-gray-200">
-            {/* Ajustez l'image de la bannière */}
-            <div className="flex items-center justify-center mt-2">
-              <img
-                className="rounded-lg w-full h-64 object-cover"
-                src={`${keyData.banner}`}
-                alt={keyData.name}
-              />
+    return (
+      <>
+        <GoBackButton />
+        <div className="bg-slate-700 min-h-screen flex justify-center pb-12 sm:pb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-8">
+            <div>
+              <dl className="grid grid-cols-1 gap-x-6 gap-y-10 sm:gap-y-16 lg:gap-x-8">
+                <div key={keyData.name}>
+                  <dd className="mt-2 text-sm text-gray-200">
+                    <KeyCarousel images={keyData.image} />
+                  </dd>
+                </div>
+              </dl>
             </div>
-  
-            {/* Texte et informations supplémentaires */}
-            <h2 className="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
-              {keyData.name}
-            </h2>
-            <p className="text-gray-200 mt-4">{keyData.description}</p>
-            <p className="mt-4">Prix de base : {keyData.price}€</p>
-            <p>Edition limitée à : {keyData.limited} ex.</p>
-            <p>Land : {keyData.land}</p>
-            <p>Date de sortie : {formattedDate}</p>
-  
-            {/* Checkbox pour les possessions */}
-            <p className="mt-4 flex items-center space-x-4">
-              <span>Je l&apos;ai !</span>
-              <input
-                id="possessCheckbox"
-                type="checkbox"
-                checked={possess}
-                onChange={() => handleCheckboxChange("possess")}
-                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-              />
-              <span>En double</span>
-              <input
-                id="possessDoubleCheckbox"
-                type="checkbox"
-                checked={possessDouble}
-                onChange={() => handleCheckboxChange("possessDouble")}
-                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-              />
-            </p>
+    
+            {/* Conteneur principal pour la bannière et autres détails */}
+            <div className="flex flex-col gap-6 text-gray-200">
+              {/* Ajustez l'image de la bannière */}
+              <div className="flex items-center justify-center mt-2">
+                <img
+                  className="rounded-lg w-full h-64 object-cover"
+                  src={`${keyData.banner}`}
+                  alt={keyData.name}
+                />
+              </div>
+    
+              {/* Titre et description en pleine largeur */}
+              <h2 className="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
+                {keyData.name}
+              </h2>
+              <p className="text-gray-200">{keyData.description}</p>
+              
+              {/* Conteneur flex pour les boutons à gauche et les infos techniques à droite */}
+              <div className="flex flex-col md:flex-row gap-8 mt-2">
+                {/* Colonne de gauche - Infos techniques */}
+                <div className="flex-1 flex flex-col gap-3">
+                  <p className="mt-6">Prix de base : {keyData.price}€</p>
+                  <p>Edition limitée à : {keyData.limited} ex.</p>
+                  <p>Land : {keyData.land}</p>
+                  <p>Date de sortie : {formattedDate}</p>
+                </div>
+                
+                {/* Colonne de droite - Boutons de collection, maintenant centrés */}
+                <div className="flex flex-col gap-4 items-center md:items-start md:mr-20 mb-10 md:mb-0">
+                  {/* Groupe de boutons avec largeur fixe */}
+                  <div className="w-full max-w-[250px] flex flex-col gap-4">
+                    {/* Premier bouton - Je l'ai */}
+                    <label className="cursor-pointer w-full">
+                      <input
+                        type="checkbox"
+                        checked={possess}
+                        onChange={() => handleCheckboxChange("possess")}
+                        className="sr-only"
+                      />
+                      <div className={`flex items-center w-full p-4 rounded-xl bg-slate-800 border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl
+                        ${possess 
+                          ? 'bg-gradient-to-br from-slate-800 to-teal-900 border-teal-400' 
+                          : 'border-slate-600 opacity-80'}`}
+                      >
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-4 transition-colors
+                          ${possess 
+                            ? 'bg-opacity-15 bg-cyan-700 text-teal-400' 
+                            : 'bg-slate-700 text-slate-400'}`}
+                        >
+                          <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16.28 13.61C15.15 14.74 13.53 15.09 12.1 14.64L9.51001 17.22C9.33001 17.41 8.96001 17.53 8.69001 17.49L7.49001 17.33C7.09001 17.28 6.73001 16.9 6.67001 16.51L6.51001 15.31C6.47001 15.05 6.60001 14.68 6.78001 14.49L9.36001 11.91C8.92001 10.48 9.26001 8.86001 10.39 7.73001C12.01 6.11001 14.65 6.11001 16.28 7.73001C17.9 9.34001 17.9 11.98 16.28 13.61Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10.45 16.28L9.59998 15.42" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M13.3945 10.7H13.4035" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-gray-300 text-sm">Ma Collection</span>
+                          <span className={`font-semibold text-base transition-colors
+                            ${possess ? 'text-teal-400' : 'text-slate-400'}`}
+                          >
+                            {possess ? 'Acquise' : 'Manquante'}
+                          </span>
+                        </div>
+                      </div>
+                    </label>
+                    
+                    {/* Deuxième bouton - En double */}
+                    <label className="cursor-pointer w-full">
+                      <input
+                        type="checkbox"
+                        checked={possessDouble}
+                        onChange={() => handleCheckboxChange("possessDouble")}
+                        className="sr-only"
+                      />
+                      <div className={`flex items-center w-full p-4 rounded-xl bg-slate-800 border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl
+                        ${possessDouble 
+                          ? 'bg-gradient-to-br from-slate-800 to-teal-900 border-teal-400' 
+                          : 'border-slate-600 opacity-80'}`}
+                      >
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-4 transition-colors relative
+                          ${possessDouble 
+                            ? 'bg-opacity-15 bg-cyan-700 text-teal-400' 
+                            : 'bg-slate-700 text-slate-400'}`}
+                        >
+                          <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16.28 13.61C15.15 14.74 13.53 15.09 12.1 14.64L9.51001 17.22C9.33001 17.41 8.96001 17.53 8.69001 17.49L7.49001 17.33C7.09001 17.28 6.73001 16.9 6.67001 16.51L6.51001 15.31C6.47001 15.05 6.60001 14.68 6.78001 14.49L9.36001 11.91C8.92001 10.48 9.26001 8.86001 10.39 7.73001C12.01 6.11001 14.65 6.11001 16.28 7.73001C17.9 9.34001 17.9 11.98 16.28 13.61Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10.45 16.28L9.59998 15.42" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M13.3945 10.7H13.4035" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16.28 13.61C15.15 14.74 13.53 15.09 12.1 14.64L9.51001 17.22C9.33001 17.41 8.96001 17.53 8.69001 17.49L7.49001 17.33C7.09001 17.28 6.73001 16.9 6.67001 16.51L6.51001 15.31C6.47001 15.05 6.60001 14.68 6.78001 14.49L9.36001 11.91C8.92001 10.48 9.26001 8.86001 10.39 7.73001C12.01 6.11001 14.65 6.11001 16.28 7.73001C17.9 9.34001 17.9 11.98 16.28 13.61Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10.45 16.28L9.59998 15.42" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M13.3945 10.7H13.4035" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-gray-300 text-sm">Double</span>
+                          <span className={`font-semibold text-base transition-colors
+                            ${possessDouble ? 'text-teal-400' : 'text-slate-400'}`}
+                          >
+                            {possessDouble ? 'Oui' : 'Non'}
+                          </span>
+                        </div>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+    
   
 };
 
