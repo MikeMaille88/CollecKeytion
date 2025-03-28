@@ -59,19 +59,28 @@
 }
 
 @media (max-width: 767px) {
+
+  .land-card-container {
+    min-height: 100vh; /* Réduire la hauteur minimale sur mobile */
+    padding-top: 0; /* Supprimer le padding haut par défaut */
+    margin-top: -5vh; /* Remonte le conteneur entier pour réduire l'espace avec la bannière */
+  }
+  
+  .castle-wrapper {
+    margin-top: 8vh; /* Ajustez cette valeur pour positionner le château plus haut */
+    margin-bottom: 0vh;
+    transform: scale(0.9); /* Option: réduire légèrement la taille du château */
+  }
   /* Mobile layout - vertical arrangement around castle */
   .land-item-0 { top: 25%; left: 2%; } /* Adventureland */
   .land-item-1 { top: 25%; left: 65%; } /* Discoveryland */
   .land-item-2 { top: 18%; left: 35%; } /* Fantasyland */
   .land-item-3 { top: 68%; left: 3%; } /* Frontierland */
   .land-item-4 { top: 68%; left: 65%; } /* Main Street USA */
-  .land-item-5 { top: 77%; left: 17%; } /* Walt Disney Studios */
-  .land-item-6 { top: 77%; left: 50%; } /* Disney Village et Hotels */
+  .land-item-5 { top: 80%; left: 17%; } /* Walt Disney Studios */
+  .land-item-6 { top: 80%; left: 50%; } /* Disney Village et Hotels */
   
-  .castle-wrapper {
-    margin-top: 0vh;
-    margin-bottom: 0vh;
-  }
+  
 }
 
 /* Add hover effects for better UX */
