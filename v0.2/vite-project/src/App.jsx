@@ -25,7 +25,7 @@ function App() {
           <Navbar />
           
           {/* Contenu principal qui prend l'espace restant */}
-          <div className="pt-16 pb-16"> 
+          <div className="pt-16 pb-10"> 
             <Routes>
               {isAuthenticated() ? (
                 <Route path="/*" element={<PrivateRoute />} />

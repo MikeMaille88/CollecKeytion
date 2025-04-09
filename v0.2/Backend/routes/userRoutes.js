@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const User = require("../models/usermodel");
 const UserKeys = require("../models/userkeysmodel");
 const bcrypt = require("bcryptjs");
-const { validationResult } = require("express-validator");
 const { check } = require("express-validator");
+const { validationResult } = require("express-validator");
 const { forgetPassword, resetPassword } = require('../controllers/forgetPassword.controller');
 const router = express.Router();
 
@@ -53,17 +53,17 @@ router.post("/", validateUser, handleValidationErrors, async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    // Hachez le mot de passe avant de le stocker dans la base de données
+    // Hache le mot de passe avant de le stocker dans la base de données
     const hash = await bcrypt.hash(password, 13);
 
-    // Créez un nouvel utilisateur avec les données fournies
+    // Crée un nouvel utilisateur avec les données fournies
     const newUser = new User({
       username,
       email,
       password: hash,
     });
 
-    // Enregistrez le nouvel utilisateur dans la base de données
+    // Enregistre le nouvel utilisateur dans la base de données
     await newUser.save();
 
     res.status(201).json(newUser);

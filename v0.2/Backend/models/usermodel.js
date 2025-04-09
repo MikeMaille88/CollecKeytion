@@ -1,14 +1,17 @@
-//userModel.js
+/**
+ * userModel.js
+ * 
+ * Ce fichier définit le schéma MongoDB pour les utilisateurs
+ * et les méthodes associées pour l'authentification et la gestion des tokens.
+ */
+
 
 const mongoose = require("mongoose");
-const { Schema, model } = mongoose; //Tout d'abord, nous importons le module mongoose, qui est une bibliothèque permettant de travailler avec des bases de données MongoDB depuis Node.js.
+const { Schema, model } = mongoose; 
 const jsonwebtoken = require("jsonwebtoken");
 const { sign } = jsonwebtoken;
 const uniqueValidator = require("mongoose-unique-validator");
 
-// un schéma (ou modèle) de données pour nos produits en utilisant mongoose.Schema.
-//  Un schéma indique à MongoDB comment les données des produits seront stockées dans la base de données. Il comprend plusieurs champs pour chaque user,
-//  chacun avec ses caractéristiques.
 
 const userSchema = Schema({
   username: {
@@ -49,7 +52,7 @@ userSchema.plugin(uniqueValidator);
 userSchema.methods.generateAuthToken = function () {
   return sign({ id: this.id.toString() }, process.env.SECRET_KEY);
 };
-
+ 
 userSchema.methods.saveAuthToken = async function (authToken) {
   this.authTokens.push({ authToken });
   await this.save();
@@ -64,6 +67,3 @@ userSchema.methods.generateAuthTokenAndSaveUser = async function () {
 const User = model("User", userSchema);
 
 module.exports = User;
-// Enfin, nous créons un modèle de user en utilisant mongoose.model en spécifiant le nom du modèle ("user") et le schéma que nous avons défini précédemment. Ce modèle nous permettra d'effectuer des opérations de base de données sur les users.
-
-// Nous exportons le modèle User pour pouvoir l'utiliser dans d'autres parties de notre application.

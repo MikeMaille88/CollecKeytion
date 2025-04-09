@@ -60,7 +60,7 @@ const MyKeys = () => {
   }
 
   return (
-    <div className="bg-slate-700 p-10 flex justify-center">
+    <div className="bg-slate-700 p-16 flex justify-center">
       <div className="flex flex-wrap gap-0 justify-center">
         {groupedKeys.map((keysGroup, index) => (
           <div

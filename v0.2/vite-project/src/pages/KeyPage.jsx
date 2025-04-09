@@ -190,15 +190,15 @@ const KeyPage = () => {
               </div>
     
               {/* Titre et description en pleine largeur */}
-              <h2 className="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
+              <h2 className="text-3xl font-bold tracking-tight text-gray-200 font-albra sm:text-4xl">
                 {keyData.name}
               </h2>
-              <p className="text-gray-200">{keyData.description}</p>
+              <p className="text-lg text-gray-200 font-albra">{keyData.description}</p>
               
               {/* Conteneur flex pour les boutons à gauche et les infos techniques à droite */}
               <div className="flex flex-col md:flex-row gap-8 mt-2">
                 {/* Colonne de gauche - Infos techniques */}
-                <div className="flex-1 flex flex-col gap-3">
+                <div className="flex-1 flex flex-col gap-3 text-lg font-albra">
                   <p className="mt-6">Prix de base : {keyData.price}€</p>
                   <p>Edition limitée à : {keyData.limited} ex.</p>
                   <p>Land : {keyData.land}</p>
@@ -208,7 +208,7 @@ const KeyPage = () => {
                 {/* Colonne de droite - Boutons de collection, maintenant centrés */}
                 <div className="flex flex-col gap-4 items-center md:items-start md:mr-20 mb-10 md:mb-0">
                   {/* Groupe de boutons avec largeur fixe */}
-                  <div className="w-full max-w-[250px] flex flex-col gap-4">
+                  <div className="w-full max-w-[250px] flex flex-col gap-4 font-albra">
                     {/* Premier bouton - Je l'ai */}
                     <label className="cursor-pointer w-full">
                       <input
@@ -235,7 +235,7 @@ const KeyPage = () => {
                           </svg>
                         </div>
                         <div className="flex flex-col">
-                          <span className="text-gray-300 text-sm">Ma Collection</span>
+                          <span className="text-gray-300 text-lg">Ma Collection</span>
                           <span className={`font-semibold text-base transition-colors
                             ${possess ? 'text-teal-400' : 'text-slate-400'}`}
                           >
@@ -278,7 +278,7 @@ const KeyPage = () => {
                           
                         </div>
                         <div className="flex flex-col">
-                          <span className="text-gray-300 text-sm">Double</span>
+                          <span className="text-gray-300 text-lg">Double</span>
                           <span className={`font-semibold text-base transition-colors
                             ${possessDouble ? 'text-teal-400' : 'text-slate-400'}`}
                           >

@@ -1,9 +1,9 @@
 //publicRoutes.jsx
 import { Route, Routes, Navigate } from "react-router-dom";
 import CreateUser from "./createUser";
-import LoginPage from "./login";
-import ForgetPassword from "./forgetPassword";
-import ResetPassword from "./resetPassword";
+import LoginPage from "../pages/login";
+import ForgetPassword from "../pages/forgetPassword";
+import ResetPassword from "../pages/resetPassword";
 import About from "../pages/About";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 

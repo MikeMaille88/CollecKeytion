@@ -36,11 +36,11 @@
 
 
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useAuth } from "./authContext"; // Assure-toi que ce hook existe et fournit user
+import { useAuth } from "./authContext";
 import Home from "../pages/Home";
 import AllKeys from "../pages/AllKeys";
 import KeyByLand from "../pages/KeyByLand";
-import LoginPage from "./login";
+import LoginPage from "../pages/login";
 import KeyPage from "../pages/KeyPage";
 import MyKeys from "../pages/MyKeys";
 import Profile from "../pages/Profile";

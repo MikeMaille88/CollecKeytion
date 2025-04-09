@@ -82,8 +82,8 @@ export default function Navbar() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
-                    src="/Images/CollecKeytion_Logo.png"
-                    alt="Your Company"
+                    src="https://res.cloudinary.com/colleckeytion/image/upload/f_auto,q_auto/v1/CollecKeytion/others/CollecKeytion_Logo_z53uzc"
+                    alt="CollecKeytion Logo"
                   />
                 </div>
                 <div className="flex flex-shrink-0 items-center text-white text-xl">
