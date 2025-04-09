@@ -2,32 +2,51 @@
 
 
 # 📋 Présentation
-CollecKeytion est une application web dédiée aux collectionneurs de clefs en métal à l'effigie des attractions de Disneyland Paris. Conçue pour répondre aux besoins spécifiques de cette communauté, l'application offre une solution simple et efficace pour gérer sa collection de clefs Disney, suivre ses acquisitions et identifier les pièces manquantes.
+CollecKeytion est une application web dédiée aux collectionneurs de clefs en métal à l'effigie des attractions de Disneyland Paris.
+
+Conçue pour répondre aux besoins spécifiques de cette communauté, l'application offre une solution simple et efficace pour gérer sa collection de clefs Disney, suivre ses acquisitions et identifier les pièces manquantes.
+
 Ce projet est né d'une passion personnelle pour ces objets de collection et du constat qu'aucun outil dédié n'existait pour cette communauté active de collectionneurs.
 
 # ✨ Fonctionnalités principales
 Catalogue complet : Accès à une base de données exhaustive des clefs d'attraction Disney Paris
+
 Gestion de collection : Marquez les clefs que vous possédez et celles que vous avez en double
+
 Vue personnalisée : Visualisez facilement votre collection personnelle dans un espace dédié
+
 Détails des clefs : Accédez à toutes les informations pertinentes sur chaque clef (attraction, land, date de sortie...)
+
 Recherche et filtres : Trouvez rapidement des clefs par land ou par statut de possession
+
 Suivi de progression : Visualisez l'avancement de votre collection par série ou par land
 
 # 🛠️ Stack technique
 CollecKeytion est développée avec l'architecture MERN :
+
 Frontend : React.js, React Router, Vite, Tailwind CSS
+
 Backend : Node.js, Express.js, API REST
+
 Base de données : MongoDB avec Mongoose
+
 Authentification : JWT (JSON Web Tokens)
+
 Gestion d'images : Cloudinary
+
 Déploiement : Vercel (frontend et backend)
+
 CI/CD : GitHub Actions
 
 # 📥 Prérequis
 Pour installer et exécuter le projet localement, vous aurez besoin de :
+
 Node.js (v14.x ou supérieur)
+
 npm (v7.x ou supérieur)
+
 MongoDB (local ou Atlas)
+
 Un compte Cloudinary (gratuit)
 
 # 🚀 Installation
@@ -201,12 +220,20 @@ Clef d'attraction
 
 ## 🚀 Déploiement
 L'application est configurée pour un déploiement sur Vercel :
+
 Frontend : https://colleckeytion.vercel.app
+
 Backend : https://colleckeytion-backend.vercel.app
+
+
 Pour déployer votre propre instance :
+
 Créez un compte sur Vercel
+
 Configurez vos variables d'environnement dans le tableau de bord Vercel
+
 Connectez votre dépôt GitHub
+
 Déployez le frontend et le backend en tant que projets séparés
 
 # 🧪 Tests
@@ -225,9 +252,13 @@ npm test
 
 # 🔮 Évolutions futures
 Système d'échange entre collectionneurs
+
 Notifications pour les nouvelles sorties de clefs
+
 Forum de discussion pour la communauté
+
 Statistiques avancées sur sa collection
+
 Version mobile native de l'application
 
 # 📄 Licence
