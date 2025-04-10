@@ -240,6 +240,7 @@ export default function Navbar() {
                         {({ active }) => (
                           <Link to="/login"
                             onClick={() => {
+                              setAvatarUrl("/Images/Avatars/avatar_default.jpg");
                               localStorage.removeItem("authToken");
                               localStorage.removeItem("authId");
                             }}
