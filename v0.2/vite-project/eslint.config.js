@@ -26,6 +26,7 @@ export default [
       "react/react-in-jsx-scope": "off", // Désactive la règle `react/react-in-jsx-scope`
       "react/jsx-uses-react": "off", // Désactive la règle `react/jsx-uses-react`
       "react/prop-types": "warn", // Désactive la règle de validation des prop-types
+      "no-unused-vars": "warn", // Désactive la règle de validation des prop-types
     },
   },
   {

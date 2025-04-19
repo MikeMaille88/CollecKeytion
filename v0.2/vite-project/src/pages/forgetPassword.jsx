@@ -65,7 +65,7 @@ const ForgetPassword = () => {
         <div className="w-full bg-gray-800 rounded-lg shadow border-gray-700 dark:bg-white md:mt-0 sm:max-w-md xl:p-0 dark:border">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-gray-900">
-              J'ai oublié mon mot de passe
+              J&aposai oublié mon mot de passe
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
