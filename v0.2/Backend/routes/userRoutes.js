@@ -16,7 +16,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const User = require("../models/usermodel");
-const UserKeys = require("../models/userkeysmodel");
 const bcrypt = require("bcryptjs");
 const { check } = require("express-validator");
 const { validationResult } = require("express-validator");
