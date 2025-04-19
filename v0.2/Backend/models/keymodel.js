@@ -1,3 +1,9 @@
+/**
+ * keymodel.js
+ * 
+ * Ce fichier définit le schéma MongoDB pour les clefs
+ */
+
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose; 
 

@@ -1,10 +1,28 @@
-//forgetPassword.controller.js
+/**
+ * forgetPassword.controller.js
+ * 
+ * Ce fichier définit les contrôleurs pour la gestion du processus de réinitialisation
+ * de mot de passe oublié. Il contient deux fonctions principales : une pour demander
+ * la réinitialisation et une autre pour appliquer le nouveau mot de passe.
+ * 
+ * Les fonctionnalités incluent:
+ * - Génération de tokens JWT sécurisés pour la réinitialisation
+ * - Envoi d'emails via Nodemailer avec liens de réinitialisation
+ * - Vérification des tokens et mise à jour sécurisée des mots de passe
+ * - Journalisation détaillée pour faciliter le debugging
+ * - Gestion des erreurs pour chaque étape du processus
+ */
+
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/usermodel");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
+// Contrôleur qui gère la demande de réinitialisation de mot de passe
+// 1. Vérifie l'existence de l'email dans la base de données
+// 2. Génère un token JWT valide 10 minutes contenant l'ID de l'utilisateur
+// 3. Envoie un email avec un lien de réinitialisation contenant ce token
 const forgetPassword = async (req, res) => {
     try {
       console.log("Requête reçue :", req.body);
@@ -62,6 +80,11 @@ const forgetPassword = async (req, res) => {
     }
   };
 
+  // Contrôleur qui valide le token de réinitialisation et met à jour le mot de passe
+// 1. Vérifie et décode le token JWT
+// 2. Recherche l'utilisateur correspondant
+// 3. Hache le nouveau mot de passe de manière sécurisée
+// 4. Met à jour l'utilisateur en base de données
   const resetPassword = async (req, res) => {
     try {
       console.log("Requête reçue :", req.body);

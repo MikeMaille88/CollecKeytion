@@ -1,3 +1,19 @@
+/**
+ * usersRoutes.test.js
+ * 
+ * Ce fichier contient les tests unitaires pour les endpoints API relatifs aux utilisateurs.
+ * Il utilise Jest et Supertest pour tester toutes les opérations CRUD sur les utilisateurs
+ * en se connectant à une base de données MongoDB de test.
+ * 
+ * Les fonctionnalités testées incluent:
+ * - Récupération de la liste des utilisateurs (GET)
+ * - Récupération d'un utilisateur par ID
+ * - Création de nouveaux utilisateurs avec validation
+ * - Mise à jour des informations utilisateur
+ * - Suppression d'utilisateurs et leurs clefs associées
+ * - Gestion des erreurs pour routes inexistantes et données invalides
+ */
+
 const request = require("supertest");
 const app = require("../server"); // Importez votre application Express
 const mongoose = require("mongoose");
@@ -6,12 +22,12 @@ require("dotenv").config();
 
 describe("Tests des endpoints User GET et POST", () => {
   afterEach(async () => {
-    // Nettoyez les collections après chaque test
+    // Nettoie les collections après chaque test
     await mongoose.connection.collection("users").deleteMany({});
   });
 
   afterAll(async () => {
-    // Fermez la connexion à MongoDB une fois les tests terminés
+    // Ferme la connexion à MongoDB une fois les tests terminés
     await mongoose.connection.close();
   });
 
@@ -77,7 +93,7 @@ describe("Tests des endpoints User (PATCH et DELETE)", () => {
     // Supprime tout utilisateur existant avec le même username pour éviter le conflit
     await mongoose.connection.collection("users").deleteMany({ username: "patchuser" });
 
-    // Insérez un utilisateur de test
+    // Insère un utilisateur de test
     const user = await mongoose.connection.collection("users").insertOne({
       username: "patchuser",
       email: "patchuser@test.com",
@@ -85,6 +101,14 @@ describe("Tests des endpoints User (PATCH et DELETE)", () => {
     });
 
     userId = user.insertedId; // Stocke l'ID pour les tests PATCH et DELETE
+
+    // Insère une entrée userkeys pour l'utilisateur
+    await mongoose.connection.collection("userkeys").insertOne({
+      userId: new mongoose.Types.ObjectId(userId),
+      keyId: new mongoose.Types.ObjectId(), // générer un ID factice pour le test
+      possess: true,
+      possessDouble: false,
+    });
   });
 
   afterAll(async () => {

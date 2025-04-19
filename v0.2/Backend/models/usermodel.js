@@ -1,5 +1,5 @@
 /**
- * userModel.js
+ * usermodel.js
  * 
  * Ce fichier définit le schéma MongoDB pour les utilisateurs
  * et les méthodes associées pour l'authentification et la gestion des tokens.

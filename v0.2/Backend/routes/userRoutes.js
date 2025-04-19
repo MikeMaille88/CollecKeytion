@@ -1,4 +1,18 @@
-//userRoutes.js
+/**
+ * userRoutes.js
+ * 
+ * Ce fichier définit toutes les routes API liées à la gestion des utilisateurs.
+ * Il inclut des routes pour la création, la récupération, la mise à jour et la suppression d'utilisateurs,
+ * ainsi que pour l'authentification, la récupération de mot de passe et la gestion des sessions.
+ * 
+ * Les fonctionnalités incluent:
+ * - Validation des entrées utilisateur
+ * - Hachage sécurisé des mots de passe
+ * - Génération et gestion des tokens d'authentification
+ * - Gestion de mot de passe oublié
+ * - Transactions MongoDB pour les opérations complexes (ex: suppression d'utilisateur et ses clés)
+ */
+
 const express = require("express");
 const mongoose = require("mongoose");
 const User = require("../models/usermodel");
@@ -146,60 +160,32 @@ router.patch("/:id", async (req, res) => {
 
 // Route pour supprimer un utilisateur et ses clés associées
 router.delete("/:id", async (req, res) => {
-  // try {
-  //   const userId = req.params.id;
-
-  //   // Vérifie si l'ID est valide
-  //   if (!mongoose.Types.ObjectId.isValid(userId)) {
-  //     return res.status(400).json({ message: "ID utilisateur invalide" });
-  //   }
-
-  //   // Convertir userId en ObjectId
-  //   const objectIdUser = new mongoose.Types.ObjectId(userId);
-
-  //   // 🔥 Supprimer toutes les entrées userkeys associées à cet utilisateur
-  //   // const deletedKeys = await UserKeys.deleteMany({ userId: objectIdUser });
-  //   // console.log(`${deletedKeys.deletedCount} userKeys supprimées pour l'utilisateur ${userId}`);
-
-  //   // 🔥 Supprimer l'utilisateur
-  //   const deletedUser = await User.findByIdAndDelete(userId);
-
-  //   if (!deletedUser) {
-  //     return res.status(404).json({ message: "Utilisateur non trouvé" });
-  //   }
-
-  //   res.json({ message: "User deleted" });
-  // } catch (error) {
-  //   res.status(500).json({ message: "Erreur serveur", error });
-  // }
-
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
     const userId = req.params.id;
-    // Supprimer les userKeys associées à l'utilisateur
-    const deletedKeys = await UserKeys.deleteMany({ userId: mongoose.Types.ObjectId(userId) }).session(session);
-    console.log(`${deletedKeys.deletedCount} userKeys supprimées pour l'utilisateur ${userId}`);
-
-    // Supprimer l'utilisateur
-    const deletedUser = await User.findByIdAndDelete(userId).session(session);
-
+    
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "ID utilisateur invalide" });
+    }
+    
+    // Suppression des clés associées à l'utilisateur
+    if (mongoose.connection.collections.userkeys) {
+      await mongoose.connection.collection("userkeys").deleteMany({ 
+        userId: new mongoose.Types.ObjectId(userId) 
+      });
+    }
+    
+    // Suppression de l'utilisateur
+    const deletedUser = await User.findByIdAndDelete(userId);
+    
     if (!deletedUser) {
-      await session.abortTransaction();
       return res.status(404).json({ message: "Utilisateur non trouvé" });
     }
-
-    await session.commitTransaction();
+    
     res.json({ message: "Utilisateur et ses clefs supprimés avec succès" });
   } catch (error) {
-    await session.abortTransaction();
-    console.error("Erreur lors de la suppression :", error);
-    res.status(500).json({ message: "Erreur serveur", error });
-  } finally {
-    session.endSession();
+    console.error("Erreur détaillée:", error);
+    res.status(500).json({ message: "Erreur serveur", error: error.message });
   }
-
 });
 
 

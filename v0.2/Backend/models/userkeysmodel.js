@@ -1,8 +1,12 @@
-//userKeysModel.js
+/**
+ * userkeysmodel.js
+ * 
+ * Ce fichier définit le schéma MongoDB pour les relations entre utilisateur et clef
+ */
+
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
-// Modèle pour la relation entre utilisateur et clef
 const UserKeysSchema = Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,

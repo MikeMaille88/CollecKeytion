@@ -1,10 +1,29 @@
+/**
+ * keyRoutes.js
+ * 
+ * Ce fichier définit toutes les routes API liées à la gestion des clefs Disney (produits).
+ * Il implémente les opérations CRUD (Create, Read, Update, Delete) pour les clefs
+ * et gère le téléchargement d'images vers Cloudinary avec une validation des fichiers.
+ * 
+ * Les fonctionnalités incluent:
+ * - Configuration de multer pour la gestion des téléchargements de fichiers
+ * - Validation des types de fichiers images (png, jpg, JPG)
+ * - Téléchargement d'images multiples vers Cloudinary avec organisation en dossiers
+ * - Limitations de taille de fichier (10 Mo maximum)
+ * - Journalisation des opérations pour faciliter le debugging
+ */
+
 const express = require("express");
 const Key = require("../models/keymodel");
 const router = express.Router();
 const multer = require("multer");
 const cloudinary = require("../cloudinary");
 
-const storage = multer.memoryStorage(); // Utiliser la mémoire pour stocker les fichiers temporairement
+
+// Configuration du stockage des fichiers temporaires en mémoire
+// et validation des types d'images acceptés (png, jpg, JPG)
+// avec une limite de taille à 10 Mo
+const storage = multer.memoryStorage(); 
 
 const uploadImage = multer({
   storage: storage,
@@ -64,6 +83,8 @@ router.post(
         return result.secure_url;
       });
 
+      // Utilisation de Promise.all pour attendre que toutes les images
+      // soient téléchargées vers Cloudinary avant de créer l'entrée dans la base de données
       Promise.all(images)
         .then(async (imageUrls) => {
           const keyData = {
