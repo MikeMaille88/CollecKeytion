@@ -9,7 +9,7 @@ function About() {
         <section className="mb-6">
           <h2 className="text-xl font-semibold text-gray-200 mb-3">Édition du site</h2>
           <p className="text-gray-200">
-            Le présent site, accessible à l'URL <a href="https://colleckeytion.vercel.app" className="text-teal-300 hover:text-teal-600 hover:underline">https://colleckeytion.vercel.app</a> (le « Site »), 
+            Le présent site, accessible à l&aposURL <a href="https://colleckeytion.vercel.app" className="text-teal-300 hover:text-teal-600 hover:underline">https://colleckeytion.vercel.app</a> (le « Site »), 
             est édité par :
           </p>
           <p className="text-gray-200 mt-2">
@@ -38,11 +38,11 @@ function About() {
           <h2 className="text-xl font-semibold text-gray-200 mb-3">Propriété intellectuelle et contrefaçons</h2>
           <p className="text-gray-200">
             Mickael BOHRER est propriétaire des droits de propriété intellectuelle et 
-            détient les droits d'usage sur tous les éléments accessibles sur le site internet, notamment les textes, images, graphismes, logos et icônes. Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de Mickael BOHRER.
+            détient les droits d&aposusage sur tous les éléments accessibles sur le site internet, notamment les textes, images, graphismes, logos et icônes. Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de Mickael BOHRER.
           </p>
           <p className="text-gray-200 mt-2">
-            Toute exploitation non autorisée du site ou de l'un quelconque des éléments 
-            qu'il contient sera considérée comme constitutive d'une contrefaçon et 
+            Toute exploitation non autorisée du site ou de l&aposun quelconque des éléments 
+            qu&aposil contient sera considérée comme constitutive d&aposune contrefaçon et 
             poursuivie conformément aux dispositions des articles L.335-2 et suivants du 
             Code de Propriété Intellectuelle.
           </p>
@@ -61,11 +61,11 @@ function About() {
           <h2 className="text-xl font-semibold text-gray-200 mb-3">Données personnelles</h2>
           <p className="text-gray-200">
             Conformément au Règlement Général sur la Protection des Données 2016/679 
-            du 27 avril 2016 («RGPD»), l'utilisateur du site <a href="https://colleckeytion.vercel.app" className="text-teal-300 hover:text-teal-600 hover:underline">https://colleckeytion.vercel.app </a> dispose d'un droit d'accès, de modification et de suppression des informations 
+            du 27 avril 2016 («RGPD»), l&aposutilisateur du site <a href="https://colleckeytion.vercel.app" className="text-teal-300 hover:text-teal-600 hover:underline">https://colleckeytion.vercel.app </a> dispose d&aposun droit d&aposaccès, de modification et de suppression des informations 
             collectées.
           </p>
           <p className="text-gray-200 mt-2">
-            Pour plus d'informations sur la façon dont nous traitons vos données (type de 
+            Pour plus d&aposinformations sur la façon dont nous traitons vos données (type de 
             données, finalité, destinataire...), lisez notre <a href="/privacy-policy" className="text-teal-300 hover:text-teal-600 hover:underline">Politique de confidentialité</a>.
           </p>
         </section>
@@ -73,7 +73,7 @@ function About() {
         <section className="mb-6">
           <h2 className="text-xl font-semibold text-gray-200 mb-3">Droit applicable et attribution de juridiction</h2>
           <p className="text-gray-200">
-            Tout litige en relation avec l'utilisation du site <a href="https://colleckeytion.vercel.app" className="text-teal-300 hover:text-teal-600 hover:underline">https://colleckeytion.vercel.app </a> est soumis au droit français. En dehors des cas où la loi ne le permet pas, il est fait attribution exclusive de juridiction aux tribunaux compétents de NANTERRE.
+            Tout litige en relation avec l&aposutilisation du site <a href="https://colleckeytion.vercel.app" className="text-teal-300 hover:text-teal-600 hover:underline">https://colleckeytion.vercel.app </a> est soumis au droit français. En dehors des cas où la loi ne le permet pas, il est fait attribution exclusive de juridiction aux tribunaux compétents de NANTERRE.
           </p>
         </section>
         
