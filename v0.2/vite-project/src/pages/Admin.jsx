@@ -8,6 +8,13 @@ import CreateKey from "../components/createKey";
 
 const apiUrl = import.meta.env.VITE_COLLECKEYTION_BACKEND_URL;
 
+const transformImageUrl = (url, width, height) => {
+  return url.replace(
+    '/upload/',
+    `/upload/f_auto,q_auto,w_${width},h_${height}/`
+  );
+};
+
 // Fonction générique pour gérer la suppression d'un élément (utilisateur ou clef)
 const handleDelete = async (type, id, setFunction) => {
   const endpoint = type === "user" ? "users" : "keys";
@@ -75,7 +82,13 @@ const KeyList = ({ keys, setKeys }) => {
               <img
                 //src={`/src/images/${key.image.inBox}`}
                 // Affichage url cloudinary
-                src={key.image?.inBox || "https://res.cloudinary.com/colleckeytion/image/upload/v1741006301/CollecKeytion/others/key_placeholder.jpg"}
+                src={transformImageUrl(
+                  key.image?.inBox ||
+                    "https://res.cloudinary.com/colleckeytion/image/upload/v1741006301/CollecKeytion/others/key_placeholder.jpg",
+                  130,
+                  200
+                )}
+                // src={key.image?.inBox || "https://res.cloudinary.com/colleckeytion/image/upload/v1741006301/CollecKeytion/others/key_placeholder.jpg"}
                 alt={key.name}
                 className="w-16 h-16 object-cover rounded-full mr-4"
               />
