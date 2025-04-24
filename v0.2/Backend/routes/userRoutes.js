@@ -24,16 +24,20 @@ const router = express.Router();
 
 // Middleware pour la validation des paramètres de création d'utilisateur
 const validateUser = [
-  check("username").notEmpty().withMessage("Username is required"),
-  check("email").isEmail().withMessage("Invalid email"),
+  check("username").notEmpty().withMessage("Le nom d'utilisateur est requis"),
+  check("email").isEmail().withMessage("Email invalide"),
   check("password")
-    .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 characters"),
+    .isLength({ min: 12 }).withMessage("Le mot de passe doit contenir au moins 12 caractères")
+    .matches(/[a-z]/).withMessage("Le mot de passe doit contenir au moins une lettre minuscule")
+    .matches(/[A-Z]/).withMessage("Le mot de passe doit contenir au moins une lettre majuscule")
+    .matches(/[0-9]/).withMessage("Le mot de passe doit contenir au moins un chiffre")
+    .matches(/[!@#$%^&*(),.?":{}|<>]/).withMessage("Le mot de passe doit contenir au moins un caractère spécial")
 ];
 
 // Middleware pour gérer les erreurs de validation
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
+  // console.log("Erreurs de validation:", errors.array());
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }

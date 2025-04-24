@@ -39,3 +39,10 @@ lerna-debug.log*
 coverage/
 */coverage/
 Backend/coverage/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+cypress/results/
+cypress/fixtures/example.json

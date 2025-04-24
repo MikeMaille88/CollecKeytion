@@ -12,22 +12,51 @@ const jsonwebtoken = require("jsonwebtoken");
 const { sign } = jsonwebtoken;
 const uniqueValidator = require("mongoose-unique-validator");
 
+const passwordValidator = function(password) {
+  // Minimum 12 caractères
+  if (password.length < 12) return false;
+  
+  // Au moins une minuscule
+  if (!/[a-z]/.test(password)) return false;
+  
+  // Au moins une majuscule
+  if (!/[A-Z]/.test(password)) return false;
+  
+  // Au moins un chiffre
+  if (!/[0-9]/.test(password)) return false;
+  
+  // Au moins un caractère spécial
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) return false;
+  
+  return true;
+};
 
 const userSchema = Schema({
   username: {
     type: String,
-    required: [true, "Please enter your username"],
+    required: [true, "Entrez votre pseudo"],
     unique: true,
   },
   email: {
     type: String,
-    required: [true, "Please enter your email"],
+    required: [true, "Entrez votre email"],
     unique: true,
   },
   password: {
     type: String,
-    minlength: 8,
-    required: [true, "Please enter your password"],
+    required: [true, "Entrez votre mot de passe"],
+    // Mise à jour de la validation du mot de passe
+    validate: {
+      validator: function(v) {
+        // Ne pas valider le mot de passe hashé lors de la récupération depuis la BD
+        // La validation s'applique uniquement lors de la création/modification
+        if (this.isModified('password') || this.isNew) {
+          return passwordValidator(v);
+        }
+        return true;
+      },
+      message: 'Le mot de passe doit contenir au moins 12 caractères, incluant au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial'
+    }
   },
   admin: {
     type: Boolean,

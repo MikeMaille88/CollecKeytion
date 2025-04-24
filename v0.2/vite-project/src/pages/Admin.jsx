@@ -37,7 +37,7 @@ const UserList = ({ users, setUsers }) => (
         <li key={user._id} className="mb-2 flex items-center ">
           <div className="flex items-center">
             <img
-              src={user.avatar}
+              src={user?.avatar || `../../public/Images/Avatars/avatar_default.jpg`}
               alt={user.username}
               className="w-16 h-16 object-cover rounded-full mr-4"
             />

@@ -53,7 +53,7 @@ describe("Tests des endpoints User GET et POST", () => {
   });
 
   it("POST /users - devrait créer un nouvel utilisateur", async () => {
-    const newUser = { username: "testuser", email: "testuser@test.com", password: "password123" };
+    const newUser = { username: "testuser", email: "testuser@test.com", password: "Password12345!" };
 
     const res = await request(app).post("/users").send(newUser);
 
