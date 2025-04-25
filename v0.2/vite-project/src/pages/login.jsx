@@ -58,20 +58,20 @@ const LoginPage = () => {
   };
 
   return (
-    <section className="bg-gray-900 dark:bg-gray-50">
+    <section className="bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <Link to="#" className="flex items-center mb-6 text-2xl font-semibold text-white dark:text-gray-900">
+        <Link to="#" className="flex items-center mb-6 text-2xl font-semibold text-white ">
           <img className="w-20 h-20 mr-2" src="Images/CollecKeytion_Logo.png" alt="logo" />
           CollecKeytion
         </Link>
-        <div className="w-full bg-gray-800 dark:bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:border-gray-700">
+        <div className="w-full bg-gray-800  rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-gray-900">
+            <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl ">
               Se connecter à votre compte
             </h1>
             <form className="space-y-4 md:space-y-6" action="#" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="email" className="block mb-2 text-sm font-medium text-white dark:text-gray-900">
+                <label htmlFor="email" className="block mb-2 text-sm font-medium text-white ">
                   Votre email
                 </label>
                 <input
@@ -80,13 +80,13 @@ const LoginPage = () => {
                   id="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-gray-900"
+                  className="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   placeholder="name@company.com"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="password" className="block mb-2 text-sm font-medium text-white dark:text-gray-900">
+                <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">
                   Votre mot de passe
                 </label>
                 <input
@@ -96,7 +96,7 @@ const LoginPage = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-gray-900"
+                  className="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   required
                 />
               </div>
@@ -107,29 +107,29 @@ const LoginPage = () => {
                       id="remember"
                       aria-describedby="remember"
                       type="checkbox"
-                      className="w-4 h-4 border border-gray-600 rounded bg-gray-700 focus:ring-3 focus:ring-blue-500 dark:bg-gray-50 dark:border-gray-300 dark:focus:ring-gray-600 dark:ring-offset-gray-50"
+                      className="w-4 h-4 border border-gray-600 rounded bg-gray-700 focus:ring-3 focus:ring-blue-500 dark:bg-gray-50"
                       required
                     />
                   </div>
                   <div className="ml-3 text-sm">
-                    <label htmlFor="remember" className="text-white dark:text-gray-900">
+                    <label htmlFor="remember" className="text-white">
                       Se souvenir de moi
                     </label>
                   </div>
                 </div>
-                <Link to="/forget" className="text-sm font-medium text-teal-400 hover:underline dark:text-gray-700">
+                <Link to="/forget" className="text-sm font-medium text-teal-400 hover:underline">
                   Mot de passe oublié ?
                 </Link>
               </div>
               <button
                 type="submit"
-                className="w-full text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-700 dark:hover:bg-gray-800 dark:focus:ring-gray-900"
+                className="w-full text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Connexion
               </button>
-              <p className="text-sm font-light text-white dark:text-gray-900">
+              <p className="text-sm font-light text-white">
                 Vous n&apos;avez pas encore de compte ? {" "}
-                <Link to="/registration" className="font-medium text-teal-400 hover:underline dark:text-gray-700">
+                <Link to="/registration" className="font-medium text-teal-400 hover:underline">
                   Créer un compte ici
                 </Link>
               </p>
