@@ -71,6 +71,7 @@ router.post(
     { name: "boxBack", maxCount: 1 },
     { name: "inBox", maxCount: 1 },
     { name: "withoutBox", maxCount: 1 },
+    { name: "banner", maxCount: 1 },
   ]),
   async (req, res) => {
     console.log("POST /keys route hit");
@@ -99,7 +100,7 @@ router.post(
               withoutBox: imageUrls[3],
             },
             description: req.body.description,
-            banner: req.body.banner,
+            banner: imageUrls[4],
           };
 
           const key = await Key.create(keyData);
