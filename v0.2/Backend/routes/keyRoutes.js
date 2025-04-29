@@ -76,6 +76,9 @@ router.post(
   async (req, res) => {
     console.log("POST /keys route hit");
     try {
+      // Définir l'URL placeholder
+      const placeholderUrl = "https://res.cloudinary.com/colleckeytion/image/upload/v1741006301/CollecKeytion/others/key_placeholder.jpg";
+
       const images = Object.values(req.files).map(async (fileArray) => {
         console.log(`Uploading ${fileArray[0].path}`);
         const result = await cloudinary.uploader.upload(fileArray[0].path, {
@@ -93,11 +96,12 @@ router.post(
             price: req.body.price,
             limited: req.body.limited,
             land: req.body.land,
+            releaseDate: req.body.releaseDate,
             image: {
-              boxFront: imageUrls[0],
-              boxBack: imageUrls[1],
-              inBox: imageUrls[2],
-              withoutBox: imageUrls[3],
+              boxFront: imageUrls[0] || placeholderUrl,
+              boxBack: imageUrls[1] || placeholderUrl,
+              inBox: imageUrls[2] || placeholderUrl,
+              withoutBox: imageUrls[3] || placeholderUrl,
             },
             description: req.body.description,
             banner: imageUrls[4],
