@@ -47,20 +47,6 @@ const KeyPage = () => {
     fetchData();
   }, [keyId, userId]);
 
-  // const getUserKeyById = async (id) => {
-  //   try {
-  //     const response = await fetch(`http://localhost:3005/userkeys/${id}`);
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-  //     const data = await response.json();
-  //     return data;
-  //   } catch (error) {
-  //     console.error("Error fetching user key:", error.message);
-  //     return null;
-  //   }
-  // };
-
   const handleCheckboxChange = async (checkboxType) => {
     try {
       const currentUserKeyResponse = await fetch(

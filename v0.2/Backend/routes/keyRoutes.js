@@ -64,64 +64,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// router.post(
-//   "/",
-//   uploadImage.fields([
-//     { name: "boxFront", maxCount: 1 },
-//     { name: "boxBack", maxCount: 1 },
-//     { name: "inBox", maxCount: 1 },
-//     { name: "withoutBox", maxCount: 1 },
-//     { name: "banner", maxCount: 1 },
-//   ]),
-//   async (req, res) => {
-//     console.log("POST /keys route hit");
-//     try {
-//       // Définir l'URL placeholder
-//       const placeholderUrl = "https://res.cloudinary.com/colleckeytion/image/upload/v1741006301/CollecKeytion/others/key_placeholder.jpg";
-
-//       const images = Object.values(req.files).map(async (fileArray) => {
-//         console.log(`Uploading ${fileArray[0].path}`);
-//         const result = await cloudinary.uploader.upload(fileArray[0].path, {
-//           folder: `CollecKeytion/${fileArray[0].fieldname}`,
-//         });
-//         return result.secure_url;
-//       });
-
-//       // Utilisation de Promise.all pour attendre que toutes les images
-//       // soient téléchargées vers Cloudinary avant de créer l'entrée dans la base de données
-//       Promise.all(images)
-//         .then(async (imageUrls) => {
-//           const keyData = {
-//             name: req.body.name,
-//             price: req.body.price,
-//             limited: req.body.limited,
-//             land: req.body.land,
-//             releaseDate: req.body.releaseDate,
-//             image: {
-//               boxFront: imageUrls[0] || placeholderUrl,
-//               boxBack: imageUrls[1] || placeholderUrl,
-//               inBox: imageUrls[2] || placeholderUrl,
-//               withoutBox: imageUrls[3] || placeholderUrl,
-//             },
-//             description: req.body.description,
-//             banner: imageUrls[4],
-//           };
-
-//           const key = await Key.create(keyData);
-//           res.status(200).json(key);
-//         })
-//         .catch((error) => {
-//           console.error(error.message);
-//           res.status(500).json({
-//             message: "Erreur lors de l'upload des images sur Cloudinary.",
-//           });
-//         });
-//     } catch (error) {
-//       console.error(error.message);
-//       res.status(500).json({ message: error.message });
-//     }
-//   }
-// );
 
 router.post(
   "/",
