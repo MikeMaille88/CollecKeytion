@@ -116,8 +116,10 @@ const MyKeys = () => {
                         <img
                           className="w-full h-full object-cover"
                           src={transformImageUrl(
-                            ownedKey.image?.withoutBox ||
-                              "https://res.cloudinary.com/colleckeytion/image/upload/v1744288302/pngwing.com_1_hxwogt.png",
+                            (ownedKey.image?.withoutBox && 
+                            !ownedKey.image?.withoutBox.includes("key_placeholder.jpg"))
+                              ? ownedKey.image.withoutBox
+                              : "https://res.cloudinary.com/colleckeytion/image/upload/v1744288302/pngwing.com_1_hxwogt.png",
                             130,
                             200
                           )}
