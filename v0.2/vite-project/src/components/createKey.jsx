@@ -258,13 +258,13 @@ export default function CreateKey() {
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-gray-800 text-white rounded-lg shadow-md">
-      <h1 className="text-xl font-bold text-center mb-4">Créer une clé</h1>
+      <h1 className="text-xl font-bold text-center mb-4">Créer une clef</h1>
       <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
         {[
           { label: "Nom", name: "name", type: "text" },
           { label: "Prix", name: "price", type: "number" },
           { label: "Limité", name: "limited", type: "number" },
-          { label: "Pays", name: "land", type: "text" },
+          { label: "Land", name: "land", type: "text" },
           { label: "Date de sortie", name: "releaseDate", type: "date" },
           { label: "Description", name: "description", type: "text" },
         ].map(({ label, name, type }) => (

@@ -99,6 +99,7 @@ router.post(
               withoutBox: imageUrls[3],
             },
             description: req.body.description,
+            banner: req.body.banner,
           };
 
           const key = await Key.create(keyData);
