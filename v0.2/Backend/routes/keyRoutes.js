@@ -154,24 +154,44 @@ router.post(
       for (const fieldName in req.files) {
         if (req.files[fieldName] && req.files[fieldName][0]) {
           const file = req.files[fieldName][0];
-          console.log(`Uploading ${fieldName}`);
+          console.log(`Processing file for ${fieldName}:`, file); // Log complet du fichier pour debug
           
-          const uploadPromise = cloudinary.uploader.upload(
-            file.path, // ou utiliser buffer selon votre configuration multer
-            { folder: `CollecKeytion/${fieldName}` }
-          ).then(result => {
-            // Stocker l'URL dans l'objet imageUrls avec la clé correspondante
-            imageUrls[fieldName] = result.secure_url;
-          });
-          
-          uploadPromises.push(uploadPromise);
+          // Vérifier si nous avons un buffer (memoryStorage) ou un path (diskStorage)
+          if (file.buffer) {
+            // Utilisation de buffer avec memoryStorage
+            console.log(`Uploading ${fieldName} from buffer`);
+            const b64 = Buffer.from(file.buffer).toString("base64");
+            const dataURI = "data:" + file.mimetype + ";base64," + b64;
+            
+            const uploadPromise = cloudinary.uploader.upload(dataURI, {
+              folder: `CollecKeytion/${fieldName}`,
+            }).then(result => {
+              imageUrls[fieldName] = result.secure_url;
+            });
+            
+            uploadPromises.push(uploadPromise);
+          } 
+          else if (file.path) {
+            // Utilisation de path avec diskStorage
+            console.log(`Uploading ${fieldName} from path: ${file.path}`);
+            const uploadPromise = cloudinary.uploader.upload(file.path, {
+              folder: `CollecKeytion/${fieldName}`,
+            }).then(result => {
+              imageUrls[fieldName] = result.secure_url;
+            });
+            
+            uploadPromises.push(uploadPromise);
+          }
+          else {
+            console.error(`Neither buffer nor path found for ${fieldName}`);
+          }
         }
       }
 
       // Attendre que tous les uploads soient terminés
       await Promise.all(uploadPromises);
       
-      // Créer l'objet keyData avec les URLs (placeholder ou images téléchargées)
+      // Créer l'objet keyData avec les URLs
       const keyData = {
         name: req.body.name,
         price: req.body.price,
@@ -192,11 +212,12 @@ router.post(
       res.status(200).json(key);
       
     } catch (error) {
-      console.error(error.message);
+      console.error("Detailed error:", error);
       res.status(500).json({ message: error.message });
     }
   }
 );
+
 
 
 router.patch("/:id", uploadImage.single("image"), async (req, res) => {
