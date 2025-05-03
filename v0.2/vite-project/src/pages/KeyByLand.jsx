@@ -54,7 +54,7 @@ const KeyByLand = () => {
       <div className="flex items-center justify-center">
               <img
                 className="w-full max-h-[50vh] object-contain"
-                src={`https://res.cloudinary.com/colleckeytion/image/upload/v1725611244/CollecKeytion/banners/${fullLandNameForTitle}.jpg`}
+                src={`https://res.cloudinary.com/colleckeytion/image/upload/v1725611244/CollecKeytion/banner/${fullLandNameForTitle}.jpg`}
                 alt={fullLandNameForTitle}
               />
       </div>
